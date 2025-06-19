@@ -1,5 +1,3 @@
-
-
 import { useState, useEffect, useMemo } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
@@ -138,19 +136,19 @@ export default function App() {
                   ? brandDark
                   : brandWhite
               }
-              // brandName="Creative Tim"
+              // brandName="Tajhiz"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
-            {/* <Configurator />
-            {configsButton} */}
+            {/* <Configurator /> */}
+            {/* {configsButton} */}
           </>
         )}
         {/* {layout === "vr" && <Configurator />} */}
         <Routes>
           {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboards/analytics" />} />
+          <Route path="*" element={<Navigate to="/dashboards" />} />
         </Routes>
       </ThemeProvider>
     </CacheProvider>

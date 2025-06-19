@@ -194,6 +194,7 @@ function Sales() {
                   showTotalEntries={false}
                   isSorted={false}
                   noEndBorder
+                  
                 />
               </MDBox>
             </Card>

@@ -1,5 +1,3 @@
-
-
 import { useMemo, useEffect, useState } from "react";
 
 // prop-types is a library for typechecking of props
@@ -40,6 +38,7 @@ function DataTable({
   pagination = { variant: "gradient", color: "info" },
   isSorted = true,
   noEndBorder = false,
+  isRTL = true,
 }) {
   const defaultValue = entriesPerPage.defaultValue
     ? entriesPerPage.defaultValue
@@ -145,7 +144,7 @@ function DataTable({
   }
 
   return (
-    <TableContainer sx={{ boxShadow: "none" }}>
+    <TableContainer sx={{ boxShadow: "none" , direction : 'rtl' }} dir={isRTL ? "rtl" : "ltr"}>
       {entriesPerPage || canSearch ? (
         <MDBox
           display="flex"
@@ -187,7 +186,7 @@ function DataTable({
           )}
         </MDBox>
       ) : null}
-      <Table sx={{ direction: "rtl" }} {...getTableProps()}>
+      <Table sx={{ direction: "ltr" }} {...getTableProps()}>
         <MDBox component="thead">
           {headerGroups.map((headerGroup, key) => (
             <TableRow key={key} {...headerGroup.getHeaderGroupProps()}>
