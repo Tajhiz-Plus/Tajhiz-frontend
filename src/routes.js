@@ -33,7 +33,7 @@ const routes = [
     name: "الرئيسية",
     key: "dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
-    route: "/dashboard",
+    route: "/dashboards",
     component: <RTL />,
     noCollapse: true,
   },
@@ -44,7 +44,17 @@ const routes = [
     icon: <Icon fontSize="small">category</Icon>,
     route: "/categories",
     component: <Sales />,
-    noCollapse: true,
+    // noCollapse: true,
+    collapse: [
+      {
+        name: "تصنيفات فرعي",
+        key: "projects",
+        noCollapse: true,
+        icon: <Icon fontSize="small">apps</Icon>,
+        route: "/categories",
+        component: <Sales />,
+      },
+    ],
   },
   {
     type: "collapse",
@@ -53,7 +63,17 @@ const routes = [
     icon: <Icon fontSize="small">apps</Icon>,
     route: "/orders",
     component: <Kanban />,
-    noCollapse: true,
+    // noCollapse: true,
+    collapse: [
+      {
+        name: "الطلبات فرعي",
+        key: "projects",
+        noCollapse: true,
+        icon: <Icon fontSize="small">apps</Icon>,
+        route: "/orders",
+        component: <Kanban />,
+      },
+    ],
   },
   {
     type: "collapse",

@@ -94,7 +94,7 @@ function itemContent(theme, ownerState) {
     },
 
     "&::before": {
-      content: `"${name[0]}"`,
+      // content: `"${name[0]}"`,
       color:
         ((transparentSidenav && !darkMode) || whiteSidenav) &&
         (active === "isParent" || !active)
