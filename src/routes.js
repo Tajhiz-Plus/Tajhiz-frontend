@@ -36,14 +36,14 @@ const routes = [
     route: "/dashboards",
     component: <RTL />,
     noCollapse: true,
+    // protected: true,
   },
   {
     type: "collapse",
     name: "التصنيفات",
     key: "gategories",
     icon: <Icon fontSize="small">category</Icon>,
-    route: "/categories",
-    component: <Sales />,
+
     // noCollapse: true,
     collapse: [
       {
@@ -53,6 +53,7 @@ const routes = [
         icon: <Icon fontSize="small">apps</Icon>,
         route: "/categories",
         component: <Sales />,
+        protected: true,
       },
     ],
   },

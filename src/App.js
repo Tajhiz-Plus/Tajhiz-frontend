@@ -21,6 +21,9 @@ import {
 } from "context";
 import brandWhite from "assets/images/tajhiz-logo.png";
 import brandDark from "assets/images/tajhiz-logo.png";
+import ProtectedRoutes from "shared/component/ProtectedRoutes";
+import Basic from "layouts/authentication/sign-in/basic";
+import Cover from "layouts/authentication/sign-in/cover";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -80,23 +83,20 @@ export default function App() {
   }, [pathname]);
 
   const getRoutes = (allRoutes) =>
-    allRoutes.map((route) => {
-      if (route.collapse) {
-        return getRoutes(route.collapse);
-      }
+    allRoutes.flatMap((route) => {
+      if (route.collapse) return getRoutes(route.collapse);
 
       if (route.route) {
-        return (
-          <Route
-            exact
-            path={route.route}
-            element={route.component}
-            key={route.key}
-          />
+        const Element = route.protected ? (
+          <ProtectedRoutes>{route.component}</ProtectedRoutes>
+        ) : (
+          route.component
         );
+
+        return <Route key={route.key} path={route.route} element={Element} />;
       }
 
-      return null;
+      return [];
     });
 
   const configsButton = (
@@ -149,6 +149,7 @@ export default function App() {
         <Routes>
           {getRoutes(routes)}
           <Route path="*" element={<Navigate to="/dashboards" />} />
+          <Route path="/authentication/sign-in" element={<Cover />} />
         </Routes>
       </ThemeProvider>
     </CacheProvider>

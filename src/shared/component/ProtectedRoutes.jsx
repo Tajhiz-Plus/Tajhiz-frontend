@@ -1,12 +1,12 @@
+// src/routes/ProtectedRoutes.jsx
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 function ProtectedRoutes({ children }) {
-  const userData = React.useMemo(() => {
-    return JSON.parse(localStorage.getItem("user"));
-  }, []);
+  const { user } = useAuth();
 
-  if (!userData) {
+  if (!user) {
     return <Navigate to="/authentication/sign-in" replace />;
   }
 
