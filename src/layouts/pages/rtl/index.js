@@ -1,16 +1,8 @@
-
-
 import { useEffect, useMemo, useState } from "react";
-
-// @mui material components
 import Grid from "@mui/material/Grid";
 import Icon from "@mui/material/Icon";
-
-// Material Dashboard 3 PRO React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-
-// Material Dashboard 3 PRO React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
@@ -22,16 +14,12 @@ import MiniInfoCard from "examples/Cards/InfoCards/MiniInfoCard";
 import ControllerCard from "examples/Cards/ControllerCard";
 import Calendar from "examples/Calendar";
 import CategoriesList from "examples/Lists/CategoriesList";
-
-// RTL page components
 import Steps from "layouts/pages/rtl/components/Steps";
 import FullBody from "layouts/pages/rtl/components/FullBody";
 import MediaPlayer from "layouts/pages/rtl/components/MediaPlayer";
 import OrdersOverview from "layouts/pages/rtl/components/OrdersOverview";
 import UpcomingEvents from "layouts/pages/rtl/components/UpcomingEvents";
 import Chart from "layouts/pages/rtl/components/Chart";
-
-// Data
 import progressLineChartData from "layouts/pages/rtl/data/progressLineChartData";
 import calendarEventsData from "layouts/pages/rtl/data/calendarEventsData";
 import categoriesListData from "layouts/pages/rtl/data/categoriesListData";
@@ -39,12 +27,14 @@ import caloriesChartData from "layouts/pages/rtl/data/caloriesChartData";
 
 // Material Dashboard 3 PRO React contexts
 import { useMaterialUIController, setDirection } from "context";
+import { useApi } from "shared/hooks/useApi";
 
 function RTL() {
   const [, dispatch] = useMaterialUIController();
   const [lights, setLights] = useState(false);
 
   const handleSetLights = () => setLights(!lights);
+  const { get } = useApi();
 
   // Changing the direction to rtl
   useEffect(() => {
@@ -52,6 +42,12 @@ function RTL() {
 
     return () => setDirection(dispatch, "ltr");
   }, []);
+
+  // useEffect(() => {
+  //   get("/users")
+  //     .then((users) => console.log(users))
+  //     .catch((err) => toast.error("Failed to fetch users"));
+  // }, []);
 
   return (
     <DashboardLayout>
@@ -118,7 +114,11 @@ function RTL() {
               </MDBox>
             </Grid>
             <Grid item xs={12} lg={4}>
-              <MasterCard number={4562112245947852} holder="جاك بيترسون" expires="11/22" />
+              <MasterCard
+                number={4562112245947852}
+                holder="جاك بيترسون"
+                expires="11/22"
+              />
             </Grid>
           </Grid>
         </MDBox>
@@ -131,7 +131,10 @@ function RTL() {
               <ControllerCard
                 state={lights}
                 icon={
-                  <Icon className={lights ? "text-white" : "text-dark"} fontSize="large">
+                  <Icon
+                    className={lights ? "text-white" : "text-dark"}
+                    fontSize="large"
+                  >
                     lightbulb
                   </Icon>
                 }
@@ -153,7 +156,11 @@ function RTL() {
                 title={
                   <>
                     754&nbsp;
-                    <MDTypography variant="button" color="secondary" fontWeight="medium">
+                    <MDTypography
+                      variant="button"
+                      color="secondary"
+                      fontWeight="medium"
+                    >
                       م
                     </MDTypography>
                   </>
