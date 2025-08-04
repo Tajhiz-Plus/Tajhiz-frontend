@@ -149,9 +149,8 @@ export default function App() {
         )}
         {/* {layout === "vr" && <Configurator />} */}
         <Routes>
-          {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
           <Route path="/sign-in" element={<Cover />} />
+          {getRoutes(routes)}
           {pageRoutes.map((route) => (
             <Route
               key={route.id}
@@ -159,6 +158,7 @@ export default function App() {
               element={route.component}
             />
           ))}
+          <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </ThemeProvider>
     </CacheProvider>
