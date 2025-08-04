@@ -24,7 +24,6 @@ function SidenavItem({
   const [controller] = useMaterialUIController();
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode } =
     controller;
-console.log(children);
 
   return (
     <>
