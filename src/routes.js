@@ -95,7 +95,7 @@ const routes = [
     type: "collapse",
     name: "التقارير",
     key: "reports",
-    icon: <Icon fontSize="small">shopping_cart</Icon>,
+    icon: <Icon fontSize="small">assessment</Icon>,
     route: "/reports",
     component: <Reports />,
     noCollapse: true,
