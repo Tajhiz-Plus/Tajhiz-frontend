@@ -1,28 +1,20 @@
-// prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
-
-// @mui material components
 import Collapse from "@mui/material/Collapse";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Icon from "@mui/material/Icon";
-
-// Material Dashboard 3 PRO React components
 import MDBox from "components/MDBox";
-
-// Custom styles for the SidenavItem
 import {
   item,
   itemContent,
   itemArrow,
 } from "examples/Sidenav/styles/sidenavItem";
-
-// Material Dashboard 3 PRO React contexts
 import { useMaterialUIController } from "context";
 
 function SidenavItem({
   color = "info",
   name,
+  icon,
   active = false,
   nested = false,
   children = false,
@@ -32,7 +24,7 @@ function SidenavItem({
   const [controller] = useMaterialUIController();
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode } =
     controller;
-  console.log(name);
+console.log(children);
 
   return (
     <>
@@ -63,8 +55,8 @@ function SidenavItem({
             })
           }
         >
-          {/* <Icon fontSize="small">apps</Icon> */}
-          <ListItemText primary={name} />
+          {icon}
+          <ListItemText sx={{ margin: "0 5px" }} primary={name} />
           {children && (
             <Icon
               component="i"

@@ -77,7 +77,7 @@ function Sidenav({ color = "info", brand = "", brandName, routes, ...rest }) {
   }, [dispatch, transparentSidenav, whiteSidenav]);
 
   const renderCollapse = (collapseItems, parentKey) =>
-    collapseItems.map(({ name, key, route, href, icon, collapse }) => {
+    collapseItems?.map(({ name, key, route, href, icon, collapse }) => {
       if (collapse) {
         return (
           <SidenavItem
