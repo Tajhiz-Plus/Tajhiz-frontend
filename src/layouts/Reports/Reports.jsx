@@ -1,15 +1,18 @@
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Charts from "layouts/pages/charts";
 import React from "react";
+import DataTable from "examples/Tables/DataTable";
+import dataTableData from "layouts/applications/data-tables/data/dataTableData";
+import Charts from "layouts/pages/charts";
 
-function Dashboard() {
+function Reports() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Charts />
+      <Charts
+      />
     </DashboardLayout>
   );
 }
 
-export default Dashboard;
+export default Reports;

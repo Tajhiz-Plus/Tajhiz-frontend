@@ -17,14 +17,14 @@ import ivana from "assets/images/ivana-squares.jpg";
 
 const dataTableData = {
   columns: [
-    { Header: "id", accessor: "id", Cell: ({ value }) => <IdCell id={value} /> },
+    { Header: "الرقم التعريفي", accessor: "id", Cell: ({ value }) => <IdCell id={value} /> },
     {
-      Header: "date",
+      Header: "التاريخ",
       accessor: "date",
       Cell: ({ value }) => <DefaultCell value={value} />,
     },
     {
-      Header: "status",
+      Header: "الحالة",
       accessor: "status",
       Cell: ({ value }) => {
         let status;
@@ -41,14 +41,14 @@ const dataTableData = {
       },
     },
     {
-      Header: "customer",
+      Header: "العميل",
       accessor: "customer",
       Cell: ({ value: [name, data] }) => (
         <CustomerCell image={data.image} color={data.color || "dark"} name={name} />
       ),
     },
     {
-      Header: "product",
+      Header: "المنتج",
       accessor: "product",
       Cell: ({ value }) => {
         const [name, data] = value;
@@ -61,7 +61,7 @@ const dataTableData = {
         );
       },
     },
-    { Header: "revenue", accessor: "revenue", Cell: ({ value }) => <DefaultCell value={value} /> },
+    { Header: "السعر", accessor: "revenue", Cell: ({ value }) => <DefaultCell value={value} /> },
   ],
 
   rows: [

@@ -24,6 +24,8 @@ import brandDark from "assets/images/tajhiz-logo.png";
 import ProtectedRoutes from "shared/component/ProtectedRoutes";
 import Basic from "layouts/authentication/sign-in/basic";
 import Cover from "layouts/authentication/sign-in/cover";
+import Profile from "layouts/Profile/Profile";
+import pageRoutes from "page.routes";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -150,6 +152,13 @@ export default function App() {
           {getRoutes(routes)}
           <Route path="*" element={<Navigate to="/dashboard" />} />
           <Route path="/sign-in" element={<Cover />} />
+          {pageRoutes.map((route) => (
+            <Route
+              key={route.id}
+              path={route.route}
+              element={route.component}
+            />
+          ))}
         </Routes>
       </ThemeProvider>
     </CacheProvider>

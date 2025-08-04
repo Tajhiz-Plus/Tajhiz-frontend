@@ -1,15 +1,16 @@
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Charts from "layouts/pages/charts";
 import React from "react";
+import Charts from "layouts/pages/charts";
+import AllProjects from "layouts/pages/profile/all-projects";
 
-function Dashboard() {
+function Profile() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Charts />
+      <AllProjects />
     </DashboardLayout>
   );
 }
 
-export default Dashboard;
+export default Profile;

@@ -8,6 +8,7 @@ import Products from "layouts/Products/Products";
 import Orders from "layouts/Orders/Orders";
 import Categories from "layouts/Categories/Categories";
 import Permissions from "layouts/Permissions/Permissions";
+import Reports from "layouts/Reports/Reports";
 
 const routes = [
   {
@@ -89,6 +90,15 @@ const routes = [
         component: <Permissions />,
       },
     ],
+  },
+  {
+    type: "collapse",
+    name: "التقارير",
+    key: "reports",
+    icon: <Icon fontSize="small">shopping_cart</Icon>,
+    route: "/reports",
+    component: <Reports />,
+    noCollapse: true,
   },
 ];
 

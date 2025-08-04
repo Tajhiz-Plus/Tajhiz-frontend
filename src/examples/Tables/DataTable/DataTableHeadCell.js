@@ -1,5 +1,3 @@
-
-
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
@@ -12,22 +10,33 @@ import MDBox from "components/MDBox";
 // Material Dashboard 3 PRO React contexts
 import { useMaterialUIController } from "context";
 
-function DataTableHeadCell({ width = "auto", children, sorted = "none", align = "left", ...rest }) {
+function DataTableHeadCell({
+  width = "auto",
+  children,
+  sorted = "none",
+  align = "left",
+  ...rest
+}) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
   return (
-    <MDBox component="th" width={width} py={1.5} px={3} sx={({ palette: { light }, borders: { borderWidth } }) => ({
-      borderBottom: `${borderWidth[1]} solid ${light.main}`,
-    })}>
+    <MDBox
+      component="th"
+      width={width}
+      py={1.5}
+      px={3}
+      sx={({ palette: { light }, borders: { borderWidth } }) => ({
+        borderBottom: `${borderWidth[1]} solid ${light.main}`,
+      })}
+    >
       <MDBox
         {...rest}
         position="relative"
         textAlign={align}
-        color={darkMode ? "white" : "secondary"}
-        opacity={0.7}
+        color={darkMode ? "white" : "dark"}
         sx={({ typography: { size, fontWeightBold } }) => ({
-          fontSize: size.xxs,
+          fontSize: size.xs,
           fontWeight: fontWeightBold,
           textTransform: "uppercase",
           cursor: sorted && "pointer",

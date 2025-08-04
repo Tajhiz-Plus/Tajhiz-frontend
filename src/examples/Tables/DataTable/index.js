@@ -144,7 +144,10 @@ function DataTable({
   }
 
   return (
-    <TableContainer sx={{ boxShadow: "none" , direction : 'rtl' }} dir={isRTL ? "rtl" : "ltr"}>
+    <TableContainer
+      sx={{ boxShadow: "none", direction: "rtl" }}
+      dir={isRTL ? "rtl" : "ltr"}
+    >
       {entriesPerPage || canSearch ? (
         <MDBox
           display="flex"
@@ -252,7 +255,7 @@ function DataTable({
           >
             {canPreviousPage && (
               <MDPagination item onClick={() => previousPage()}>
-                <Icon sx={{ fontWeight: "bold" }}>chevron_left</Icon>
+                <Icon sx={{ fontWeight: "bold" }}>chevron_right</Icon>
               </MDPagination>
             )}
             {renderPagination.length > 6 ? (
@@ -272,7 +275,7 @@ function DataTable({
             )}
             {canNextPage && (
               <MDPagination item onClick={() => nextPage()}>
-                <Icon sx={{ fontWeight: "bold" }}>chevron_right</Icon>
+                <Icon sx={{ fontWeight: "bold" }}>chevron_left</Icon>
               </MDPagination>
             )}
           </MDPagination>
