@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/tajhiz/static/css/main.b7868a97.css",
-    "main.js": "/tajhiz/static/js/main.79152986.js",
+    "main.js": "/tajhiz/static/js/main.9dc7b2f0.js",
     "static/media/bg-sign-in-basic.jpeg": "/tajhiz/static/media/bg-sign-in-basic.f327db1d0e4b00ba3c81.jpeg",
     "static/media/bg-sign-in-cover.jpeg": "/tajhiz/static/media/bg-sign-in-cover.e5dabb486682cd2b2bf1.jpeg",
     "static/media/bg-profile.jpeg": "/tajhiz/static/media/bg-profile.af1219a742e09fc7b612.jpeg",
@@ -28,6 +28,6 @@
   },
   "entrypoints": [
     "static/css/main.b7868a97.css",
-    "static/js/main.79152986.js"
+    "static/js/main.9dc7b2f0.js"
   ]
 }
