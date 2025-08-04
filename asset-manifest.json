@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Tajhiz-frontend/static/css/main.b7868a97.css",
-    "main.js": "/Tajhiz-frontend/static/js/main.f7419549.js",
+    "main.js": "/Tajhiz-frontend/static/js/main.d4472088.js",
     "static/media/bg-sign-in-basic.jpeg": "/Tajhiz-frontend/static/media/bg-sign-in-basic.f327db1d0e4b00ba3c81.jpeg",
     "static/media/bg-sign-in-cover.jpeg": "/Tajhiz-frontend/static/media/bg-sign-in-cover.e5dabb486682cd2b2bf1.jpeg",
     "static/media/bg-profile.jpeg": "/Tajhiz-frontend/static/media/bg-profile.af1219a742e09fc7b612.jpeg",
@@ -28,6 +28,6 @@
   },
   "entrypoints": [
     "static/css/main.b7868a97.css",
-    "static/js/main.f7419549.js"
+    "static/js/main.d4472088.js"
   ]
 }
