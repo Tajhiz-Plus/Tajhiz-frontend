@@ -22,10 +22,8 @@ import {
 import brandWhite from "assets/images/tajhiz-logo.png";
 import brandDark from "assets/images/tajhiz-logo.png";
 import ProtectedRoutes from "shared/component/ProtectedRoutes";
-import Basic from "layouts/authentication/sign-in/basic";
-import Cover from "layouts/authentication/sign-in/cover";
-import Profile from "layouts/Profile/Profile";
 import pageRoutes from "page.routes";
+import Illustration from "layouts/authentication/sign-in/illustration";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -149,7 +147,7 @@ export default function App() {
         )}
         {/* {layout === "vr" && <Configurator />} */}
         <Routes>
-          <Route path="/sign-in" element={<Cover />} />
+          <Route path="/sign-in" element={<Illustration />} />
           {getRoutes(routes)}
           {pageRoutes.map((route) => (
             <Route
