@@ -14,28 +14,31 @@ import { useFormik } from "formik";
 import { signInValidationSchema } from "./signInValidation";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+import { useAuth } from "shared/hooks/useAuth";
 
 function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleTogglePasswordVisibility = () => setShowPassword((v) => !v);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: signInValidationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       try {
-        // simulate 10s delay
-        await new Promise((r) => setTimeout(r, 3000));
-        localStorage.setItem("user", JSON.stringify({ email: values.email }));
-        navigate("/dashboard");
+        await new Promise((r) => setTimeout(r, 1000)); // simulate delay
+
+        const payload = { email: values.email };
+        login(payload); // مهم
+        navigate("/dashboard", { replace: true }); // تأكد من المسار
       } finally {
         setSubmitting(false);
       }
     },
-    validateOnBlur: true,
-    validateOnChange: true,
   });
+
+  console.log(formik.isSubmitting);
 
   return (
     <IllustrationLayout

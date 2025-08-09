@@ -154,7 +154,7 @@ export default function App() {
             <Route
               key={route.id}
               path={route.route}
-              element={route.component}
+              element={<ProtectedRoutes>{route.component}</ProtectedRoutes>}
             />
           ))}
           <Route path="*" element={<Navigate to="/dashboard" />} />
