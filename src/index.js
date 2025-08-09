@@ -4,7 +4,7 @@ import { HashRouter } from "react-router-dom";
 import App from "App";
 import { MaterialUIControllerProvider } from "context";
 import { AuthProvider } from "shared/context/AuthContext";
-
+import "./index.css";
 const container = document.getElementById("app");
 const root = createRoot(container);
 

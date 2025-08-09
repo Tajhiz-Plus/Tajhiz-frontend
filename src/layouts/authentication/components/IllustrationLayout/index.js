@@ -1,45 +1,23 @@
-
-
-// prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
-
-// @mui material components
 import Grid from "@mui/material/Grid";
-
-// Material Dashboard 3 PRO React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-
-// Material Dashboard 3 PRO React examples
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import PageLayout from "examples/LayoutContainers/PageLayout";
-
-// Material Dashboard 3 PRO React page layout routes
-import pageRoutes from "page.routes";
-
-// Material Dashboard 3 PRO React context
 import { useMaterialUIController } from "context";
-
-function IllustrationLayout({ 
-  header = "", 
-  title = "", 
-  description = "", 
-  illustration = "", 
-  children 
+import { Box, Typography } from "@mui/material";
+import widgetImage from "assets/images/illustrations/Widget.png";
+function IllustrationLayout({
+  header = "",
+  title = "",
+  description = "",
+  illustration = "",
+  children,
 }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
   return (
     <PageLayout background="white">
-      <DefaultNavbar
-        routes={pageRoutes}
-        action={{
-          type: "external",
-          route: "https://creative-tim.com/product/material-dashboard-pro-react",
-          label: "buy now",
-        }}
-      />
       <Grid
         container
         sx={{
@@ -47,19 +25,13 @@ function IllustrationLayout({
             darkMode ? background.default : white.main,
         }}
       >
-        <Grid item xs={12} lg={6}>
-          <MDBox
-            display={{ xs: "none", lg: "flex" }}
-            width="calc(100% - 2rem)"
-            height="calc(100vh - 2rem)"
-            borderRadius="lg"
-            ml={2}
-            mt={2}
-            sx={{ backgroundImage: `url(${illustration})` }}
-          />
-        </Grid>
         <Grid item xs={11} sm={8} md={6} lg={4} xl={3} sx={{ mx: "auto" }}>
-          <MDBox display="flex" flexDirection="column" justifyContent="center" height="100vh">
+          <MDBox
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            height="100vh"
+          >
             <MDBox py={3} px={3} textAlign="center">
               {!header ? (
                 <>
@@ -79,12 +51,48 @@ function IllustrationLayout({
             <MDBox p={3}>{children}</MDBox>
           </MDBox>
         </Grid>
+        <Grid item xs={12} lg={6} pr={1} py={1}>
+          <MDBox
+            display={{ xs: "none", lg: "flex" }}
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            textAlign="center"
+            sx={{
+              height: "calc(98vh)",
+              backgroundImage: `url(${illustration})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              overflow: "hidden",
+              borderTopRightRadius: "12px",
+              borderBottomRightRadius: "12px",
+            }}
+          >
+            <Box sx={{ mt: 8, color: "#FFF !important" }}>
+              <Typography fontSize={"32px"} fontWeight="600" mb={1}>
+                مرحبًا بك في تجهيز بلس!{" "}
+              </Typography>
+              <Typography fontSize={"22px"} mb={4}>
+                سجّل الدخول لإدارة نشاطك التجاري والوصول إلى كل المزايا.{" "}
+              </Typography>
+              <Box
+                component="img"
+                src={widgetImage}
+                alt="Widget"
+                sx={{
+                  maxWidth: "90%",
+                  height: "auto",
+                }}
+              />
+            </Box>
+          </MDBox>
+        </Grid>
       </Grid>
     </PageLayout>
   );
 }
 
-// Typechecking props for the IllustrationLayout
 IllustrationLayout.propTypes = {
   header: PropTypes.node,
   title: PropTypes.string,
