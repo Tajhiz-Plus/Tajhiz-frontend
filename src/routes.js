@@ -19,7 +19,7 @@ const routes = [
     route: "/dashboard",
     component: <Dashboard />,
     noCollapse: true,
-    // protected: true,
+    protected: true,
   },
   {
     type: "collapse",
@@ -29,6 +29,7 @@ const routes = [
     icon: <Icon fontSize="small">shop</Icon>,
     component: <NewProduct />,
     noCollapse: true,
+    protected: true,
   },
   {
     type: "collapse",
@@ -38,6 +39,7 @@ const routes = [
     route: "/categories",
     component: <Categories />,
     noCollapse: true,
+    protected: true,
   },
   {
     type: "collapse",
@@ -47,6 +49,7 @@ const routes = [
     route: "/orders",
     component: <Orders />,
     noCollapse: true,
+    protected: true,
     // collapse: [
     //   {
     //     name: "الطلبات فرعي",
@@ -72,6 +75,7 @@ const routes = [
         icon: <Icon fontSize="small">group</Icon>,
         route: "/users",
         component: <Users />,
+        protected: true,
       },
       {
         name: "الأدوار",
@@ -80,6 +84,7 @@ const routes = [
         icon: <Icon fontSize="small">admin_panel_settings</Icon>,
         route: "/roles",
         component: <Roles />,
+        protected: true,
       },
       {
         name: "الصلاحيات",
@@ -88,6 +93,7 @@ const routes = [
         icon: <Icon fontSize="small">lock</Icon>,
         route: "/permissions",
         component: <Permissions />,
+        protected: true,
       },
     ],
   },
@@ -99,6 +105,7 @@ const routes = [
     route: "/reports",
     component: <Reports />,
     noCollapse: true,
+    protected: true,
   },
 ];
 

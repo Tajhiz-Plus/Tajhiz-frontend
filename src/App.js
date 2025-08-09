@@ -23,7 +23,8 @@ import brandWhite from "assets/images/tajhiz-logo.png";
 import brandDark from "assets/images/tajhiz-logo.png";
 import ProtectedRoutes from "shared/component/ProtectedRoutes";
 import pageRoutes from "page.routes";
-import SignIn from "layouts/authentication/sign-in/SignIn";
+import SignIn from "layouts/authentication/sign-in/SignIn/SignIn";
+import "./index.css";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
