@@ -213,7 +213,7 @@ function SignIn() {
             </MDBox>
           </MDBox>
         </Grid>
-        <Grid item xs={12} lg={6} pr={1} py={1}>
+        <Grid item xs={12} lg={6} pr={1} pt={1}>
           <MDBox
             display={{ xs: "none", lg: "flex" }}
             flexDirection="column"
