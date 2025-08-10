@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import bgImage from "assets/images/illustrations/Background.png";
@@ -22,6 +21,7 @@ import { useAuth } from "shared/hooks/useAuth";
 import PageLayout from "examples/LayoutContainers/PageLayout";
 import MDTypography from "components/MDTypography";
 import widgetImage from "assets/images/illustrations/Widget.png";
+import logo from "assets/images/mainLogo.png";
 
 function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -53,6 +53,20 @@ function SignIn() {
           backgroundColor: ({ palette: { white } }) => white.main,
         }}
       >
+        <Box display={{ xs: "none", lg: "flex" }}>
+          <Box
+            component="img"
+            src={logo}
+            alt="Company Logo"
+            sx={{
+              height: "86.382px",
+              width: "123px",
+              position: "absolute",
+              top: "30px",
+              left: "30px",
+            }}
+          />
+        </Box>
         <Grid item xs={11} sm={8} md={6} lg={4} xl={3} sx={{ mx: "auto" }}>
           <MDBox
             display="flex"
