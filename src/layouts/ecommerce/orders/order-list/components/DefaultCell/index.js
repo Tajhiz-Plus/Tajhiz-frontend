@@ -21,7 +21,7 @@ function DefaultCell({ value, suffix = "" }) {
 
 // Typechecking props for the DefaultCell
 DefaultCell.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };
 

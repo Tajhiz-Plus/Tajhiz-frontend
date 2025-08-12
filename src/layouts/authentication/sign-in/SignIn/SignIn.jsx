@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import bgImage from "assets/images/illustrations/Background.png";
@@ -22,13 +22,16 @@ import PageLayout from "examples/LayoutContainers/PageLayout";
 import MDTypography from "components/MDTypography";
 import widgetImage from "assets/images/illustrations/Widget.png";
 import logo from "assets/images/mainLogo.png";
+import { useLoginMutation } from "services/mutations/useLoginMutation";
+import { URL } from "constants/url";
 
 function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleTogglePasswordVisibility = () => setShowPassword((v) => !v);
   const navigate = useNavigate();
   const { login } = useAuth();
-
+  const loginMutation = useLoginMutation();
+  console.log("Login Mutation:", loginMutation);
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: signInValidationSchema,
@@ -44,6 +47,29 @@ function SignIn() {
       }
     },
   });
+
+  useEffect(() => {
+    loginMutation.mutate(
+      { email: "superadmin@tajhizplus.com", password: "Admin123!" },
+      {
+        onSuccess: (data) => {
+          console.log("Login success (test):", data);
+        },
+        onError: (error) => {
+          console.error("Login error (test):", error);
+        },
+      }
+    );
+    // const res = fetch(`${URL}/api/v1/auth/login`, {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     email: "superadmin@tajhizplus.com",
+    //     password: "Admin123!",
+    //   }),
+    // });
+    // console.log("Login response:", res);
+  }, []);
 
   return (
     <PageLayout background="white">
