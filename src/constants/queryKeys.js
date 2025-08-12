@@ -1,1 +1,1 @@
-export const QUERY_KEYS = { LOG_IN: "logIn" };
+export const QUERY_KEYS = { LOG_IN: "logIn", PERMISSIONS: "permissions" };

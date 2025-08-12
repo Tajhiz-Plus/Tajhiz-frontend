@@ -1,21 +1,16 @@
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import React from "react";
-import DataTable from "examples/Tables/DataTable";
-import dataTableData from "layouts/applications/data-tables/data/dataTableData";
+import permissionsData from "./permissionsData";
+import PermissionsTable from "./components/PermissionsTable";
 
 function Permissions() {
+  // console.log(user);
+  
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <DataTable
-        table={dataTableData}
-        isSorted={false}
-        entriesPerPage={false}
-        showTotalEntries={false}
-        canSearch={true}
-        noEndBorder
-      />
+      <PermissionsTable />
     </DashboardLayout>
   );
 }

@@ -12,11 +12,11 @@ const queryClient = new QueryClient();
 root.render(
   <HashRouter>
     <MaterialUIControllerProvider>
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
           <App />
-        </QueryClientProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </QueryClientProvider>
     </MaterialUIControllerProvider>
   </HashRouter>
 );

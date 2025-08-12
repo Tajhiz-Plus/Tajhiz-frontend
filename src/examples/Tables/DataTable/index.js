@@ -244,7 +244,7 @@ function DataTable({
               color="secondary"
               fontWeight="regular"
             >
-              Showing {entriesStart} to {entriesEnd} of {rows.length} entries
+               {entriesStart} - {entriesEnd} of {rows.length} 
             </MDTypography>
           </MDBox>
         )}
