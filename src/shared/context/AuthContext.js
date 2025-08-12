@@ -1,11 +1,12 @@
 import { createContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [ready, setReady] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -14,9 +15,12 @@ export const AuthProvider = ({ children }) => {
     setReady(true);
   }, []);
 
-  const login = (userData) => {
-    localStorage.setItem("user", JSON.stringify(userData));
-    setUser(userData);
+  const login = ({ data }) => {
+    console.log("Logging in user:", data);
+
+    localStorage.setItem("user", JSON.stringify(data));
+    setUser(data);
+    navigate("/dashboard", { replace: true });
   };
 
   const logout = () => {

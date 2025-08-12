@@ -8,6 +8,5 @@ export const useGetPermissions = () => {
   return useQuery({
     queryKey: permissionsKey,
     queryFn: getPermissions,
-    staleTime: 5 * 60 * 1000,
   });
 };

@@ -11,7 +11,6 @@ export const useLoginMutation = () => {
   return useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      console.log("Login successful:", data);
       login(data);
     },
     onError: (error) => {

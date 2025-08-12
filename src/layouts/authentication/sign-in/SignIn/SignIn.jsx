@@ -31,45 +31,24 @@ function SignIn() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const loginMutation = useLoginMutation();
-  console.log("Login Mutation:", loginMutation);
   const formik = useFormik({
-    initialValues: { email: "", password: "" },
+    initialValues: {
+      email: "superadmin@tajhizplus.com",
+      password: "Admin123!",
+    },
     validationSchema: signInValidationSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      try {
-        await new Promise((r) => setTimeout(r, 1000));
-
-        const payload = { email: values.email };
-        login(payload);
-        navigate("/dashboard", { replace: true });
-      } finally {
-        setSubmitting(false);
-      }
-    },
-  });
-
-  useEffect(() => {
-    loginMutation.mutate(
-      { email: "superadmin@tajhizplus.com", password: "Admin123!" },
-      {
-        onSuccess: (data) => {
+      loginMutation.mutate(values, {
+        onSuccess: ({ data }) => {
           console.log("Login success (test):", data);
+          login()
         },
         onError: (error) => {
           console.error("Login error (test):", error);
         },
-      }
-    );
-    // const res = fetch(`${URL}/api/v1/auth/login`, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     email: "superadmin@tajhizplus.com",
-    //     password: "Admin123!",
-    //   }),
-    // });
-    // console.log("Login response:", res);
-  }, []);
+      });
+    },
+  });
 
   return (
     <PageLayout background="white">

@@ -1,8 +1,6 @@
-// api/axios.js
 import axios from "axios";
-import { TOKEN } from "constants/url";
 
-let onUnauthorized; // هنحقنها من AuthProvider
+let onUnauthorized;
 export const setOnUnauthorized = (fn) => {
   onUnauthorized = fn;
 };
@@ -13,11 +11,10 @@ const API = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-// Attach token
 API.interceptors.request.use((config) => {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
-  // if (user?.token) config.headers.Authorization = `Bearer ${user.token}`;
-  if (user) config.headers.Authorization = `Bearer ${TOKEN}`;
+  if (user?.accessToken)
+    config.headers.Authorization = `Bearer ${user.accessToken}`;
   return config;
 });
 
@@ -30,7 +27,7 @@ function handleUnauthorized() {
   console.log("Unauthorized access - redirecting to sign-in");
 
   // استخدم reload بسيط لتصفير الحالة
-  // window.location.href = "/sign-in";
+  window.location.href = "/sign-in";
 }
 
 // Response success path: أحياناً السيرفر يرجّع 200 بس success=false
