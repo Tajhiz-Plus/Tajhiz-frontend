@@ -7,6 +7,7 @@ import {
   TextField,
   Button,
   Stack,
+  CircularProgress,
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -118,10 +119,20 @@ export default function UpdatePermissionDialog({ open, onClose, permission }) {
           <Button
             type="submit"
             variant="contained"
+            sx={{ color: "#FFF" }}
             disableElevation
             disabled={isUpdateLoading}
           >
-            {isUpdateLoading ? "جار الحفظ…" : "حفظ"}
+            {isUpdateLoading ? (
+              <CircularProgress
+                size={22}
+                sx={{
+                  color: "#FFF",
+                }}
+              />
+            ) : (
+              "حفظ"
+            )}
           </Button>
         </DialogActions>
       </form>
