@@ -40,7 +40,6 @@ function SignIn() {
     onSubmit: async (values, { setSubmitting }) => {
       loginMutation.mutate(values, {
         onSuccess: ({ data }) => {
-          console.log("Login success (test):", data);
           login();
         },
         onError: (error) => {

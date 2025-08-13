@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
@@ -29,8 +29,9 @@ import MDPagination from "components/MDPagination";
 // Material Dashboard 3 PRO React examples
 import DataTableHeadCell from "examples/Tables/DataTable/DataTableHeadCell";
 import DataTableBodyCell from "examples/Tables/DataTable/DataTableBodyCell";
+import { Box } from "@mui/material";
 
-function DataTable({
+function TableComponent({
   entriesPerPage = { defaultValue: 10, entries: [5, 10, 15, 20, 25] },
   canSearch = false,
   showTotalEntries = true,
@@ -39,6 +40,8 @@ function DataTable({
   isSorted = true,
   noEndBorder = false,
   isRTL = true,
+  addButtonChildren,
+  canAddButton = false,
 }) {
   const defaultValue = entriesPerPage.defaultValue
     ? entriesPerPage.defaultValue
@@ -148,31 +151,14 @@ function DataTable({
       sx={{ boxShadow: "none", direction: "rtl" }}
       dir={isRTL ? "rtl" : "ltr"}
     >
-      {entriesPerPage || canSearch ? (
+      {canAddButton || canSearch ? (
         <MDBox
           display="flex"
           justifyContent="space-between"
           alignItems="center"
           p={3}
         >
-          {entriesPerPage && (
-            <MDBox display="flex" alignItems="center">
-              <Autocomplete
-                disableClearable
-                value={pageSize.toString()}
-                options={entries}
-                onChange={(event, newValue) => {
-                  setEntriesPerPage(parseInt(newValue, 10));
-                }}
-                size="small"
-                sx={{ width: "5rem" }}
-                renderInput={(params) => <MDInput {...params} />}
-              />
-              <MDTypography variant="caption" color="secondary">
-                &nbsp;&nbsp;entries per page
-              </MDTypography>
-            </MDBox>
-          )}
+          {canAddButton && <Box>{addButtonChildren}</Box>}
           {canSearch && (
             <MDBox width="12rem" mr="auto">
               <MDInput
@@ -244,7 +230,7 @@ function DataTable({
               color="secondary"
               fontWeight="regular"
             >
-               {entriesStart} - {entriesEnd} of {rows.length} 
+              {entriesStart} - {entriesEnd} of {rows.length}
             </MDTypography>
           </MDBox>
         )}
@@ -285,8 +271,8 @@ function DataTable({
   );
 }
 
-// Typechecking props for the DataTable
-DataTable.propTypes = {
+// Typechecking props for the TableComponent
+TableComponent.propTypes = {
   entriesPerPage: PropTypes.oneOfType([
     PropTypes.shape({
       defaultValue: PropTypes.number,
@@ -314,4 +300,4 @@ DataTable.propTypes = {
   noEndBorder: PropTypes.bool,
 };
 
-export default DataTable;
+export default TableComponent;
