@@ -19,3 +19,18 @@
   -webkit-font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
 }
+
+.custom-toast {
+  min-height: auto !important;
+  padding: 8px 12px !important;
+  font-size: 14px !important; /* حجم الخط */
+}
+
+.custom-toast .Toastify__toast-body {
+  margin: 0;
+  font-size: 14px; /* نص الرسالة */
+}
+
+.custom-toast .Toastify__close-button {
+  font-size: 12px; /* حجم زر الإغلاق */
+}

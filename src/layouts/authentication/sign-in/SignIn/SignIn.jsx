@@ -23,7 +23,6 @@ import MDTypography from "components/MDTypography";
 import widgetImage from "assets/images/illustrations/Widget.png";
 import logo from "assets/images/mainLogo.png";
 import { useLoginMutation } from "services/mutations/useLoginMutation";
-import { URL } from "constants/url";
 
 function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -31,6 +30,7 @@ function SignIn() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const loginMutation = useLoginMutation();
+
   const formik = useFormik({
     initialValues: {
       email: "superadmin@tajhizplus.com",
@@ -41,7 +41,7 @@ function SignIn() {
       loginMutation.mutate(values, {
         onSuccess: ({ data }) => {
           console.log("Login success (test):", data);
-          login()
+          login();
         },
         onError: (error) => {
           console.error("Login error (test):", error);

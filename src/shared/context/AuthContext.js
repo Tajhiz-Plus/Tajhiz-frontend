@@ -16,11 +16,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = ({ data }) => {
-    console.log("Logging in user:", data);
-
     localStorage.setItem("user", JSON.stringify(data));
     setUser(data);
-    navigate("/dashboard", { replace: true });
+    navigate("/permissions", { replace: true });
   };
 
   const logout = () => {

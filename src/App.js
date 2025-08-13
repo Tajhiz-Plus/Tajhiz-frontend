@@ -25,6 +25,8 @@ import ProtectedRoutes from "shared/component/ProtectedRoutes";
 import pageRoutes from "page.routes";
 import SignIn from "layouts/authentication/sign-in/SignIn/SignIn";
 import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -128,6 +130,18 @@ export default function App() {
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
         <CssBaseline />
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          pauseOnHover
+          rtl
+          toastClassName="custom-toast"
+          bodyClassName="custom-toast-body"
+        />
+
         {layout === "dashboard" && (
           <>
             <Sidenav
@@ -137,7 +151,6 @@ export default function App() {
                   ? brandDark
                   : brandWhite
               }
-              // brandName="Tajhiz"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
@@ -146,7 +159,7 @@ export default function App() {
             {/* {configsButton} */}
           </>
         )}
-        {/* {layout === "vr" && <Configurator />} */}
+
         <Routes>
           <Route path="/sign-in" element={<SignIn />} />
           {getRoutes(routes)}
