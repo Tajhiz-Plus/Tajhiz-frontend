@@ -27,7 +27,7 @@ function handleUnauthorized() {
   console.log("Unauthorized access - redirecting to sign-in");
 
   // استخدم reload بسيط لتصفير الحالة
-  window.location.href = "/sign-in";
+  window.location.href = "/#/sign-in";
 }
 
 // Response success path: أحياناً السيرفر يرجّع 200 بس success=false
