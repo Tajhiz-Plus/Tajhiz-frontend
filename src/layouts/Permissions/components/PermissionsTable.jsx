@@ -6,6 +6,7 @@ import { useDisclosure } from "shared/hooks/useDisclosure";
 import DeletePermissionDialog from "./DeletePermissionDialog";
 import AddNewPermissionDialog from "./AddNewPermissionDialog";
 import TableComponent from "layouts/authentication/components/TableComponent/TableComponent";
+import TableSkeleton from "components/TableSkeleton/TableSkeleton";
 
 function PermissionsTable() {
   const [selectedPermission, setSelectedPermission] = React.useState(null);
@@ -61,7 +62,7 @@ function PermissionsTable() {
         }
       : {};
 
-  if (isLoading) return <div>Loading....................…</div>;
+  if (isLoading) return <TableSkeleton table={tableData} />;
   if (isError) return <div>حدث خطأ في جلب البيانات</div>;
 
   return (

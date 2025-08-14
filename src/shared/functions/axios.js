@@ -22,12 +22,10 @@ function handleUnauthorized() {
   try {
     if (typeof onUnauthorized === "function") onUnauthorized();
   } catch {}
-  // Fallback لضمان الخروج حتى لو الـ context مش متاح
   localStorage.removeItem("user");
   console.log("Unauthorized access - redirecting to sign-in");
 
-  // استخدم reload بسيط لتصفير الحالة
-  window.location.href = "/#/sign-in";
+  window.location.href = "/sign-in";
 }
 
 // Response success path: أحياناً السيرفر يرجّع 200 بس success=false

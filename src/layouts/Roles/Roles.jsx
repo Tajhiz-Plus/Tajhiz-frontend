@@ -1,14 +1,15 @@
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import React from "react";
+import RolesTable from "./components/RolesTable";
 
-function Roles() {
+function Permissions() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      Roles
+      <RolesTable />
     </DashboardLayout>
   );
 }
 
-export default Roles;
+export default Permissions;
