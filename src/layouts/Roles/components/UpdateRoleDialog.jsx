@@ -18,7 +18,6 @@ const validationSchema = yup.object({
   key: yup.string().required("الكود مطلوب"),
   nameEn: yup.string().required("الاسم بالإنجليزية مطلوب"),
   nameAr: yup.string().required("الاسم بالعربية مطلوب"),
-  module: yup.string().required("اسم الموديول مطلوب"),
 });
 
 export default function UpdateRoleDialog({ open, onClose, role }) {
@@ -28,7 +27,6 @@ export default function UpdateRoleDialog({ open, onClose, role }) {
       key: role?.key || "",
       nameEn: role?.nameEn || "",
       nameAr: role?.nameAr || "",
-      module: role?.module || "",
     },
     validationSchema,
     onSubmit: (values) => {
@@ -57,7 +55,7 @@ export default function UpdateRoleDialog({ open, onClose, role }) {
   };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle>تعديل الصلاحية</DialogTitle>
+      <DialogTitle>تعديل الدور</DialogTitle>
 
       <form onSubmit={formik.handleSubmit}>
         <DialogContent>
@@ -65,7 +63,7 @@ export default function UpdateRoleDialog({ open, onClose, role }) {
             <TextField
               label="الكود (Key)"
               name="key"
-              placeholder="مثال: products.view"
+              placeholder="ادخل الكود"
               value={formik.values.key}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -95,18 +93,6 @@ export default function UpdateRoleDialog({ open, onClose, role }) {
               onBlur={formik.handleBlur}
               error={Boolean(formik.touched.nameEn && formik.errors.nameEn)}
               helperText={formik.touched.nameEn && formik.errors.nameEn}
-              fullWidth
-            />
-
-            <TextField
-              label="الموديول"
-              name="module"
-              placeholder="products"
-              value={formik.values.module}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={Boolean(formik.touched.module && formik.errors.module)}
-              helperText={formik.touched.module && formik.errors.module}
               fullWidth
             />
           </Stack>

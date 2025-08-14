@@ -86,7 +86,7 @@ function RolesTable() {
             sx={{ color: "#FFF" }}
             onClick={() => addRole.onOpen()}
           >
-            إضافة صلاحية
+            إضافة دور 
           </Button>
         }
       />
