@@ -11,14 +11,15 @@ import MDBox from "components/MDBox";
 import DataTableHeadCell from "examples/Tables/DataTable/DataTableHeadCell";
 
 function TableSkeleton({
-  table,
+  columns = 5,
   rows = 10,
   isRTL = true,
   showHeader = true,
   dense = false,
 }) {
-  const columns = table?.columns ?? new Array(5).fill(null).map(() => ({}));
   const rowHeight = dense ? 36 : 56;
+
+  const columnArray = Array.from({ length: columns }, () => ({}));
 
   return (
     <TableContainer
@@ -29,7 +30,7 @@ function TableSkeleton({
         {showHeader && (
           <MDBox component="thead">
             <TableRow>
-              {columns.map((col, idx) => (
+              {columnArray.map((col, idx) => (
                 <DataTableHeadCell
                   key={idx}
                   width={col.width || "auto"}
@@ -51,7 +52,7 @@ function TableSkeleton({
         <TableBody>
           {Array.from({ length: rows }).map((_, r) => (
             <TableRow key={r}>
-              {columns.map((_, c) => (
+              {columnArray.map((_, c) => (
                 <TableCell
                   key={c}
                   align="left"
@@ -65,7 +66,7 @@ function TableSkeleton({
                     variant="rectangular"
                     animation="wave"
                     height={16}
-                    width={`${Math.max(30, 60 + ((c * 17 + r * 11) % 40))}%`}
+                    width={`${Math.max(10, 20 + ((c * 17 + r * 11) % 40))}%`}
                     sx={{ borderRadius: 1 }}
                   />
                 </TableCell>

@@ -35,16 +35,14 @@ function RolesTable() {
     roles.length > 0
       ? {
           columns: [
-            { Header: "اسم الصلاحية", accessor: "name", width: "22%" },
+            { Header: "اسم الدور", accessor: "name", width: "22%" },
             { Header: "الكود", accessor: "key", width: "16%" },
-            { Header: "الموديول", accessor: "module", width: "14%" },
             { Header: "الإجراءات", accessor: "actions", width: "14%" },
           ],
           rows: roles?.map((role) => ({
             id: role.id,
             name: role.nameAr || role.nameEn,
             key: role.key,
-            module: role.module,
             actions: (
               <>
                 <div style={{ display: "flex", gap: "8px" }}>
@@ -68,7 +66,7 @@ function RolesTable() {
       : {};
 
   if (rolesLoading)
-    return <TableSkeleton table={tableData} rows={6} />;
+    return <TableSkeleton table={tableData} rows={6} columns={3} />;
   if (rolesError) return <div>حدث خطأ في جلب البيانات</div>;
 
   return (
@@ -106,10 +104,7 @@ function RolesTable() {
           roleId={selectedRole?.id}
         />
       )}
-      <AddNewRoleDialog
-        open={addRole.open}
-        onClose={addRole.onClose}
-      />
+      <AddNewRoleDialog open={addRole.open} onClose={addRole.onClose} />
     </>
   );
 }
