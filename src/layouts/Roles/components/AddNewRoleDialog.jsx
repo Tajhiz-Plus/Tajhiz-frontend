@@ -11,14 +11,13 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useAddPermission } from "services/mutations/permissions/useAddPermission";
 import { toast } from "react-toastify";
+import { useAddRole } from "services/mutations/roles/useAddRole";
 
 const validationSchema = yup.object({
   key: yup.string().required("الكود مطلوب"),
   nameEn: yup.string().required("الاسم بالإنجليزية مطلوب"),
   nameAr: yup.string().required("الاسم بالعربية مطلوب"),
-  module: yup.string().required("اسم الموديول مطلوب"),
 });
 
 export default function AddNewRoleDialog({ open, onClose }) {
@@ -27,7 +26,6 @@ export default function AddNewRoleDialog({ open, onClose }) {
       key: "",
       nameEn: "",
       nameAr: "",
-      module: "",
     },
     validationSchema,
     onSubmit: (values) => {
@@ -37,19 +35,18 @@ export default function AddNewRoleDialog({ open, onClose }) {
     validateOnChange: false,
   });
 
-  const { mutate: addPermissionMutation, isPending: isAddLoading } =
-    useAddPermission({
-      onSuccess: () => {
-        toast.success("تم إضافة دور بنجاح");
-        onClose();
-      },
-      onError: (error) => {
-        toast.error(`حدث خطأ: ${error.message}`);
-      },
-    });
+  const { mutate: addRoleMutation, isPending: isAddLoading } = useAddRole({
+    onSuccess: () => {
+      toast.success("تم إضافة دور بنجاح");
+      onClose();
+    },
+    onError: (error) => {
+      toast.error(`حدث خطأ: ${error.message}`);
+    },
+  });
 
   const handleAdd = (payload) => {
-    addPermissionMutation({ payload });
+    addRoleMutation({ payload });
   };
 
   return (
@@ -94,18 +91,6 @@ export default function AddNewRoleDialog({ open, onClose }) {
               helperText={formik.touched.nameEn && formik.errors.nameEn}
               fullWidth
             />
-
-            <TextField
-              label="الموديول"
-              name="module"
-              placeholder="products"
-              value={formik.values.module}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={Boolean(formik.touched.module && formik.errors.module)}
-              helperText={formik.touched.module && formik.errors.module}
-              fullWidth
-            />
           </Stack>
         </DialogContent>
 
@@ -124,7 +109,7 @@ export default function AddNewRoleDialog({ open, onClose }) {
               <CircularProgress
                 size={22}
                 sx={{
-                  color: "#FFF",
+                  color: "#000",
                 }}
               />
             ) : (

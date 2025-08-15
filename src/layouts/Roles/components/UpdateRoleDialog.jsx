@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useUpdatePermission } from "services/mutations/permissions/useUpdatePermission";
 import { toast } from "react-toastify";
+import { useUpdateRole } from "services/mutations/roles/useUpdateRole";
 
 const validationSchema = yup.object({
   key: yup.string().required("الكود مطلوب"),
@@ -37,9 +37,9 @@ export default function UpdateRoleDialog({ open, onClose, role }) {
   });
 
   const { mutate: updatePermissionMutation, isPending: isUpdateLoading } =
-    useUpdatePermission({
+    useUpdateRole({
       onSuccess: () => {
-        toast.success("تم تحديث الصلاحية بنجاح");
+        toast.success("تم تحديث الدور بنجاح");
         onClose();
       },
       onError: (error) => {
@@ -113,7 +113,7 @@ export default function UpdateRoleDialog({ open, onClose, role }) {
               <CircularProgress
                 size={22}
                 sx={{
-                  color: "#FFF",
+                  color: "#000",
                 }}
               />
             ) : (

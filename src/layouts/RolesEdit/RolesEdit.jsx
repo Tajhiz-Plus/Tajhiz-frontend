@@ -6,6 +6,7 @@ import {
   Typography,
   Button,
   Stack,
+  CircularProgress,
 } from "@mui/material";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -57,7 +58,6 @@ function RolesEdit() {
       roleId: id,
       permissions: selectedPermissionIds,
     });
-    // navigate("/roles");
   };
 
   return (
@@ -100,7 +100,16 @@ function RolesEdit() {
               sx={{ color: "#FFF" }}
               onClick={handleSave}
             >
-              حفظ
+              {isUpdateLoading ? (
+                <CircularProgress
+                  size={22}
+                  sx={{
+                    color: "#FFF",
+                  }}
+                />
+              ) : (
+                "حفظ"
+              )}
             </Button>
             <Button
               variant="outlined"

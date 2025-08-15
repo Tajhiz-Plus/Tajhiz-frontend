@@ -7,15 +7,17 @@ import {
   Button,
   Typography,
   CircularProgress,
+  Icon,
+  Box,
 } from "@mui/material";
 import { toast } from "react-toastify";
-import { useDeletePermission } from "services/mutations/permissions/useDeletePermission";
+import { useDeleteRole } from "services/mutations/roles/useDeleteRole";
 
 export default function DeleteRoleDialog({ open, onClose, roleId }) {
-  const { mutate: deletePermissionMutation, isPending: isDeleteLoading } =
-    useDeletePermission({
+  const { mutate: deleteRoleMutation, isPending: isDeleteLoading } =
+    useDeleteRole({
       onSuccess: () => {
-        toast.success("تم حذف الصلاحية بنجاح");
+        toast.success("تم حذف الدور بنجاح");
         onClose();
       },
       onError: (error) => {
@@ -24,14 +26,31 @@ export default function DeleteRoleDialog({ open, onClose, roleId }) {
     });
 
   const handleDelete = () => {
-    deletePermissionMutation({ roleId });
+    deleteRoleMutation({ roleId });
   };
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
-      <DialogTitle sx={{ textAlign: "center" }}>تأكيد الحذف</DialogTitle>
+      <DialogTitle
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 2,
+            borderRadius: "50%",
+            backgroundColor: "#FEF9F9",
+            width: "fit-content",
+          }}
+        >
+          {" "}
+          <Icon color="error">delete</Icon>
+        </Box>
+      </DialogTitle>
       <DialogContent sx={{ textAlign: "center" }}>
-        <Typography>هل أنت متأكد أنك تريد حذف الصلاحية </Typography>
+        <Typography>هل أنت متأكد أنك تريد حذف الدور </Typography>
       </DialogContent>
 
       <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
@@ -63,7 +82,7 @@ export default function DeleteRoleDialog({ open, onClose, roleId }) {
             <CircularProgress
               size={22}
               sx={{
-                color: "#FFF",
+                color: "#000",
               }}
             />
           ) : (

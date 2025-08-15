@@ -15,11 +15,11 @@ export const updateRolePermissions = (roleId, payload) =>
     permissionIds: payload,
   }).then((r) => r.data);
 
-export const updatePermission = (permissionId, payload) =>
-  API.put(`/api/v1/permissions/${permissionId}`, payload).then((r) => r.data);
+export const updateRole = (roleId, payload) =>
+  API.put(`/api/v1/roles/${roleId}`, payload).then((r) => r.data);
 
-export const addPermission = (payload) =>
-  API.post(`/api/v1/permissions`, payload).then((r) => r.data);
+export const addRole = (payload) =>
+  API.post(`/api/v1/roles`, payload).then((r) => r.data);
 
-export const deletePermission = (permissionId) =>
-  API.delete(`/api/v1/permissions/${permissionId}`).then((r) => r.data);
+export const deleteRole = (roleId) =>
+  API.delete(`/api/v1/roles/${roleId}`).then((r) => r.data);
