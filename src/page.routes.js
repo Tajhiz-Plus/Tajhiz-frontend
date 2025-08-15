@@ -5,9 +5,11 @@
 */
 
 import Profile from "layouts/Profile/Profile";
+import RolesEdit from "layouts/RolesEdit/RolesEdit";
 
 const pageRoutes = [
   { id: 1, name: "profile", route: "/profile", component: <Profile /> },
+  { id: 1, name: "roles/:id", route: "/roles/:id", component: <RolesEdit /> },
 ];
 
 export default pageRoutes;

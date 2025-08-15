@@ -18,7 +18,7 @@ import {
   setWhiteSidenav,
 } from "context";
 
-function Sidenav({ color = "info", brand = "", brandName, routes, ...rest }) {
+function Sidenav({ color = "info", brand = "", routes, ...rest }) {
   const [openCollapse, setOpenCollapse] = useState(false);
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode } =
@@ -250,7 +250,6 @@ Sidenav.propTypes = {
     "dark",
   ]),
   brand: PropTypes.string,
-  brandName: PropTypes.string.isRequired,
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

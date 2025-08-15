@@ -7,9 +7,11 @@ import AddNewRoleDialog from "./AddNewRoleDialog";
 import TableComponent from "layouts/authentication/components/TableComponent/TableComponent";
 import { useFetchRoles } from "services/queries/roles/useFetchRoles";
 import TableSkeleton from "components/TableSkeleton/TableSkeleton";
+import { useNavigate } from "react-router-dom";
 
 function RolesTable() {
   const [selectedRole, setSelectedRole] = React.useState(null);
+  const navigate = useNavigate();
   const {
     data: rolesData,
     isLoading: rolesLoading,
@@ -58,6 +60,12 @@ function RolesTable() {
                   >
                     delete
                   </Icon>
+                  <Icon
+                    style={{ cursor: "pointer", color: "#379C7C" }}
+                    onClick={() => navigate(`/roles/${role.id}`)}
+                  >
+                    lock
+                  </Icon>
                 </div>
               </>
             ),
@@ -86,7 +94,7 @@ function RolesTable() {
             sx={{ color: "#FFF" }}
             onClick={() => addRole.onOpen()}
           >
-            إضافة دور 
+            إضافة دور
           </Button>
         }
       />

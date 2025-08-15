@@ -5,6 +5,16 @@ export const getRoles = async () => {
   return res.data;
 };
 
+export const getRoleDetails = async (roleId) => {
+  const res = await API.get(`/api/v1/roles/${roleId}`);
+  return res.data;
+};
+
+export const updateRolePermissions = (roleId, payload) =>
+  API.post(`/api/v1/roles/${roleId}/permissions`, {
+    permissionIds: payload,
+  }).then((r) => r.data);
+
 export const updatePermission = (permissionId, payload) =>
   API.put(`/api/v1/permissions/${permissionId}`, payload).then((r) => r.data);
 
