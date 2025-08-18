@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, Suspense } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,7 +13,7 @@ import themeDarkRTL from "assets/theme-dark/theme-rtl";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import routes from "routes";
+import { routes } from "routes";
 import {
   useMaterialUIController,
   setMiniSidenav,
@@ -27,6 +27,10 @@ import SignIn from "layouts/authentication/sign-in/SignIn/SignIn";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { useAuth } from "shared/hooks/useAuth";
+import { SUPER_ADMIN } from "constants/names";
+import { managerRoutes } from "routes";
+import SuspenseLoading from "components/SuspenseLoading/SuspenseLoading";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -43,6 +47,10 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+  const { user, ready } = useAuth();
+
+  const IS_SUPER_ADMIN = user?.role === SUPER_ADMIN;
+  const MENU_ITEMS = IS_SUPER_ADMIN ? routes : managerRoutes;
 
   // Cache for the rtl
   useMemo(() => {
@@ -126,6 +134,10 @@ export default function App() {
     </MDBox>
   );
 
+  if (!ready) {
+    return <div>Loading...</div>; // 👈 render a loader but AFTER hooks
+  }
+
   return (
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
@@ -151,7 +163,7 @@ export default function App() {
                   ? brandDark
                   : brandWhite
               }
-              routes={routes}
+              routes={MENU_ITEMS}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
@@ -159,19 +171,20 @@ export default function App() {
             {/* {configsButton} */}
           </>
         )}
-
-        <Routes>
-          <Route path="/sign-in" element={<SignIn />} />
-          {getRoutes(routes)}
-          {pageRoutes.map((route) => (
-            <Route
-              key={route.id}
-              path={route.route}
-              element={<ProtectedRoutes>{route.component}</ProtectedRoutes>}
-            />
-          ))}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
-        </Routes>
+        <Suspense fallback={<SuspenseLoading />}>
+          <Routes>
+            <Route path="/sign-in" element={<SignIn />} />
+            {getRoutes(MENU_ITEMS)}
+            {pageRoutes.map((route) => (
+              <Route
+                key={route.id}
+                path={route.route}
+                element={<ProtectedRoutes>{route.component}</ProtectedRoutes>}
+              />
+            ))}
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
+        </Suspense>
       </ThemeProvider>
     </CacheProvider>
   );

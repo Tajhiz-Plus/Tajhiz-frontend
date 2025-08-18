@@ -43,12 +43,6 @@ function RTL() {
     return () => setDirection(dispatch, "ltr");
   }, []);
 
-  // useEffect(() => {
-  //   get("/users")
-  //     .then((users) => console.log(users))
-  //     .catch((err) => toast.error("Failed to fetch users"));
-  // }, []);
-
   return (
     <DashboardLayout>
       <DashboardNavbar />

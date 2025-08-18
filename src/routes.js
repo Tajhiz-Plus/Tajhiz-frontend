@@ -3,14 +3,16 @@ import NewProduct from "layouts/ecommerce/products/new-product";
 import Icon from "@mui/material/Icon";
 import Dashboard from "layouts/Dashboard/Dashboard";
 import Users from "layouts/Users/Users";
-import Roles from "layouts/Roles/Roles";
+import React, { lazy } from "react";
 import Products from "layouts/Products/Products";
 import Orders from "layouts/Orders/Orders";
 import Categories from "layouts/Categories/Categories";
 import Permissions from "layouts/Permissions/Permissions";
 import Reports from "layouts/Reports/Reports";
+import { CircularProgress } from "@mui/material";
+const Roles = lazy(() => import("layouts/Roles/Roles"));
 
-const routes = [
+export const routes = [
   {
     type: "collapse",
     name: "الرئيسية",
@@ -109,4 +111,55 @@ const routes = [
   },
 ];
 
-export default routes;
+export const managerRoutes = [
+  {
+    type: "collapse",
+    name: "الرئيسية",
+    key: "dashboard",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/dashboard",
+    component: <Dashboard />,
+    noCollapse: true,
+    protected: true,
+  },
+  {
+    type: "collapse",
+    name: "المنتجات",
+    key: "products",
+    route: "/products",
+    icon: <Icon fontSize="small">shop</Icon>,
+    component: <NewProduct />,
+    noCollapse: true,
+    protected: true,
+  },
+  {
+    type: "collapse",
+    name: "التصنيفات",
+    key: "categories",
+    icon: <Icon fontSize="small">category</Icon>,
+    route: "/categories",
+    component: <Categories />,
+    noCollapse: true,
+    protected: true,
+  },
+  {
+    type: "collapse",
+    name: "الطلبات",
+    key: "orders",
+    icon: <Icon fontSize="small">shopping_cart</Icon>,
+    route: "/orders",
+    component: <Orders />,
+    noCollapse: true,
+    protected: true,
+    // collapse: [
+    //   {
+    //     name: "الطلبات فرعي",
+    //     key: "projects",
+    //     noCollapse: true,
+    //     icon: <Icon fontSize="small">apps</Icon>,
+    //     route: "/orders",
+    //     component: <Kanban />,
+    //   },
+    // ],
+  },
+];

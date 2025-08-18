@@ -12,6 +12,10 @@ import { useNavigate } from "react-router-dom";
 function RolesTable() {
   const [selectedRole, setSelectedRole] = React.useState(null);
   const navigate = useNavigate();
+  const updateRole = useDisclosure();
+  const deleteRole = useDisclosure();
+  const addRole = useDisclosure();
+
   const {
     data: rolesData,
     isLoading: rolesLoading,
@@ -19,9 +23,6 @@ function RolesTable() {
   } = useFetchRoles();
 
   const roles = rolesData?.data?.roles ?? [];
-  const updateRole = useDisclosure();
-  const deleteRole = useDisclosure();
-  const addRole = useDisclosure();
 
   const openUpdateDialog = (role) => {
     updateRole.onOpen();
@@ -79,7 +80,6 @@ function RolesTable() {
 
   return (
     <>
-      {" "}
       <TableComponent
         table={tableData}
         isSorted={false}
