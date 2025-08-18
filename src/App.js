@@ -135,7 +135,7 @@ export default function App() {
   );
 
   if (!ready) {
-    return <div>Loading...</div>; // 👈 render a loader but AFTER hooks
+    return <div>Loading...</div>;
   }
 
   return (

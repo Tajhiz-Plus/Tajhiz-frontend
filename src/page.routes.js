@@ -5,7 +5,8 @@
 */
 
 import Profile from "layouts/Profile/Profile";
-import RolesEdit from "layouts/RolesEdit/RolesEdit";
+import { lazy } from "react";
+const RolesEdit = lazy(() => import("layouts/RolesEdit/RolesEdit"));
 
 const pageRoutes = [
   { id: 1, name: "profile", route: "/profile", component: <Profile /> },

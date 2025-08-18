@@ -7,10 +7,10 @@ import React, { lazy } from "react";
 import Products from "layouts/Products/Products";
 import Orders from "layouts/Orders/Orders";
 import Categories from "layouts/Categories/Categories";
-import Permissions from "layouts/Permissions/Permissions";
 import Reports from "layouts/Reports/Reports";
-import { CircularProgress } from "@mui/material";
+
 const Roles = lazy(() => import("layouts/Roles/Roles"));
+const Permissions = lazy(() => import("layouts/Permissions/Permissions"));
 
 export const routes = [
   {
