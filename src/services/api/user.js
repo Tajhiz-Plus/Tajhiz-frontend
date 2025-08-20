@@ -8,3 +8,12 @@ export const getUsers = async ({ page, searchParam, limit }) => {
   );
   return res.data;
 };
+
+export const addUser = (payload) =>
+  API.post(`/api/v1/auth/register`, payload).then((r) => r.data);
+
+export const updateUser = (userId, payload) =>
+  API.put(`/api/v1/dashboard/users/${userId}`, payload).then((r) => r.data);
+
+export const deleteUser = (userId) =>
+  API.delete(`/api/v1/dashboard/users/${userId}`).then((r) => r.data);

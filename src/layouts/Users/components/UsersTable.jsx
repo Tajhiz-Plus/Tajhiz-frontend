@@ -1,19 +1,17 @@
-import { Box, Button, Icon, Pagination } from "@mui/material";
+import { Icon } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import UpdateRoleDialog from "./UpdateRoleDialog";
+import UpdateUserDialog from "./UpdateUserDialog";
 import { useDisclosure } from "shared/hooks/useDisclosure";
-import DeleteRoleDialog from "./DeleteRoleDialog";
-import AddNewRoleDialog from "./AddNewRoleDialog";
-import TableComponent from "layouts/authentication/components/TableComponent/TableComponent";
+import DeleteUserDialog from "./DeleteUserDialog";
+import AddNewUserDialog from "./AddNewUserDialog";
 import TableSkeleton from "components/TableSkeleton/TableSkeleton";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useFetchUsers } from "services/queries/users/useFetchUsers";
 import TableWithServerPagination from "layouts/authentication/components/TableWithServerPagination/TableWithServerPagination";
 import { useAsyncDebounce } from "react-table";
-import MDBox from "components/MDBox";
-import MDInput from "components/MDInput";
+import TableHeader from "./TableHeader";
 
-const LIMIT_PAGE = 20;
+const LIMIT_PAGE = 10;
 
 function UsersTable() {
   const [search, setSearch] = useState();
@@ -21,29 +19,32 @@ function UsersTable() {
   const page = Number(sp.get("page") || 1);
   const searchParam = sp.get("search") || "";
 
-  // const [selectedRole, setSelectedRole] = React.useState(null);
-  const navigate = useNavigate();
-  // const updateRole = useDisclosure();
-  // const deleteRole = useDisclosure();
-  const addRole = useDisclosure();
+  const [selectedUser, setSelectedUser] = React.useState(null);
+  const updateUser = useDisclosure();
+  const deleteUser = useDisclosure();
+  const addUser = useDisclosure();
   const {
     data: usersData,
     isLoading: usersLoading,
     isError: usersError,
     refetch: refreshUsers,
-  } = useFetchUsers({ page, searchParam, limit: LIMIT_PAGE });
+  } = useFetchUsers({
+    page,
+    searchParam: search ? searchParam : undefined,
+    limit: LIMIT_PAGE,
+  });
 
   const users = usersData?.data?.users ?? [];
 
-  // const openUpdateDialog = (role) => {
-  //   updateRole.onOpen();
-  //   setSelectedRole(role);
-  // };
+  const openUpdateDialog = (role) => {
+    updateUser.onOpen();
+    setSelectedUser(role);
+  };
 
-  // const openDeleteDialog = (role) => {
-  //   deleteRole.onOpen();
-  //   setSelectedRole(role);
-  // };
+  const openDeleteDialog = (role) => {
+    deleteUser.onOpen();
+    setSelectedUser(role);
+  };
 
   const handlePageChange = (_e, p) => {
     const next = new URLSearchParams(sp);
@@ -68,15 +69,16 @@ function UsersTable() {
     users.length > 0
       ? {
           columns: [
-            { Header: "الاسم", accessor: "name", width: "5%" },
+            { Header: "الاسم", accessor: "name", width: "20%" },
             { Header: "البريد الإلكتروني", accessor: "email", width: "16%" },
             { Header: "رقم الهاتف", accessor: "phone", width: "14%" },
             { Header: "الدور", accessor: "role", width: "14%" },
+            { Header: "الإجراءات", accessor: "actions", width: "10%" },
           ],
           rows: users?.map((user) => ({
             id: user.id,
             name: user.fullName,
-            email: user.email,
+            email: user.email || "لا يوجد",
             phone: user.phoneNumber || "لا يوجد",
             role: user.role?.nameAr || "غير محدد",
             actions: (
@@ -94,12 +96,6 @@ function UsersTable() {
                   >
                     delete
                   </Icon>
-                  <Icon
-                    style={{ cursor: "pointer", color: "#379C7C" }}
-                    onClick={() => navigate(`/users/${user.id}`)}
-                  >
-                    lock
-                  </Icon>
                 </div>
               </>
             ),
@@ -111,36 +107,12 @@ function UsersTable() {
 
   return (
     <>
-      <MDBox
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        width="100%"
-        p={3}
-      >
-        <MDBox width="12rem">
-          <MDInput
-            placeholder="Search..."
-            value={search}
-            size="small"
-            fullWidth
-            onChange={({ currentTarget }) => {
-              setSearch(currentTarget.value);
-              onSearchChange(currentTarget.value);
-            }}
-          />
-        </MDBox>
-        <Box>
-          {" "}
-          <Button
-            variant="contained"
-            sx={{ color: "#FFF" }}
-            onClick={() => addRole.onOpen()}
-          >
-            إضافة دور
-          </Button>
-        </Box>
-      </MDBox>
+      <TableHeader
+        search={search}
+        setSearch={setSearch}
+        onSearchChange={onSearchChange}
+        addUser={addUser}
+      />
       {usersLoading ? (
         <TableSkeleton table={tableData} rows={6} columns={3} />
       ) : (
@@ -156,21 +128,22 @@ function UsersTable() {
         />
       )}
 
-      {/* {selectedRole && (
-        <UpdateRoleDialog
-          open={updateRole.open}
-          onClose={updateRole.onClose}
-          role={selectedRole}
+      {selectedUser && (
+        <UpdateUserDialog
+          open={updateUser.open}
+          onClose={updateUser.onClose}
+          user={selectedUser}
         />
       )}
-      {selectedRole && (
-        <DeleteRoleDialog
-          open={deleteRole.open}
-          onClose={deleteRole.onClose}
-          roleId={selectedRole?.id}
+      {selectedUser && (
+        <DeleteUserDialog
+          open={deleteUser.open}
+          onClose={deleteUser.onClose}
+          userId={selectedUser?.id}
         />
       )}
-      <AddNewRoleDialog open={addRole.open} onClose={addRole.onClose} /> */}
+
+      <AddNewUserDialog open={addUser.open} onClose={addUser.onClose} />
     </>
   );
 }

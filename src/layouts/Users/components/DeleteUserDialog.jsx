@@ -11,13 +11,13 @@ import {
   Box,
 } from "@mui/material";
 import { toast } from "react-toastify";
-import { useDeleteRole } from "services/mutations/roles/useDeleteRole";
+import { useDeleteUser } from "services/mutations/users/useDeleteUser";
 
-export default function DeleteRoleDialog({ open, onClose, roleId }) {
-  const { mutate: deleteRoleMutation, isPending: isDeleteLoading } =
-    useDeleteRole({
+export default function DeleteUserDialog({ open, onClose, userId }) {
+  const { mutate: deleteUserMutation, isPending: isDeleteLoading } =
+    useDeleteUser({
       onSuccess: () => {
-        toast.success("تم حذف الدور بنجاح");
+        toast.success("تم حذف المستخدم بنجاح");
         onClose();
       },
       onError: (error) => {
@@ -26,7 +26,7 @@ export default function DeleteRoleDialog({ open, onClose, roleId }) {
     });
 
   const handleDelete = () => {
-    deleteRoleMutation({ roleId });
+    deleteUserMutation({ userId });
   };
 
   return (
@@ -50,7 +50,7 @@ export default function DeleteRoleDialog({ open, onClose, roleId }) {
         </Box>
       </DialogTitle>
       <DialogContent sx={{ textAlign: "center" }}>
-        <Typography>هل أنت متأكد أنك تريد حذف الدور </Typography>
+        <Typography>هل أنت متأكد أنك تريد حذف المستخدم </Typography>
       </DialogContent>
 
       <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
