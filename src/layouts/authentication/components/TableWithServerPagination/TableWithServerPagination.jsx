@@ -45,16 +45,20 @@ function TableWithServerPagination({
   const entries = entriesPerPage.entries
     ? entriesPerPage.entries.map((el) => el.toString())
     : ["5", "10", "15", "20", "25"];
-  const columns = useMemo(() => table.columns, [table]);
-  const data = useMemo(() => table.rows, [table]);
+
+  const columns = useMemo(() => table?.columns ?? [], [table]);
+  const data = useMemo(() => table?.rows ?? [], [table]);
 
   const tableInstance = useTable(
-    { columns, data, initialState: { pageIndex: 0 } },
+    {
+      columns: columns ?? [],
+      data: data ?? [],
+      initialState: { pageIndex: 0 },
+    },
     useGlobalFilter,
     useSortBy,
     usePagination
   );
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -120,9 +124,9 @@ function TableWithServerPagination({
     >
       <Table sx={{ direction: "ltr" }} {...getTableProps()}>
         <MDBox component="thead">
-          {headerGroups.map((headerGroup, key) => (
+          {headerGroups?.map((headerGroup, key) => (
             <TableRow key={key} {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column, idx) => (
+              {headerGroup?.headers?.map((column, idx) => (
                 <DataTableHeadCell
                   key={idx}
                   {...column.getHeaderProps(

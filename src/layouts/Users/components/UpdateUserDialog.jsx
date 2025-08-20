@@ -34,6 +34,10 @@ const validationSchema = yup.object({
       "كلمة المرور يجب أن تحتوي على حرف صغير، حرف كبير ورقم"
     ),
   roleId: yup.string().required("اختيار الدور مطلوب"),
+  phoneNumber: yup
+    .string()
+    .required("رقم الجوال مطلوب")
+    .matches(/^(\+9665\d{8}|05\d{8})$/, "رقم جوال غير صالح"),
 });
 
 export default function UpdateUserDialog({ open, onClose, user }) {
@@ -44,10 +48,11 @@ export default function UpdateUserDialog({ open, onClose, user }) {
       email: user?.email || "",
       password: "",
       roleId: user?.role.id || "",
+      phoneNumber: user?.phoneNumber || "",
     },
     validationSchema,
     onSubmit: (values) => {
-      handleEdit(user.id, values);
+      handleEdit(user?.id, values);
     },
     validateOnBlur: true,
     validateOnChange: false,
@@ -120,12 +125,27 @@ export default function UpdateUserDialog({ open, onClose, user }) {
                 },
               }}
             >
-              {rolesData?.data?.roles.map((role) => (
-                <MenuItem key={role.id} value={role?.id}>
-                  {role.nameAr || role.nameEn}
+              {(rolesData?.data?.roles ?? []).map((role) => (
+                <MenuItem key={role?.id} value={role?.id}>
+                  {role?.nameAr || role?.nameEn}
                 </MenuItem>
-              ))}{" "}
+              ))}
             </TextField>
+            <TextField
+              label="رقم الجوال"
+              name="phoneNumber"
+              placeholder="ادخل رقم الجوال"
+              value={formik.values.phoneNumber || ""}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={Boolean(
+                formik.touched.phoneNumber && formik.errors.phoneNumber
+              )}
+              helperText={
+                formik.touched.phoneNumber && formik.errors.phoneNumber
+              }
+              fullWidth
+            />
 
             <TextField
               label="كلمة المرور"

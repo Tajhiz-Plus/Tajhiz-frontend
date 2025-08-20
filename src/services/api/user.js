@@ -10,7 +10,7 @@ export const getUsers = async ({ page, searchParam, limit }) => {
 };
 
 export const addUser = (payload) =>
-  API.post(`/api/v1/auth/register`, payload).then((r) => r.data);
+  API.post(`/api/v1/dashboard/users`, payload).then((r) => r.data);
 
 export const updateUser = (userId, payload) =>
   API.put(`/api/v1/dashboard/users/${userId}`, payload).then((r) => r.data);

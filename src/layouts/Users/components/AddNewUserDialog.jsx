@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Dialog,
   DialogTitle,
@@ -8,12 +8,13 @@ import {
   Button,
   Stack,
   CircularProgress,
+  MenuItem,
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { useAddRole } from "services/mutations/roles/useAddRole";
 import { useAddUser } from "services/mutations/users/useAddUser";
+import { useFetchRoles } from "services/queries/roles/useFetchRoles";
 
 const validationSchema = yup.object({
   fullName: yup
@@ -33,6 +34,11 @@ const validationSchema = yup.object({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,128}$/,
       "كلمة المرور يجب أن تحتوي على حرف صغير، حرف كبير ورقم"
     ),
+  roleId: yup.string().required("اختيار الدور مطلوب"),
+  phoneNumber: yup
+    .string()
+    .required("رقم الجوال مطلوب")
+    .matches(/^(\+9665\d{8}|05\d{8})$/, "رقم جوال غير صالح"),
 });
 
 export default function AddNewUserDialog({ open, onClose }) {
@@ -41,6 +47,8 @@ export default function AddNewUserDialog({ open, onClose }) {
       fullName: "",
       email: "",
       password: "",
+      roleId: "",
+      phoneNumber: "",
     },
     validationSchema,
     onSubmit: (values) => {
@@ -49,6 +57,8 @@ export default function AddNewUserDialog({ open, onClose }) {
     validateOnBlur: true,
     validateOnChange: false,
   });
+
+  const { data: rolesData, isLoading: rolesLoading } = useFetchRoles();
 
   const { mutate: addUserMutation, isPending: isAddLoading } = useAddUser({
     onSuccess: () => {
@@ -97,6 +107,46 @@ export default function AddNewUserDialog({ open, onClose }) {
               onBlur={formik.handleBlur}
               error={Boolean(formik.touched.email && formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
+              fullWidth
+            />
+
+            <TextField
+              select
+              label="اختر الدور"
+              name="roleId"
+              value={formik?.values?.roleId}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={Boolean(formik.touched.roleId && formik.errors.roleId)}
+              helperText={formik.touched.roleId && formik.errors.roleId}
+              fullWidth
+              disabled={rolesLoading}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  padding: "0.7rem 0rem",
+                },
+              }}
+            >
+              {(rolesData?.data?.roles ?? []).map((role) => (
+                <MenuItem key={role?.id} value={role?.id}>
+                  {role?.nameAr || role?.nameEn}
+                </MenuItem>
+              ))}
+            </TextField>
+
+            <TextField
+              label="رقم الجوال"
+              name="phoneNumber"
+              placeholder="ادخل رقم الجوال"
+              value={formik.values.phoneNumber || ""}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={Boolean(
+                formik.touched.phoneNumber && formik.errors.phoneNumber
+              )}
+              helperText={
+                formik.touched.phoneNumber && formik.errors.phoneNumber
+              }
               fullWidth
             />
 

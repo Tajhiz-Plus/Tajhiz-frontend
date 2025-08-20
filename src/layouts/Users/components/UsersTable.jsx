@@ -117,7 +117,7 @@ function UsersTable() {
         <TableSkeleton table={tableData} rows={6} columns={3} />
       ) : (
         <TableWithServerPagination
-          table={tableData}
+          table={tableData ?? { columns: [], rows: [] }}
           isSorted={false}
           entriesPerPage={false}
           showTotalEntries={false}
