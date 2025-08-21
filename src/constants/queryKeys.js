@@ -5,4 +5,5 @@ export const QUERY_KEYS = {
   ROLE_DETAILS: "roleDetails",
   ROLE_PERMISSIONS: "rolePermissions",
   USERS: "users",
+  CATEGORIES: "categories",
 };
