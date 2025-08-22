@@ -3,7 +3,7 @@ import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import React from "react";
 
-function TableHeader({ search, setSearch, onSearchChange, addUser }) {
+function CategoriesTableHeader({ search, setSearch, onSearchChange, addCategory }) {
   return (
     <MDBox
       display="flex"
@@ -29,13 +29,13 @@ function TableHeader({ search, setSearch, onSearchChange, addUser }) {
         <Button
           variant="contained"
           sx={{ color: "#FFF" }}
-          onClick={() => addUser.onOpen()}
+          onClick={() => addCategory.onOpen()}
         >
-          إضافة مستخدم
+          إضافة تصنيف
         </Button>
       </Box>
     </MDBox>
   );
 }
 
-export default TableHeader;
+export default CategoriesTableHeader;

@@ -3,15 +3,16 @@ import React, { useEffect, useState } from "react";
 import UpdateUserDialog from "./UpdateUserDialog";
 import { useDisclosure } from "shared/hooks/useDisclosure";
 import DeleteUserDialog from "./DeleteUserDialog";
-import AddNewUserDialog from "./AddNewUserDialog";
+import AddNewCategoryDialog from "./AddNewCategoryDialog";
 import TableSkeleton from "components/TableSkeleton/TableSkeleton";
 import { useSearchParams } from "react-router-dom";
 import TableWithServerPagination from "layouts/authentication/components/TableWithServerPagination/TableWithServerPagination";
 import { useAsyncDebounce } from "react-table";
-import TableHeader from "./TableHeader";
+import TableHeader from "./CategoriesTableHeader";
 import { useFetchCategories } from "services/queries/categories/useFetchCategories";
+import { useFetchCategoriesTypes } from "services/queries/categories/useFetchCategories";
 
-const LIMIT_PAGE = 5;
+const LIMIT_PAGE = 10;
 
 function CategoriesTable() {
   const [search, setSearch] = useState();
@@ -34,10 +35,15 @@ function CategoriesTable() {
     searchParam: search ? searchParam : undefined,
     limit: LIMIT_PAGE,
   });
+  const {
+    data: categoriesTypesData,
+    isLoading: typesLoading,
+    isError: typesError,
+    refetch: refreshtypes,
+  } = useFetchCategoriesTypes();
 
   const categories = categoriesData?.data?.categories ?? [];
-
-  console.log("categories", categories);
+  const types = categoriesTypesData?.data ?? [];
 
   const openUpdateDialog = (role) => {
     updateCategory.onOpen();
@@ -77,48 +83,56 @@ function CategoriesTable() {
             { Header: "الوصف", accessor: "description", width: "14%" },
             { Header: "الإجراءات", accessor: "actions", width: "10%" },
           ],
-          rows: categories?.map((category) => ({
-            id: category.id,
-            name: (
-              <>
-                <div
-                  style={{ display: "flex", gap: "8px", alignItems: "center" }}
-                >
-                  <img
-                    src={category.image}
-                    alt={category.nameAr}
+          rows: categories?.map((category) => {
+            return {
+              id: category.id,
+              name: (
+                <>
+                  <div
                     style={{
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "50%",
+                      display: "flex",
+                      gap: "8px",
+                      alignItems: "center",
                     }}
-                  />
-                  <span>{category.nameAr}</span>
-                </div>
-              </>
-            ),
-            categoryType: category.categoryType.nameAr || "لا يوجد",
-            description: category.descriptionAr || "لا يوجد",
-            role: category.role?.nameAr || "غير محدد",
-            actions: (
-              <>
-                <div style={{ display: "flex", gap: "8px" }}>
-                  <Icon
-                    style={{ cursor: "pointer" }}
-                    onClick={() => openUpdateDialog(category)}
                   >
-                    edit
-                  </Icon>
-                  <Icon
-                    style={{ cursor: "pointer", color: "red" }}
-                    onClick={() => openDeleteDialog(category)}
-                  >
-                    delete
-                  </Icon>
-                </div>
-              </>
-            ),
-          })),
+                    <img
+                      src={category.imageUrl || ""}
+                      alt={category.nameAr}
+                      width={40}
+                      height={40}
+                      style={{
+                        borderRadius: "50%",
+                      }}
+                      crossOrigin="anonymous"
+                    />
+
+                    <span>{category.nameAr}</span>
+                  </div>
+                </>
+              ),
+              categoryType: category.categoryType.nameAr || "لا يوجد",
+              description: category.descriptionAr || "لا يوجد",
+              role: category.role?.nameAr || "غير محدد",
+              actions: (
+                <>
+                  <div style={{ display: "flex", gap: "8px" }}>
+                    <Icon
+                      style={{ cursor: "pointer" }}
+                      onClick={() => openUpdateDialog(category)}
+                    >
+                      edit
+                    </Icon>
+                    <Icon
+                      style={{ cursor: "pointer", color: "red" }}
+                      onClick={() => openDeleteDialog(category)}
+                    >
+                      delete
+                    </Icon>
+                  </div>
+                </>
+              ),
+            };
+          }),
         }
       : {};
 
@@ -162,7 +176,12 @@ function CategoriesTable() {
         />
       )}
 
-      <AddNewUserDialog open={addCategory.open} onClose={addCategory.onClose} />
+      <AddNewCategoryDialog
+        open={addCategory.open}
+        onClose={addCategory.onClose}
+        categoryTypes={types}
+        isLoading={typesLoading}
+      />
     </>
   );
 }
