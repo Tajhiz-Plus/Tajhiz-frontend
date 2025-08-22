@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/Tajhiz-frontend/static/css/main.b7a2f809.css",
-    "main.js": "/Tajhiz-frontend/static/js/main.a362996d.js",
-    "static/js/77.1268fe58.chunk.js": "/Tajhiz-frontend/static/js/77.1268fe58.chunk.js",
-    "static/js/29.3eeac499.chunk.js": "/Tajhiz-frontend/static/js/29.3eeac499.chunk.js",
-    "static/js/5.24c1222f.chunk.js": "/Tajhiz-frontend/static/js/5.24c1222f.chunk.js",
+    "main.js": "/Tajhiz-frontend/static/js/main.f32955ec.js",
+    "static/js/683.c862842b.chunk.js": "/Tajhiz-frontend/static/js/683.c862842b.chunk.js",
+    "static/js/29.a49c01ec.chunk.js": "/Tajhiz-frontend/static/js/29.a49c01ec.chunk.js",
+    "static/js/5.a9c8a311.chunk.js": "/Tajhiz-frontend/static/js/5.a9c8a311.chunk.js",
     "static/media/Background.png": "/Tajhiz-frontend/static/media/Background.a32eedadead8d33106d0.png",
     "static/media/bg-profile.jpeg": "/Tajhiz-frontend/static/media/bg-profile.af1219a742e09fc7b612.jpeg",
     "static/media/photo-tools.jpeg": "/Tajhiz-frontend/static/media/photo-tools.30dae586cc4e5424fd81.jpeg",
@@ -32,6 +32,6 @@
   },
   "entrypoints": [
     "static/css/main.b7a2f809.css",
-    "static/js/main.a362996d.js"
+    "static/js/main.f32955ec.js"
   ]
 }
