@@ -18,3 +18,9 @@ export const addCategory = (formData) =>
     headers: { "Content-Type": "multipart/form-data" },
     transformRequest: (v) => v,
   }).then((r) => r.data);
+
+export const updateCategory = (id, formData) =>
+  API.put(`/api/v1/dashboard/categories/${id}`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+    transformRequest: (v) => v,
+  }).then((r) => r.data);

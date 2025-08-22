@@ -11,6 +11,7 @@ import { useAsyncDebounce } from "react-table";
 import TableHeader from "./CategoriesTableHeader";
 import { useFetchCategories } from "services/queries/categories/useFetchCategories";
 import { useFetchCategoriesTypes } from "services/queries/categories/useFetchCategories";
+import UpdateCategoryDialog from "./UpdateCategoryDialog";
 
 const LIMIT_PAGE = 10;
 
@@ -162,10 +163,11 @@ function CategoriesTable() {
       )}
 
       {selectedCategory && (
-        <UpdateUserDialog
+        <UpdateCategoryDialog
           open={updateCategory.open}
           onClose={updateCategory.onClose}
           category={selectedCategory}
+          categoryTypes={types}
         />
       )}
       {selectedCategory && (
