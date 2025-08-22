@@ -24,3 +24,6 @@ export const updateCategory = (id, formData) =>
     headers: { "Content-Type": "multipart/form-data" },
     transformRequest: (v) => v,
   }).then((r) => r.data);
+
+export const deleteCategory = (categoryId) =>
+  API.delete(`/api/v1/dashboard/categories/${categoryId}`).then((r) => r.data);

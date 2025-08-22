@@ -11,13 +11,13 @@ import {
   Box,
 } from "@mui/material";
 import { toast } from "react-toastify";
-import { useDeleteUser } from "services/mutations/users/useDeleteUser";
+import { useDeleteCategory } from "services/mutations/categories/useDeleteUser";
 
-export default function DeleteUserDialog({ open, onClose, userId }) {
+export default function DeleteCategoryDialog({ open, onClose, categoryId }) {
   const { mutate: deleteUserMutation, isPending: isDeleteLoading } =
-    useDeleteUser({
+    useDeleteCategory({
       onSuccess: () => {
-        toast.success("تم حذف المستخدم بنجاح");
+        toast.success("تم حذف التصنيف بنجاح");
         onClose();
       },
       onError: (error) => {
@@ -26,7 +26,7 @@ export default function DeleteUserDialog({ open, onClose, userId }) {
     });
 
   const handleDelete = () => {
-    deleteUserMutation({ userId });
+    deleteUserMutation({ categoryId });
   };
 
   return (
@@ -50,7 +50,7 @@ export default function DeleteUserDialog({ open, onClose, userId }) {
         </Box>
       </DialogTitle>
       <DialogContent sx={{ textAlign: "center" }}>
-        <Typography>هل أنت متأكد أنك تريد حذف المستخدم </Typography>
+        <Typography>هل أنت متأكد أنك تريد حذف التصنيف </Typography>
       </DialogContent>
 
       <DialogActions sx={{ display: "flex", justifyContent: "center" }}>

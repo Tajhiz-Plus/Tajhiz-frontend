@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "constants/queryKeys";
-import { deleteUser } from "services/api/user";
+import { deleteCategory } from "services/api/categories";
 
-const usersKey = [{ scope: QUERY_KEYS.USERS }];
+const categoriesKey = [{ scope: QUERY_KEYS.CATEGORIES }];
 
-export const useDeleteUser = ({ onSuccess, onError }) => {
+export const useDeleteCategory = ({ onSuccess, onError }) => {
   const qc = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ userId }) => deleteUser(userId),
+    mutationFn: ({ categoryId }) => deleteCategory(categoryId),
 
     onSuccess: (data, variables, context) => {
-      qc.invalidateQueries({ queryKey: usersKey });
+      qc.invalidateQueries({ queryKey: categoriesKey });
       onSuccess?.(data, variables, context);
     },
 

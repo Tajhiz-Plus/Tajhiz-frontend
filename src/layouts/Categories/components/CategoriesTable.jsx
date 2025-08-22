@@ -1,8 +1,6 @@
 import { Icon } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import UpdateUserDialog from "./UpdateUserDialog";
 import { useDisclosure } from "shared/hooks/useDisclosure";
-import DeleteUserDialog from "./DeleteUserDialog";
 import AddNewCategoryDialog from "./AddNewCategoryDialog";
 import TableSkeleton from "components/TableSkeleton/TableSkeleton";
 import { useSearchParams } from "react-router-dom";
@@ -12,6 +10,7 @@ import TableHeader from "./CategoriesTableHeader";
 import { useFetchCategories } from "services/queries/categories/useFetchCategories";
 import { useFetchCategoriesTypes } from "services/queries/categories/useFetchCategories";
 import UpdateCategoryDialog from "./UpdateCategoryDialog";
+import DeleteCategoryDialog from "./DeleteCategoryDialog";
 
 const LIMIT_PAGE = 10;
 
@@ -171,10 +170,10 @@ function CategoriesTable() {
         />
       )}
       {selectedCategory && (
-        <DeleteUserDialog
+        <DeleteCategoryDialog
           open={deleteCategory.open}
           onClose={deleteCategory.onClose}
-          userId={selectedCategory?.id}
+          categoryId={selectedCategory?.id}
         />
       )}
 
