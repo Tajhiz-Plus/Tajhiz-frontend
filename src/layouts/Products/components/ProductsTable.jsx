@@ -24,6 +24,7 @@ function ProductsTable() {
   const updateProduct = useDisclosure();
   const deleteProduct = useDisclosure();
   const addProduct = useDisclosure();
+
   const {
     data: productsData,
     isLoading: productsLoading,
@@ -203,7 +204,10 @@ function ProductsTable() {
         />
       )}
 
-      <AddNewProductDialog open={addProduct.open} onClose={addProduct.onClose} />
+      <AddNewProductDialog
+        open={addProduct.open}
+        onClose={addProduct.onClose}
+      />
     </>
   );
 }

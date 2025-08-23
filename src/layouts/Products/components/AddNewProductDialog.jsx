@@ -80,7 +80,7 @@ export default function AddNewProductDialog({ open, onClose }) {
     onClose();
   };
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+    <Dialog open={open} onClose={handleClose} fullWidth fullScreen>
       <DialogTitle>إضافة مستخدم جديد</DialogTitle>
 
       <form onSubmit={formik.handleSubmit}>
