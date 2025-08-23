@@ -110,7 +110,7 @@ export default function UpdateCategoryDialog({
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-      <DialogTitle>إضافة قسم جديد</DialogTitle>
+      <DialogTitle>تعديل قسم {category?.nameAr || ""}</DialogTitle>
 
       <form onSubmit={formik.handleSubmit}>
         <DialogContent>

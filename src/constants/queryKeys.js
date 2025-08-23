@@ -7,4 +7,5 @@ export const QUERY_KEYS = {
   USERS: "users",
   CATEGORIES: "categories",
   CATEGORIES_TYPES: "categoriesTypes",
+  PRODUCTS: "products",
 };

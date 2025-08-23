@@ -4,13 +4,13 @@ import Icon from "@mui/material/Icon";
 import Dashboard from "layouts/Dashboard/Dashboard";
 import Users from "layouts/Users/Users";
 import React, { lazy } from "react";
-import Products from "layouts/Products/Products";
 import Orders from "layouts/Orders/Orders";
 import Categories from "layouts/Categories/Categories";
 import Reports from "layouts/Reports/Reports";
 
 const Roles = lazy(() => import("layouts/Roles/Roles"));
 const Permissions = lazy(() => import("layouts/Permissions/Permissions"));
+const Products = lazy(() => import("layouts/Products/Products"));
 
 export const routes = [
   {
@@ -29,7 +29,7 @@ export const routes = [
     key: "products",
     route: "/products",
     icon: <Icon fontSize="small">shop</Icon>,
-    component: <NewProduct />,
+    component: <Products />,
     noCollapse: true,
     protected: true,
   },
