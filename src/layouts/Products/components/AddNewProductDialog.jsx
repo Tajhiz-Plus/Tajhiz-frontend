@@ -9,163 +9,417 @@ import {
   Stack,
   CircularProgress,
   MenuItem,
+  FormControlLabel,
+  Switch,
+  Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { useAddUser } from "services/mutations/users/useAddUser";
-import { useFetchRoles } from "services/queries/roles/useFetchRoles";
+import SearchSelect from "components/SearchSelect/SearchSelect";
+import { colorsSelect } from "constants/constants";
+import { useAddProduct } from "services/mutations/products/useAddProduct";
+import { useFetchCategories } from "services/queries/categories/useFetchCategories";
+import { useFetchSubcategories } from "services/queries/categories/useFetchCategories";
 
-const validationSchema = yup.object({
-  fullName: yup
+const MAX_IMAGES = 3;
+const IMG_TYPES = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
+
+const schema = yup.object({
+  nameEn: yup.string().required("الاسم بالإنجليزية مطلوب").max(200),
+  nameAr: yup.string().required("الاسم بالعربية مطلوب").max(200),
+  descriptionEn: yup.string().max(5000),
+  descriptionAr: yup.string().max(5000),
+
+  price: yup
+    .number()
+    .typeError("السعر يجب أن يكون رقمًا")
+    .required("السعر مطلوب")
+    .min(0, "السعر لا يقل عن 0"),
+  discountPrice: yup
+    .number()
+    .typeError("سعر الخصم يجب أن يكون رقمًا")
+    .min(0, "سعر الخصم لا يقل عن 0")
+    .nullable(),
+
+  colors: yup
+    .array()
+    .of(
+      yup.object({
+        id: yup.mixed().required(),
+        label: yup.string().required(),
+      })
+    )
+    .min(1, "اختر لونًا واحدًا على الأقل")
+    .required("اختر لونًا واحدًا على الأقل"),
+
+  hasDelivery: yup.boolean().required(),
+  hasInstallation: yup.boolean().required(),
+  isActive: yup.boolean().required(),
+  isFeatured: yup.boolean().required(),
+
+  tags: yup
     .string()
-    .required("الاسم مطلوب")
-    .min(4, "الاسم يجب أن يكون على الأقل 4 حروف"),
-  email: yup
-    .string()
-    .required("البريد الإلكتروني مطلوب")
-    .email("البريد الإلكتروني غير صالح"),
-  password: yup
-    .string()
-    .required("كلمة المرور مطلوبة")
-    .min(8, "كلمة المرور يجب أن تكون 8 أحرف على الأقل")
-    .max(128, "كلمة المرور يجب ألا تتجاوز 128 حرف")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,128}$/,
-      "كلمة المرور يجب أن تحتوي على حرف صغير، حرف كبير ورقم"
+    .required("علامات المنتج مطلوبة")
+    .test(
+      "not-empty-tags",
+      "أدخل وسمًا واحدًا على الأقل",
+      (v) =>
+        (v || "")
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean).length > 0
     ),
-  roleId: yup.string().required("اختيار الدور مطلوب"),
-  phoneNumber: yup
-    .string()
-    .required("رقم الجوال مطلوب")
-    .matches(/^(\+9665\d{8}|05\d{8})$/, "رقم جوال غير صالح"),
+
+  categoryId: yup
+    .number()
+    .typeError("اختيار القسم مطلوب")
+    .required("اختيار القسم مطلوب"),
+  subCategoryId: yup.number().typeError("قيمة غير صحيحة").nullable(),
+
+  images: yup
+    .array()
+    .of(
+      yup
+        .mixed()
+        .test("fileType", "ملف الصورة يجب أن يكون صورة", (f) =>
+          f ? IMG_TYPES.includes(f.type) : false
+        )
+    )
+    .max(MAX_IMAGES, `الحد الأقصى للصور ${MAX_IMAGES}`)
+    .min(1, "أضف صورة واحدة على الأقل")
+    .required("الصور مطلوبة"),
 });
 
 export default function AddNewProductDialog({ open, onClose }) {
-  const formik = useFormik({
-    initialValues: {
-      fullName: "",
-      email: "",
-      password: "",
-      roleId: "",
-      phoneNumber: "",
-    },
-    validationSchema,
-    onSubmit: (values) => {
-      handleAdd(values);
-    },
-    validateOnBlur: true,
-    validateOnChange: false,
-  });
-
-  const { data: rolesData, isLoading: rolesLoading } = useFetchRoles();
-
-  const { mutate: addUserMutation, isPending: isAddLoading } = useAddUser({
+  const { mutate: addProduct, isPending } = useAddProduct({
     onSuccess: () => {
-      toast.success("تم إضافة مستخدم بنجاح");
+      toast.success("تم إضافة المنتج بنجاح");
       formik.resetForm();
-      onClose();
+      onClose?.();
     },
     onError: (error) => {
-      toast.error(`حدث خطأ: ${error.response.data.message}`);
+      const msg =
+        error?.response?.data?.message || error?.message || "حدث خطأ غير متوقع";
+      toast.error(`حدث خطأ: ${msg}`);
     },
   });
 
-  const handleAdd = (payload) => {
-    addUserMutation({ payload });
-  };
+  const { data: categoriesData, isLoading: categoriesLoading } =
+    useFetchCategories();
+
+  const { data: SubcategoriesData, isLoading: SubcategoriesLoading } =
+    useFetchSubcategories();
+
+  const categories = categoriesData?.data?.categories || [];
+  const subCategoryOptions = SubcategoriesData?.data || [];
+
+  const formik = useFormik({
+    initialValues: {
+      nameEn: "",
+      nameAr: "",
+      descriptionEn: "",
+      descriptionAr: "",
+      price: "",
+      discountPrice: "",
+      colors: [],
+      hasDelivery: false,
+      hasInstallation: false,
+      isActive: true,
+      isFeatured: false,
+      tags: "",
+      categoryId: "",
+      subCategoryId: "",
+      images: [],
+    },
+    validationSchema: schema,
+    validateOnBlur: true,
+    validateOnChange: false,
+    onSubmit: (values) => {
+      const fd = new FormData();
+      fd.append("nameEn", values.nameEn);
+      fd.append("nameAr", values.nameAr);
+      fd.append("descriptionEn", values.descriptionEn || "");
+      fd.append("descriptionAr", values.descriptionAr || "");
+      fd.append("price", Number(values.price));
+      if (values.discountPrice !== "" && values.discountPrice !== null) {
+        fd.append("discountPrice", Number(values.discountPrice));
+      }
+
+      const colorsCSV = values.colors.map((c) => c.value).join(",");
+      fd.append("colors", colorsCSV);
+
+      fd.append("hasDelivery", String(values.hasDelivery));
+      fd.append("hasInstallation", String(values.hasInstallation));
+      fd.append("isActive", String(values.isActive));
+      fd.append("isFeatured", String(values.isFeatured));
+
+      fd.append("tags", values.tags);
+
+      fd.append("categoryId", String(values.categoryId));
+      if (values.subCategoryId) {
+        fd.append("subCategoryId", String(values.subCategoryId));
+      }
+
+      (values.images || []).slice(0, MAX_IMAGES).forEach((file) => {
+        fd.append("images", file);
+      });
+
+      addProduct({ payload: fd });
+    },
+  });
 
   const handleClose = () => {
     formik.resetForm();
-    onClose();
+    onClose?.();
   };
-  return (
-    <Dialog open={open} onClose={handleClose} fullWidth fullScreen>
-      <DialogTitle>إضافة مستخدم جديد</DialogTitle>
 
-      <form onSubmit={formik.handleSubmit}>
+  return (
+    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
+      <DialogTitle>إضافة منتج جديد</DialogTitle>
+
+      <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
         <DialogContent>
           <Stack spacing={2}>
             <TextField
-              label="الإسم بالكامل"
-              name="fullName"
-              placeholder="ادخل اسم المستخدم "
-              value={formik.values.fullName}
+              label="اسم المنتج (بالإنجليزية)"
+              name="nameEn"
+              placeholder="Office Chair"
+              value={formik.values.nameEn}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={Boolean(formik.touched.fullName && formik.errors.fullName)}
-              helperText={formik.touched.fullName && formik.errors.fullName}
+              error={Boolean(formik.touched.nameEn && formik.errors.nameEn)}
+              helperText={formik.touched.nameEn && formik.errors.nameEn}
               fullWidth
             />
 
             <TextField
-              label="البرد الإلكتروني"
-              name="email"
-              placeholder="ادخل البريد الإلكتروني"
-              value={formik.values.email}
+              label="اسم المنتج (بالعربية)"
+              name="nameAr"
+              placeholder="كرسي مكتب"
+              value={formik.values.nameAr}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={Boolean(formik.touched.email && formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
+              error={Boolean(formik.touched.nameAr && formik.errors.nameAr)}
+              helperText={formik.touched.nameAr && formik.errors.nameAr}
+              fullWidth
+            />
+
+            <TextField
+              label="الوصف (EN)"
+              name="descriptionEn"
+              placeholder="Detailed English description"
+              value={formik.values.descriptionEn}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={Boolean(
+                formik.touched.descriptionEn && formik.errors.descriptionEn
+              )}
+              helperText={
+                formik.touched.descriptionEn && formik.errors.descriptionEn
+              }
+              fullWidth
+              multiline
+              minRows={2}
+            />
+
+            <TextField
+              label="الوصف (AR)"
+              name="descriptionAr"
+              placeholder="وصف عربي تفصيلي"
+              value={formik.values.descriptionAr}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={Boolean(
+                formik.touched.descriptionAr && formik.errors.descriptionAr
+              )}
+              helperText={
+                formik.touched.descriptionAr && formik.errors.descriptionAr
+              }
+              fullWidth
+              multiline
+              minRows={2}
+            />
+
+            <Stack direction="row" spacing={2}>
+              <TextField
+                label="السعر (SAR)"
+                name="price"
+                type="number"
+                inputProps={{ min: 0, step: "0.01" }}
+                value={formik.values.price}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={Boolean(formik.touched.price && formik.errors.price)}
+                helperText={formik.touched.price && formik.errors.price}
+                fullWidth
+              />
+
+              <TextField
+                label="سعر الخصم (SAR)"
+                name="discountPrice"
+                type="number"
+                inputProps={{ min: 0, step: "0.01" }}
+                value={formik.values.discountPrice}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={Boolean(
+                  formik.touched.discountPrice && formik.errors.discountPrice
+                )}
+                helperText={
+                  formik.touched.discountPrice && formik.errors.discountPrice
+                }
+                fullWidth
+              />
+            </Stack>
+
+            <SearchSelect
+              label="الألوان"
+              options={colorsSelect || []}
+              placeholder="اختر الألوان"
+              name="colors"
+              multiple
+              value={formik.values.colors}
+              onChange={(arr) => formik.setFieldValue("colors", arr || [])}
+              error={formik.touched.colors && formik.errors.colors}
+              helperText={formik.touched.colors && formik.errors.colors}
+            />
+
+            <TextField
+              label="الخصائص"
+              name="tags"
+              placeholder="office, chair, ergonomic"
+              value={formik.values.tags}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={Boolean(formik.touched.tags && formik.errors.tags)}
+              helperText={formik.touched.tags && formik.errors.tags}
               fullWidth
             />
 
             <TextField
               select
-              label="اختر الدور"
-              name="roleId"
-              value={formik?.values?.roleId}
-              onChange={formik.handleChange}
+              label="القسم"
+              name="categoryId"
+              value={formik.values.categoryId ?? ""}
+              disabled={categoriesLoading}
+              onChange={(e) =>
+                formik.setFieldValue("categoryId", Number(e.target.value))
+              }
               onBlur={formik.handleBlur}
-              error={Boolean(formik.touched.roleId && formik.errors.roleId)}
-              helperText={formik.touched.roleId && formik.errors.roleId}
+              error={Boolean(
+                formik.touched.categoryId && formik.errors.categoryId
+              )}
+              helperText={formik.touched.categoryId && formik.errors.categoryId}
               fullWidth
-              disabled={rolesLoading}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  padding: "0.7rem 0rem",
-                },
-              }}
+              sx={{ "& .MuiOutlinedInput-root": { padding: "0.7rem 0rem" } }}
             >
-              {(rolesData?.data?.roles ?? []).map((role) => (
-                <MenuItem key={role?.id} value={role?.id}>
-                  {role?.nameAr || role?.nameEn}
+              {(categories ?? []).map((o) => (
+                <MenuItem key={o.id} value={Number(o.id)}>
+                  {o.nameAr}
                 </MenuItem>
               ))}
             </TextField>
 
             <TextField
-              label="رقم الجوال"
-              name="phoneNumber"
-              placeholder="ادخل رقم الجوال"
-              value={formik.values.phoneNumber || ""}
-              onChange={formik.handleChange}
+              select
+              label="القسم الفرعي (اختياري)"
+              name="subCategoryId"
+              value={formik.values.subCategoryId ?? ""}
+              onChange={(e) => {
+                const v = e.target.value;
+                formik.setFieldValue(
+                  "subCategoryId",
+                  v === "" ? "" : Number(v)
+                );
+              }}
               onBlur={formik.handleBlur}
               error={Boolean(
-                formik.touched.phoneNumber && formik.errors.phoneNumber
+                formik.touched.subCategoryId && formik.errors.subCategoryId
               )}
               helperText={
-                formik.touched.phoneNumber && formik.errors.phoneNumber
+                formik.touched.subCategoryId && formik.errors.subCategoryId
               }
               fullWidth
-            />
+              sx={{ "& .MuiOutlinedInput-root": { padding: "0.7rem 0rem" } }}
+            >
+              {(subCategoryOptions ?? []).map((o) => (
+                <MenuItem key={o.id} value={Number(o.id)}>
+                  {o.nameAr}
+                </MenuItem>
+              ))}
+            </TextField>
 
-            <TextField
-              label="كلمة المرور"
-              name="password"
-              placeholder="ادخل كلمة المرور"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={Boolean(formik.touched.password && formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-              fullWidth
-            />
+            {/* SWITCHES */}
+            <Stack direction="row" spacing={3}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={Boolean(formik.values.hasDelivery)}
+                    onChange={(e) =>
+                      formik.setFieldValue("hasDelivery", e.target.checked)
+                    }
+                  />
+                }
+                label="خدمة التوصيل"
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={Boolean(formik.values.hasInstallation)}
+                    onChange={(e) =>
+                      formik.setFieldValue("hasInstallation", e.target.checked)
+                    }
+                  />
+                }
+                label="خدمة التركيب"
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={Boolean(formik.values.isActive)}
+                    onChange={(e) =>
+                      formik.setFieldValue("isActive", e.target.checked)
+                    }
+                  />
+                }
+                label="مُفعل"
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={Boolean(formik.values.isFeatured)}
+                    onChange={(e) =>
+                      formik.setFieldValue("isFeatured", e.target.checked)
+                    }
+                  />
+                }
+                label="مميز"
+              />
+            </Stack>
+
+            <div>
+              <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
+                الصور (حتى {MAX_IMAGES})
+              </Typography>
+              <TextField
+                name="images"
+                type="file"
+                inputProps={{ accept: IMG_TYPES.join(","), multiple: true }}
+                onChange={(e) => {
+                  const files = Array.from(e.target.files || []);
+                  formik.setFieldValue("images", files);
+                }}
+                error={Boolean(formik.touched.images && formik.errors.images)}
+                helperText={formik.touched.images && formik.errors.images}
+                fullWidth
+              />
+            </div>
           </Stack>
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={handleClose} disabled={isAddLoading}>
+          <Button onClick={handleClose} disabled={isPending}>
             إلغاء
           </Button>
           <Button
@@ -173,15 +427,10 @@ export default function AddNewProductDialog({ open, onClose }) {
             variant="contained"
             sx={{ color: "#FFF" }}
             disableElevation
-            disabled={isAddLoading || !formik.dirty}
+            disabled={isPending || !formik.dirty}
           >
-            {isAddLoading ? (
-              <CircularProgress
-                size={22}
-                sx={{
-                  color: "#000",
-                }}
-              />
+            {isPending ? (
+              <CircularProgress size={22} sx={{ color: "#FFF" }} />
             ) : (
               "إضافة"
             )}

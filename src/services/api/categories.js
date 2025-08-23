@@ -12,6 +12,10 @@ export const getCategoriesTypes = async () => {
   const res = await API.get(`/api/v1/categories/types`);
   return res.data;
 };
+export const getSubcategories = async () => {
+  const res = await API.get(`/api/v1/categories/subcategories`);
+  return res.data;
+};
 
 export const addCategory = (formData) =>
   API.post(`/api/v1/dashboard/categories`, formData, {
