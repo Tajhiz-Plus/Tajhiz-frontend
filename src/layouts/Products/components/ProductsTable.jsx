@@ -1,5 +1,5 @@
 import { Icon } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import UpdateProductDialog from "./UpdateProductDialog";
 import { useDisclosure } from "shared/hooks/useDisclosure";
 import DeleteProductDialog from "./DeleteProductDialog";
@@ -35,7 +35,9 @@ function ProductsTable() {
     limit: LIMIT_PAGE,
   });
 
-  const products = productsData?.data?.products ?? [];
+  const products = useMemo(() => {
+    return productsData?.data?.products || [];
+  }, [productsData]);
 
   const openUpdateDialog = (role) => {
     updateProduct.onOpen();
