@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -14,82 +14,18 @@ import {
   Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import { toast } from "react-toastify";
 import SearchSelect from "components/SearchSelect/SearchSelect";
 import { colorsSelect } from "constants/constants";
 import { useAddProduct } from "services/mutations/products/useAddProduct";
 import { useFetchCategories } from "services/queries/categories/useFetchCategories";
 import { useFetchSubcategories } from "services/queries/categories/useFetchCategories";
+import { productSchema } from "./validation";
 
 const MAX_IMAGES = 3;
 const IMG_TYPES = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
 
-const schema = yup.object({
-  nameEn: yup.string().required("الاسم بالإنجليزية مطلوب").max(200),
-  nameAr: yup.string().required("الاسم بالعربية مطلوب").max(200),
-  descriptionEn: yup.string().max(5000),
-  descriptionAr: yup.string().max(5000),
-
-  price: yup
-    .number()
-    .typeError("السعر يجب أن يكون رقمًا")
-    .required("السعر مطلوب")
-    .min(0, "السعر لا يقل عن 0"),
-  discountPrice: yup
-    .number()
-    .typeError("سعر الخصم يجب أن يكون رقمًا")
-    .min(0, "سعر الخصم لا يقل عن 0")
-    .nullable(),
-
-  colors: yup
-    .array()
-    .of(
-      yup.object({
-        id: yup.mixed().required(),
-        label: yup.string().required(),
-      })
-    )
-    .min(1, "اختر لونًا واحدًا على الأقل")
-    .required("اختر لونًا واحدًا على الأقل"),
-
-  hasDelivery: yup.boolean().required(),
-  hasInstallation: yup.boolean().required(),
-  isActive: yup.boolean().required(),
-  isFeatured: yup.boolean().required(),
-
-  tags: yup
-    .string()
-    .required("علامات المنتج مطلوبة")
-    .test(
-      "not-empty-tags",
-      "أدخل وسمًا واحدًا على الأقل",
-      (v) =>
-        (v || "")
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean).length > 0
-    ),
-
-  categoryId: yup
-    .number()
-    .typeError("اختيار القسم مطلوب")
-    .required("اختيار القسم مطلوب"),
-  subCategoryId: yup.number().typeError("قيمة غير صحيحة").nullable(),
-
-  images: yup
-    .array()
-    .of(
-      yup
-        .mixed()
-        .test("fileType", "ملف الصورة يجب أن يكون صورة", (f) =>
-          f ? IMG_TYPES.includes(f.type) : false
-        )
-    )
-    .max(MAX_IMAGES, `الحد الأقصى للصور ${MAX_IMAGES}`)
-    .min(1, "أضف صورة واحدة على الأقل")
-    .required("الصور مطلوبة"),
-});
+const schema = productSchema;
 
 export default function AddNewProductDialog({ open, onClose }) {
   const { mutate: addProduct, isPending } = useAddProduct({
@@ -111,8 +47,13 @@ export default function AddNewProductDialog({ open, onClose }) {
   const { data: SubcategoriesData, isLoading: SubcategoriesLoading } =
     useFetchSubcategories();
 
-  const categories = categoriesData?.data?.categories || [];
-  const subCategoryOptions = SubcategoriesData?.data || [];
+  const categories = useMemo(() => {
+    return categoriesData?.data?.categories || [];
+  }, [categoriesData]);
+
+  const subCategoryOptions = useMemo(() => {
+    return SubcategoriesData?.data || [];
+  }, [SubcategoriesData]);
 
   const formik = useFormik({
     initialValues: {
@@ -173,6 +114,14 @@ export default function AddNewProductDialog({ open, onClose }) {
     formik.resetForm();
     onClose?.();
   };
+
+  const filteredSubcategories = useMemo(() => {
+    const catId = Number(formik.values.categoryId || 0);
+    if (!catId) return [];
+    return (subCategoryOptions || []).filter(
+      (sc) => Number(sc.categoryId) === catId
+    );
+  }, [formik.values.categoryId, subCategoryOptions]);
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
@@ -343,14 +292,13 @@ export default function AddNewProductDialog({ open, onClose }) {
               fullWidth
               sx={{ "& .MuiOutlinedInput-root": { padding: "0.7rem 0rem" } }}
             >
-              {(subCategoryOptions ?? []).map((o) => (
+              {(filteredSubcategories ?? []).map((o) => (
                 <MenuItem key={o.id} value={Number(o.id)}>
                   {o.nameAr}
                 </MenuItem>
               ))}
             </TextField>
 
-            {/* SWITCHES */}
             <Stack direction="row" spacing={3}>
               <FormControlLabel
                 control={
