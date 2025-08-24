@@ -8,4 +8,5 @@ export const QUERY_KEYS = {
   CATEGORIES: "categories",
   CATEGORIES_TYPES: "categoriesTypes",
   PRODUCTS: "products",
+  PRODUCT_DETAILS: "productDetails",
 };

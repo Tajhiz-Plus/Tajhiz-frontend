@@ -15,7 +15,7 @@ export const addProduct = (formData) =>
     transformRequest: (v) => v,
   }).then((r) => r.data);
 
-export const updateProduct= (id, formData) =>
+export const updateProduct = (id, formData) =>
   API.put(`/api/v1/dashboard/products/${id}`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
     transformRequest: (v) => v,
@@ -23,3 +23,8 @@ export const updateProduct= (id, formData) =>
 
 export const deleteProduct = (productId) =>
   API.delete(`/api/v1/dashboard/products/${productId}`).then((r) => r.data);
+
+export const getProductDetails = async (productId) => {
+  const res = await API.get(`/api/v1/dashboard/products/${productId}`);
+  return res.data;
+};
