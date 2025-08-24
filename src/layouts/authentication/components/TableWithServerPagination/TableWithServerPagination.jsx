@@ -1,32 +1,22 @@
 import React, { useMemo, useEffect, useState } from "react";
-
-// prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
-
-// react-table components
 import {
   useTable,
   usePagination,
   useGlobalFilter,
   useSortBy,
 } from "react-table";
-
-// @mui material components
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
-
-// Material Dashboard 3 PRO React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import MDInput from "components/MDInput";
 import MDPagination from "components/MDPagination";
-
-// Material Dashboard 3 PRO React examples
 import DataTableHeadCell from "examples/Tables/DataTable/DataTableHeadCell";
 import DataTableBodyCell from "examples/Tables/DataTable/DataTableBodyCell";
 import { Box, Pagination } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function TableWithServerPagination({
   entriesPerPage = { defaultValue: 10, entries: [5, 10, 15, 20, 25] },
@@ -38,6 +28,7 @@ function TableWithServerPagination({
   pageNumber,
   totalPages,
   handlePageChange,
+  canNavigate = false,
 }) {
   const defaultValue = entriesPerPage.defaultValue
     ? entriesPerPage.defaultValue
@@ -48,7 +39,7 @@ function TableWithServerPagination({
 
   const columns = useMemo(() => table?.columns ?? [], [table]);
   const data = useMemo(() => table?.rows ?? [], [table]);
-
+  const navigate = useNavigate();
   const tableInstance = useTable(
     {
       columns: columns ?? [],
@@ -145,8 +136,28 @@ function TableWithServerPagination({
         <TableBody {...getTableBodyProps()}>
           {page.map((row, key) => {
             prepareRow(row);
+
             return (
-              <TableRow key={key} {...row.getRowProps()}>
+              <TableRow
+                key={key}
+                {...row.getRowProps()}
+                onClick={() =>
+                  canNavigate ? navigate(`/products/${row?.original.id}`) : null
+                }
+                sx={{
+                  cursor: canNavigate ? "pointer" : "default",
+                  "&:hover": {
+                    backgroundColor: canNavigate
+                      ? "#F7F7F9 !important"
+                      : "transparent",
+                  },
+                  "& td": {
+                    transition: canNavigate
+                      ? "background-color 0.2s ease"
+                      : "none",
+                  },
+                }}
+              >
                 {row.cells.map((cell, idx) => (
                   <DataTableBodyCell
                     key={idx}
