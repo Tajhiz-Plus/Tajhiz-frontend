@@ -208,7 +208,6 @@ function ProductsTable() {
           pageNumber={page}
           noEndBorder
           handlePageChange={handlePageChange}
-          canNavigate
         />
       )}
 
