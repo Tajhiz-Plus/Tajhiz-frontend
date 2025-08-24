@@ -14,8 +14,6 @@ import { toast } from "react-toastify";
 import { useDeleteProduct } from "services/mutations/products/useDeleteProduct";
 
 export default function DeleteProductDialog({ open, onClose, productId }) {
-  console.log(productId);
-
   const { mutate: deleteProductMutation, isPending: isDeleteLoading } =
     useDeleteProduct({
       onSuccess: () => {

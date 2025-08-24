@@ -7,7 +7,6 @@ import { colorsSelect } from "constants/constants";
 import { Chip } from "@mui/material";
 
 function ProductInfo({ product }) {
-  console.log("ProductInfo component rendered with product:", product);
   const productColors = colorsSelect.filter((c) =>
     product?.colors.includes(c.value)
   );
