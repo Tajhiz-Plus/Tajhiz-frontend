@@ -11,13 +11,15 @@ import {
   Box,
 } from "@mui/material";
 import { toast } from "react-toastify";
-import { useDeleteUser } from "services/mutations/users/useDeleteUser";
+import { useDeleteProduct } from "services/mutations/products/useDeleteProduct";
 
-export default function DeleteProductDialog({ open, onClose, userId }) {
-  const { mutate: deleteUserMutation, isPending: isDeleteLoading } =
-    useDeleteUser({
+export default function DeleteProductDialog({ open, onClose, productId }) {
+  console.log(productId);
+
+  const { mutate: deleteProductMutation, isPending: isDeleteLoading } =
+    useDeleteProduct({
       onSuccess: () => {
-        toast.success("تم حذف المستخدم بنجاح");
+        toast.success("تم حذف المنتج بنجاح");
         onClose();
       },
       onError: (error) => {
@@ -26,7 +28,7 @@ export default function DeleteProductDialog({ open, onClose, userId }) {
     });
 
   const handleDelete = () => {
-    deleteUserMutation({ userId });
+    deleteProductMutation({ productId });
   };
 
   return (
@@ -50,7 +52,7 @@ export default function DeleteProductDialog({ open, onClose, userId }) {
         </Box>
       </DialogTitle>
       <DialogContent sx={{ textAlign: "center" }}>
-        <Typography>هل أنت متأكد أنك تريد حذف المستخدم </Typography>
+        <Typography>هل أنت متأكد أنك تريد حذف المنتج </Typography>
       </DialogContent>
 
       <DialogActions sx={{ display: "flex", justifyContent: "center" }}>

@@ -40,14 +40,14 @@ function ProductsTable() {
     return productsData?.data?.products || [];
   }, [productsData]);
 
-  const openUpdateDialog = (role) => {
+  const openUpdateDialog = (product) => {
     updateProduct.onOpen();
-    setSelectedProduct(role);
+    setSelectedProduct(product);
   };
 
-  const openDeleteDialog = (role) => {
+  const openDeleteDialog = (product) => {
     deleteProduct.onOpen();
-    setSelectedProduct(role);
+    setSelectedProduct(product);
   };
 
   const handlePageChange = (_e, p) => {
@@ -75,7 +75,8 @@ function ProductsTable() {
           columns: [
             { Header: "المنتج", accessor: "name", width: "20%" },
             { Header: "السعر", accessor: "price", width: "5%" },
-            { Header: "التصنيف", accessor: "category", width: "20%" },
+            { Header: "الخصم", accessor: "discount", width: "5%" },
+            { Header: "التصنيف", accessor: "category", width: "10%" },
             { Header: "قابل للشحن", accessor: "delivery", width: "20%" },
             { Header: "الإجراءات", accessor: "actions", width: "30%" },
           ],
@@ -128,6 +129,27 @@ function ProductsTable() {
                     }}
                   >
                     <span>{Number(product?.price).toFixed(2)}</span>
+                    <img
+                      src={SAR}
+                      alt={"ريال"}
+                      width={20}
+                      height={20}
+                      crossOrigin="anonymous"
+                      loading="lazy"
+                    />
+                  </div>
+                </>
+              ),
+              discount: (
+                <>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "4px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span>{Number(product?.discountPrice).toFixed(2)}</span>
                     <img
                       src={SAR}
                       alt={"ريال"}
@@ -200,7 +222,7 @@ function ProductsTable() {
         <DeleteProductDialog
           open={deleteProduct.open}
           onClose={deleteProduct.onClose}
-          userId={selectedProduct?.id}
+          productId={selectedProduct?.id}
         />
       )}
 
