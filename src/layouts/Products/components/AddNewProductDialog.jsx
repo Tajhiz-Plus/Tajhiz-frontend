@@ -378,7 +378,7 @@ export default function AddNewProductDialog({ open, onClose }) {
             disabled={isPending || !formik.dirty}
           >
             {isPending ? (
-              <CircularProgress size={22} sx={{ color: "#FFF" }} />
+              <CircularProgress size={22} sx={{ color: "#000" }} />
             ) : (
               "إضافة"
             )}

@@ -191,15 +191,15 @@ function ProductsTable() {
 
       {selectedProduct && (
         <UpdateProductDialog
-          open={updateUser.open}
-          onClose={updateUser.onClose}
-          user={selectedProduct}
+          open={updateProduct.open}
+          onClose={updateProduct.onClose}
+          product={selectedProduct}
         />
       )}
       {selectedProduct && (
         <DeleteProductDialog
-          open={deleteUser.open}
-          onClose={deleteUser.onClose}
+          open={deleteProduct.open}
+          onClose={deleteProduct.onClose}
           userId={selectedProduct?.id}
         />
       )}

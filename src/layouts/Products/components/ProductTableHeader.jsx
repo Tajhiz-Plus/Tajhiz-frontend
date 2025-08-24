@@ -31,7 +31,7 @@ function TableHeader({ search, setSearch, onSearchChange, addProduct }) {
           sx={{ color: "#FFF" }}
           onClick={() => addProduct.onOpen()}
         >
-          إضافة مستخدم
+          إضافة منتج
         </Button>
       </Box>
     </MDBox>

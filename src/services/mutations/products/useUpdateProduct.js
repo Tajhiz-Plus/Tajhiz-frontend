@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "constants/queryKeys";
-import { updateCategory } from "services/api/categories";
+import { updateProduct } from "services/api/products";
 
-const categoriesKey = [{ scope: QUERY_KEYS.CATEGORIES }];
+const productsKey = [{ scope: QUERY_KEYS.PRODUCTS }];
 
-export const useUpdateCategory = ({ onSuccess, onError }) => {
+export const useUpdateProduct = ({ onSuccess, onError }) => {
   const qc = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, payload }) => updateCategory(id, payload),
+    mutationFn: ({ id, payload }) => updateProduct(id, payload),
 
     onSuccess: (data, variables, context) => {
-      qc.invalidateQueries({ queryKey: categoriesKey });
+      qc.invalidateQueries({ queryKey: productsKey });
       onSuccess?.(data, variables, context);
     },
 
