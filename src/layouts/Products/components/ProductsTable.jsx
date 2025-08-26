@@ -165,16 +165,27 @@ function ProductsTable() {
               delivery: product?.hasDelivery ? "نعم" : "لا",
               actions: (
                 <>
-                  <div style={{ display: "flex", gap: "8px" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "8px",
+                    }}
+                  >
                     <Icon
-                      style={{ cursor: "pointer" }}
-                      onClick={() => openUpdateDialog(product)}
+                      style={{ cursor: "pointer", zIndex: 10000 }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openUpdateDialog(product);
+                      }}
                     >
                       edit
                     </Icon>
                     <Icon
                       style={{ cursor: "pointer", color: "red" }}
-                      onClick={() => openDeleteDialog(product)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openDeleteDialog(product);
+                      }}
                     >
                       delete
                     </Icon>
@@ -208,6 +219,7 @@ function ProductsTable() {
           pageNumber={page}
           noEndBorder
           handlePageChange={handlePageChange}
+          canNavigate
         />
       )}
 
