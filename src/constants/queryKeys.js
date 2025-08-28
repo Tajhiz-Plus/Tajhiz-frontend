@@ -9,4 +9,6 @@ export const QUERY_KEYS = {
   CATEGORIES_TYPES: "categoriesTypes",
   PRODUCTS: "products",
   PRODUCT_DETAILS: "productDetails",
+  ORDERS: "orders",
+  ORDER_DETAILS: "orderDetails",
 };
