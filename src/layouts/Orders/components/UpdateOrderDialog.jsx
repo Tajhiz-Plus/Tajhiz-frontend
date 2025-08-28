@@ -169,19 +169,6 @@ export default function UpdateOrderDialog({ open, onClose, order }) {
               maxRows={3}
             />
 
-            {/* ملاحظات */}
-            <TextField
-              label="ملاحظات"
-              name="notes"
-              placeholder="اكتب أي ملاحظات"
-              value={formik.values.notes}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              multiline
-              minRows={2}
-              fullWidth
-            />
-
             {/* رسوم التوصيل */}
             <TextField
               label="رسوم التوصيل"
@@ -231,6 +218,18 @@ export default function UpdateOrderDialog({ open, onClose, order }) {
                 formik.touched.taxAmount && formik.errors.taxAmount
               )}
               helperText={formik.touched.taxAmount && formik.errors.taxAmount}
+              fullWidth
+            />
+
+            <TextField
+              label="ملاحظات"
+              name="notes"
+              placeholder="اكتب أي ملاحظات"
+              value={formik.values.notes}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              multiline
+              minRows={2}
               fullWidth
             />
           </Stack>

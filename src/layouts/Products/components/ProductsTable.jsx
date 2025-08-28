@@ -219,7 +219,7 @@ function ProductsTable() {
           pageNumber={page}
           noEndBorder
           handlePageChange={handlePageChange}
-          canNavigate
+          url="products"
         />
       )}
 

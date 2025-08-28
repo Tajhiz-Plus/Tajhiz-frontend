@@ -10,15 +10,24 @@ const RolesEdit = lazy(() => import("layouts/RolesEdit/RolesEdit"));
 const ProductPage = lazy(() =>
   import("layouts/ecommerce/products/product-page/ProductPage")
 );
+const OrderDetailsPage = lazy(() =>
+  import("layouts/ecommerce/orders/order-details/OrderDetails")
+);
 
 const pageRoutes = [
   { id: 1, name: "profile", route: "/profile", component: <Profile /> },
-  { id: 1, name: "roles/:id", route: "/roles/:id", component: <RolesEdit /> },
+  { id: 2, name: "roles/:id", route: "/roles/:id", component: <RolesEdit /> },
   {
-    id: 1,
-    name: "roles/:id",
+    id: 3,
+    name: "products/:id",
     route: "/products/:id",
     component: <ProductPage />,
+  },
+  {
+    id: 4,
+    name: "orders/:id",
+    route: "/orders/:id",
+    component: <OrderDetailsPage />,
   },
 ];
 

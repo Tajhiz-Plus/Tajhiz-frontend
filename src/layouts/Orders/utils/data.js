@@ -11,7 +11,15 @@ export const orderData = {
         createdAt: "2023-12-01T10:00:00.000Z",
         user: { fullName: "Ahmed Ali", avatar: null },
         orderItems: [
-          { product: { nameEn: "iPhone 15 Pro", nameAr: "آيفون 15 برو" } },
+          {
+            product: { id: 1, nameEn: "iPhone 14 Pro", nameAr: "آيفون 14 برو" },
+          },
+          {
+            product: { id: 2, nameEn: "iPhone 15 Pro", nameAr: "آيفون 15 برو" },
+          },
+          {
+            product: { id: 3, nameEn: "iPhone 16 Pro", nameAr: "آيفون 16 برو" },
+          },
         ],
       },
       {

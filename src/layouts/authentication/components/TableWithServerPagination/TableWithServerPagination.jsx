@@ -29,6 +29,7 @@ function TableWithServerPagination({
   totalPages,
   handlePageChange,
   canNavigate = false,
+  url = "",
 }) {
   const defaultValue = entriesPerPage.defaultValue
     ? entriesPerPage.defaultValue
@@ -142,19 +143,15 @@ function TableWithServerPagination({
                 key={key}
                 {...row.getRowProps()}
                 onClick={() =>
-                  canNavigate ? navigate(`/products/${row?.original.id}`) : null
+                  url ? navigate(`/${url}/${row?.original.id}`) : null
                 }
                 sx={{
-                  cursor: canNavigate ? "pointer" : "default",
+                  cursor: url ? "pointer" : "default",
                   "&:hover": {
-                    backgroundColor: canNavigate
-                      ? "#F7F7F9 !important"
-                      : "transparent",
+                    backgroundColor: url ? "#F7F7F9 !important" : "transparent",
                   },
                   "& td": {
-                    transition: canNavigate
-                      ? "background-color 0.2s ease"
-                      : "none",
+                    transition: url ? "background-color 0.2s ease" : "none",
                   },
                 }}
               >
