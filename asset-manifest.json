@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/Tajhiz-frontend/static/css/main.b7a2f809.css",
-    "main.js": "/Tajhiz-frontend/static/js/main.cc4e1d99.js",
+    "main.js": "/Tajhiz-frontend/static/js/main.6083ba5f.js",
     "static/js/683.e7db8e5c.chunk.js": "/Tajhiz-frontend/static/js/683.e7db8e5c.chunk.js",
     "static/js/29.e10a49b8.chunk.js": "/Tajhiz-frontend/static/js/29.e10a49b8.chunk.js",
-    "static/js/336.91abdfc1.chunk.js": "/Tajhiz-frontend/static/js/336.91abdfc1.chunk.js",
-    "static/js/5.9a5bab1b.chunk.js": "/Tajhiz-frontend/static/js/5.9a5bab1b.chunk.js",
-    "static/js/903.ae1cf3d5.chunk.js": "/Tajhiz-frontend/static/js/903.ae1cf3d5.chunk.js",
+    "static/js/336.7a8bcfdf.chunk.js": "/Tajhiz-frontend/static/js/336.7a8bcfdf.chunk.js",
+    "static/js/5.26f4994b.chunk.js": "/Tajhiz-frontend/static/js/5.26f4994b.chunk.js",
+    "static/js/903.91042b63.chunk.js": "/Tajhiz-frontend/static/js/903.91042b63.chunk.js",
     "static/media/Background.png": "/Tajhiz-frontend/static/media/Background.a32eedadead8d33106d0.png",
     "static/media/bg-profile.jpeg": "/Tajhiz-frontend/static/media/bg-profile.af1219a742e09fc7b612.jpeg",
     "static/media/photo-tools.jpeg": "/Tajhiz-frontend/static/media/photo-tools.30dae586cc4e5424fd81.jpeg",
@@ -35,6 +35,6 @@
   },
   "entrypoints": [
     "static/css/main.b7a2f809.css",
-    "static/js/main.cc4e1d99.js"
+    "static/js/main.6083ba5f.js"
   ]
 }
