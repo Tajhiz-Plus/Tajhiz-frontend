@@ -188,7 +188,7 @@ function OrderTable() {
           pageNumber={page}
           noEndBorder
           handlePageChange={handlePageChange}
-          canNavigate
+          // canNavigate
         />
       )}
       {selectedOrder && (
