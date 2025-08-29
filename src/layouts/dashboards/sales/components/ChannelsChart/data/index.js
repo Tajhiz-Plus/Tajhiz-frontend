@@ -1,11 +1,9 @@
-
-
 const channelChartData = {
-  labels: ["Facebook", "Direct", "Organic", "Referral"],
+  labels: ["مكتمل", "قيد المراجعة", "ملغي"],
   datasets: {
-    label: "Projects",
+    label: "",
     backgroundColors: ["info", "primary", "dark", "secondary", "primary"],
-    data: [15, 20, 12, 60],
+    data: [15, 20, 12],
   },
 };
 

@@ -11,6 +11,7 @@ import Reports from "layouts/Reports/Reports";
 const Roles = lazy(() => import("layouts/Roles/Roles"));
 const Permissions = lazy(() => import("layouts/Permissions/Permissions"));
 const Products = lazy(() => import("layouts/Products/Products"));
+const HomePage = lazy(() => import("layouts/pages/HomePage/HomePage"));
 
 export const routes = [
   {
@@ -19,7 +20,7 @@ export const routes = [
     key: "dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
-    component: <Dashboard />,
+    component: <HomePage />,
     noCollapse: true,
     protected: true,
   },
