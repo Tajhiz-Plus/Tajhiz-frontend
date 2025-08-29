@@ -7,7 +7,6 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import Icon from "@mui/material/Icon";
 import MDBox from "components/MDBox";
-import MDInput from "components/MDInput";
 import MDBadge from "components/MDBadge";
 import Breadcrumbs from "examples/Breadcrumbs";
 import NotificationItem from "examples/Items/NotificationItem";
@@ -25,8 +24,11 @@ import {
   setMiniSidenav,
   setOpenConfigurator,
 } from "context";
+import { useDisclosure } from "shared/hooks/useDisclosure";
+import { useAuth } from "shared/hooks/useAuth";
 
 function DashboardNavbar({ absolute = false, light = false, isMini = false }) {
+  const { logout } = useAuth();
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
   const {
@@ -71,6 +73,10 @@ function DashboardNavbar({ absolute = false, light = false, isMini = false }) {
     setOpenConfigurator(dispatch, !openConfigurator);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
+  const settingMenu = useDisclosure();
+  const handleOpenSettingsMenu = (event) => {
+    settingMenu.onOpen(event);
+  };
 
   // Render the notifications menu
   const renderMenu = () => (
@@ -93,6 +99,25 @@ function DashboardNavbar({ absolute = false, light = false, isMini = false }) {
       <NotificationItem
         icon={<Icon>shopping_cart</Icon>}
         title="Payment successfully completed"
+      />
+    </Menu>
+  );
+  const settingsMenu = () => (
+    <Menu
+      anchorEl={settingMenu.open}
+      anchorReference={null}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      open={settingMenu.open}
+      onClose={settingMenu.onClose}
+      sx={{ mt: 7 }}
+    >
+      <NotificationItem
+        onClick={() => logout()}
+        icon={<Icon>logout</Icon>}
+        title="نسجيل خروج"
       />
     </Menu>
   );
@@ -164,10 +189,11 @@ function DashboardNavbar({ absolute = false, light = false, isMini = false }) {
                 disableRipple
                 color="inherit"
                 sx={navbarIconButton}
-                onClick={handleConfiguratorOpen}
+                onClick={handleOpenSettingsMenu}
               >
                 <Icon sx={iconsStyle}>settings</Icon>
               </IconButton>
+              {settingsMenu()}
               <IconButton
                 size="small"
                 disableRipple
