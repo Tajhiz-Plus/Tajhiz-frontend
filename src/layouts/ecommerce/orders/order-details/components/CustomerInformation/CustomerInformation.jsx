@@ -1,63 +1,64 @@
-
-
-// Material Dashboard 3 PRO React components
+import React from "react";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-
-// Material Dashboard 3 PRO React context
 import { useMaterialUIController } from "context";
 
-function BillingInformation() {
+function CustomerInformation({ customer }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
   return (
     <>
       <MDTypography variant="h6" fontWeight="medium">
-        Billing Information
+        معلومات العميل{" "}
       </MDTypography>
       <MDBox
         component="li"
         display="flex"
         justifyContent="space-between"
         alignItems="flex-start"
-        bgColor={darkMode ? "transparent" : "grey-100"}
+        bgColor={'transparent'}
         borderRadius="lg"
         p={3}
         mt={2}
       >
-        <MDBox width="100%" display="flex" flexDirection="column" lineHeight={1}>
+        <MDBox
+          width="100%"
+          display="flex"
+          flexDirection="column"
+          lineHeight={1}
+        >
           <MDBox mb={2}>
-            <MDTypography variant="button" fontWeight="medium" textTransform="capitalize">
-              Oliver Liam
+            <MDTypography
+              variant="button"
+              fontWeight="medium"
+              textTransform="capitalize"
+            >
+              {customer?.fullName}
             </MDTypography>
           </MDBox>
           <MDBox mb={1} lineHeight={0}>
             <MDTypography variant="caption" fontWeight="regular" color="text">
-              Company Name:&nbsp;&nbsp;&nbsp;
-              <MDTypography variant="caption" fontWeight="medium" textTransform="capitalize">
-                Viking Burrito
-              </MDTypography>
-            </MDTypography>
-          </MDBox>
-          <MDBox mb={1} lineHeight={0}>
-            <MDTypography variant="caption" fontWeight="regular" color="text">
-              Email Address:&nbsp;&nbsp;&nbsp;
+              البريد الإلكتروني:&nbsp;&nbsp;&nbsp;
               <MDTypography variant="caption" fontWeight="medium">
-                oliver@burrito.com
+                {customer?.email ||
+                  customer?.fullName.split(" ").join("").toLowerCase()}
+                @gmail.com
               </MDTypography>
             </MDTypography>
           </MDBox>
-          <MDTypography variant="caption" fontWeight="regular" color="text">
-            VAT Number:&nbsp;&nbsp;&nbsp;
-            <MDTypography variant="caption" fontWeight="medium">
-              FRB1235476
+          <MDBox mb={1} lineHeight={0}>
+            <MDTypography variant="caption" fontWeight="regular" color="text">
+              الرقم:&nbsp;&nbsp;&nbsp;
+              <MDTypography variant="caption" fontWeight="medium">
+                {customer?.phone || "0501234567"}
+              </MDTypography>
             </MDTypography>
-          </MDTypography>
+          </MDBox>
         </MDBox>
       </MDBox>
     </>
   );
 }
 
-export default BillingInformation;
+export default CustomerInformation;

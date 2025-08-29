@@ -12,13 +12,28 @@ export const orderData = {
         user: { fullName: "Ahmed Ali", avatar: null },
         orderItems: [
           {
-            product: { id: 1, nameEn: "iPhone 14 Pro", nameAr: "آيفون 14 برو" },
+            product: {
+              id: 1,
+              nameEn: "iPhone 14 Pro",
+              nameAr: "آيفون 14 برو",
+              price: 999.99,
+            },
           },
           {
-            product: { id: 2, nameEn: "iPhone 15 Pro", nameAr: "آيفون 15 برو" },
+            product: {
+              id: 2,
+              nameEn: "iPhone 15 Pro",
+              nameAr: "آيفون 15 برو",
+              price: 1299.99,
+            },
           },
           {
-            product: { id: 3, nameEn: "iPhone 16 Pro", nameAr: "آيفون 16 برو" },
+            product: {
+              id: 3,
+              nameEn: "iPhone 16 Pro",
+              nameAr: "آيفون 16 برو",
+              price: 1599.99,
+            },
           },
         ],
       },
@@ -30,7 +45,13 @@ export const orderData = {
         createdAt: "2023-12-02T09:00:00.000Z",
         user: { fullName: "Sara Mohamed", avatar: null },
         orderItems: [
-          { product: { nameEn: "Samsung S23", nameAr: "سامسونج S23" } },
+          {
+            product: {
+              nameEn: "Samsung S23",
+              nameAr: "سامسونج S23",
+              price: 700,
+            },
+          },
         ],
       },
       {
@@ -41,7 +62,9 @@ export const orderData = {
         createdAt: "2023-12-03T11:00:00.000Z",
         user: { fullName: "Omar Hassan", avatar: null },
         orderItems: [
-          { product: { nameEn: "Apple AirPods", nameAr: "إيربودز" } },
+          {
+            product: { nameEn: "Apple AirPods", nameAr: "إيربودز", price: 700 },
+          },
         ],
       },
       {
@@ -53,7 +76,11 @@ export const orderData = {
         user: { fullName: "Laila Kareem", avatar: null },
         orderItems: [
           {
-            product: { nameEn: 'Dell Monitor 27"', nameAr: "شاشة ديل 27 بوصة" },
+            product: {
+              nameEn: 'Dell Monitor 27"',
+              nameAr: "شاشة ديل 27 بوصة",
+              price: 700,
+            },
           },
         ],
       },
@@ -65,7 +92,13 @@ export const orderData = {
         createdAt: "2023-12-05T08:00:00.000Z",
         user: { fullName: "Mohamed Ali", avatar: null },
         orderItems: [
-          { product: { nameEn: "LG OLED TV", nameAr: "شاشة LG OLED" } },
+          {
+            product: {
+              nameEn: "LG OLED TV",
+              nameAr: "شاشة LG OLED",
+              price: 700,
+            },
+          },
         ],
       },
       {
@@ -76,7 +109,13 @@ export const orderData = {
         createdAt: "2023-12-06T12:00:00.000Z",
         user: { fullName: "Yara Adel", avatar: null },
         orderItems: [
-          { product: { nameEn: "HP Laptop 15", nameAr: "لاب توب HP 15" } },
+          {
+            product: {
+              nameEn: "HP Laptop 15",
+              nameAr: "لاب توب HP 15",
+              price: 700,
+            },
+          },
         ],
       },
       {
@@ -87,7 +126,13 @@ export const orderData = {
         createdAt: "2023-12-07T13:00:00.000Z",
         user: { fullName: "Khaled Ibrahim", avatar: null },
         orderItems: [
-          { product: { nameEn: "Sony Headphones", nameAr: "سماعات سوني" } },
+          {
+            product: {
+              nameEn: "Sony Headphones",
+              nameAr: "سماعات سوني",
+              price: 700,
+            },
+          },
         ],
       },
       {
@@ -98,7 +143,13 @@ export const orderData = {
         createdAt: "2023-12-08T15:00:00.000Z",
         user: { fullName: "Fatma Nabil", avatar: null },
         orderItems: [
-          { product: { nameEn: "MacBook Air", nameAr: "ماك بوك إير" } },
+          {
+            product: {
+              nameEn: "MacBook Air",
+              nameAr: "ماك بوك إير",
+              price: 3200,
+            },
+          },
         ],
       },
       {
@@ -108,7 +159,9 @@ export const orderData = {
         totalAmount: 1100,
         createdAt: "2023-12-09T16:00:00.000Z",
         user: { fullName: "Hassan Mostafa", avatar: null },
-        orderItems: [{ product: { nameEn: "iPad Pro", nameAr: "آيباد برو" } }],
+        orderItems: [
+          { product: { nameEn: "iPad Pro", nameAr: "آيباد برو", price: 1100 } },
+        ],
       },
       {
         id: 10,
@@ -122,6 +175,7 @@ export const orderData = {
             product: {
               nameEn: "Asus Gaming Laptop",
               nameAr: "لاب توب أسوس جيمينج",
+              price: 2500,
             },
           },
         ],
@@ -135,7 +189,11 @@ export const orderData = {
         user: { fullName: "Mona Tarek", avatar: null },
         orderItems: [
           {
-            product: { nameEn: "Canon EOS Camera", nameAr: "كاميرا كانون EOS" },
+            product: {
+              nameEn: "Canon EOS Camera",
+              nameAr: "كاميرا كانون EOS",
+              price: 4300,
+            },
           },
         ],
       },
@@ -147,7 +205,13 @@ export const orderData = {
         createdAt: "2023-12-12T19:00:00.000Z",
         user: { fullName: "Ali Hassan", avatar: null },
         orderItems: [
-          { product: { nameEn: "Fitbit Watch", nameAr: "ساعة فيتبت" } },
+          {
+            product: {
+              nameEn: "Fitbit Watch",
+              nameAr: "ساعة فيتبت",
+              price: 700,
+            },
+          },
         ],
       },
     ],

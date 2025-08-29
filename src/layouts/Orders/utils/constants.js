@@ -1,6 +1,5 @@
-// ✅ يدعم: pending, confirmed, shipped, delivered, cancelled, returned
-// ويستخدم أيقونات MUI مناسبة لكل حالة
 
+import MDBadge from "components/MDBadge";
 import StatusCell from "layouts/ecommerce/orders/order-list/components/StatusCell";
 
 export const ORDER_STATUS = {
@@ -30,4 +29,23 @@ export const getOrderStatus = (status) => {
   };
 
   return <StatusCell icon={cfg.icon} color={cfg.color} status={cfg.label} />;
+};
+
+export const getOrderBadgeStatus = (status) => {
+  const key = String(status || "").toLowerCase();
+  const cfg = STATUS_CONFIG[key] ?? {
+    icon: "help_outline",
+    color: "dark",
+    label: key || "Unknown",
+  };
+
+  return (
+    <MDBadge
+      variant="gradient"
+      color={cfg.color}
+      size="xs"
+      badgeContent={cfg.label}
+      container
+    />
+  );
 };

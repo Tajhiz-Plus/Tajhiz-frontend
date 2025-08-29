@@ -6,23 +6,23 @@ import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Header from "layouts/ecommerce/orders/order-details/components/Header/Header";
-import OrderInfo from "layouts/ecommerce/orders/order-details/components/OrderInfo";
-import TrackOrder from "layouts/ecommerce/orders/order-details/components/TrackOrder";
-import PaymentDetails from "layouts/ecommerce/orders/order-details/components/PaymentDetails";
-import BillingInformation from "layouts/ecommerce/orders/order-details/components/BillingInformation";
-import OrderSummary from "layouts/ecommerce/orders/order-details/components/OrderSummary";
-import product from "assets/images/product-12.jpg";
-import { useParams } from "react-router-dom";
+import TrackOrder from "layouts/ecommerce/orders/order-details/components/TrackOrder/OrdersOverview";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFetchOrderDetails } from "services/queries/Orders/useFetchOrderDetails";
 import { orderData } from "layouts/Orders/utils/data";
 import OrderDetailsSkeleton from "./components/OrderDetailsSkeleton/OrderDetailsSkeleton";
+import OrderInfo from "./components/OrderInfo/OrderInfo";
+import OrderSummary from "./components/OrderSummary/OrderSummary";
+import CustomerInformation from "./components/CustomerInformation/CustomerInformation";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { Box } from "@mui/material";
 
 function OrderDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
   // const { data: order, isLoading } = useFetchOrderDetails(id);
 
   const order = orderData?.data?.orders.find((o) => String(o.id) === id);
-  console.log(order);
 
   return (
     <DashboardLayout>
@@ -31,6 +31,20 @@ function OrderDetails() {
         <MDBox my={6}>
           <Grid container spacing={3} justifyContent="center">
             <Grid item xs={12} lg={8}>
+              <Box
+                sx={{ display: "flex", alignItems: "center", mb: 2 }}
+                onClick={() => navigate("/orders")}
+              >
+                {" "}
+                <ChevronRightIcon
+                  sx={{
+                    width: 30,
+                    height: 30,
+                    color: "#090E2D",
+                    cursor: "pointer",
+                  }}
+                />
+              </Box>
               <Card>
                 <MDBox pt={2} px={2}>
                   <Header order={order} />
@@ -38,7 +52,7 @@ function OrderDetails() {
                 <Divider />
                 <MDBox pt={1} pb={3} px={2}>
                   <MDBox mb={3}>
-                    <OrderInfo />
+                    <OrderInfo orderItems={order?.orderItems} />
                   </MDBox>
                   <Divider />
                   <MDBox mt={3}>
@@ -47,13 +61,10 @@ function OrderDetails() {
                         <TrackOrder />
                       </Grid>
                       <Grid item xs={12} md={6} lg={5}>
-                        <PaymentDetails />
-                        <MDBox mt={3}>
-                          <BillingInformation />
-                        </MDBox>
+                        <CustomerInformation customer={order?.user} />
                       </Grid>
-                      <Grid item xs={12} lg={3} sx={{ ml: "auto" }}>
-                        <OrderSummary />
+                      <Grid item xs={12} lg={3} sx={{ mr: "auto" }}>
+                        <OrderSummary order={order} />
                       </Grid>
                     </Grid>
                   </MDBox>

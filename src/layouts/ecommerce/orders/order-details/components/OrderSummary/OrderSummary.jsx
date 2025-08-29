@@ -1,30 +1,37 @@
-
-
-// Material Dashboard 3 PRO React components
+import React from "react";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import { Box } from "@mui/material";
 
-function OrderSummary() {
+function OrderSummary({ order }) {
+  const productsPrice = Number(
+    order?.orderItems?.reduce(
+      (total, item) => total + (item.product?.price || 0),
+      0
+    ) || 0
+  ).toFixed(2);
+
   return (
-    <>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
+      {" "}
       <MDBox mb={2}>
         <MDTypography variant="h6" fontWeight="medium">
-          Order Summary
+          ملخص الطلب
         </MDTypography>
       </MDBox>
       <MDBox display="flex" justifyContent="space-between" mb={0.5}>
         <MDTypography variant="button" fontWeight="regular" color="text">
-          Product Price:
+          سعر المنتجات:
         </MDTypography>
         <MDBox ml={1}>
           <MDTypography variant="body2" fontWeight="medium">
-            $90
+            {productsPrice}
           </MDTypography>
         </MDBox>
       </MDBox>
       <MDBox display="flex" justifyContent="space-between" mb={0.5}>
         <MDTypography variant="button" fontWeight="regular" color="text">
-          Delivery:
+          رسوم التوصيل:
         </MDTypography>
         <MDBox ml={1}>
           <MDTypography variant="body2" fontWeight="medium">
@@ -34,7 +41,7 @@ function OrderSummary() {
       </MDBox>
       <MDBox display="flex" justifyContent="space-between" mb={0.5}>
         <MDTypography variant="button" fontWeight="regular" color="text">
-          Taxes:
+          الضرائب:
         </MDTypography>
         <MDBox ml={1}>
           <MDTypography variant="body2" fontWeight="medium">
@@ -44,15 +51,15 @@ function OrderSummary() {
       </MDBox>
       <MDBox display="flex" justifyContent="space-between" mt={3}>
         <MDTypography variant="body1" fontWeight="light" color="text">
-          Total:
+          الإجمالي:
         </MDTypography>
         <MDBox ml={1}>
           <MDTypography variant="body1" fontWeight="medium">
-            $1.95
+            {Number(order?.totalAmount).toFixed(2)}
           </MDTypography>
         </MDBox>
       </MDBox>
-    </>
+    </Box>
   );
 }
 

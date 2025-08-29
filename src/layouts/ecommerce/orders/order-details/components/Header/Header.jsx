@@ -1,9 +1,10 @@
 import React from "react";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import MDButton from "components/MDButton";
+import { getOrderBadgeStatus } from "layouts/Orders/utils/constants";
 
 function Header({ order }) {
+  const orderStatus = getOrderBadgeStatus(order?.status);
   return (
     <MDBox display="flex" justifyContent="space-between" alignItems="center">
       <MDBox>
@@ -16,6 +17,7 @@ function Header({ order }) {
           رقم الطلب. <b>{order?.orderNumber}</b>
         </MDTypography>
       </MDBox>
+      {orderStatus}
     </MDBox>
   );
 }
