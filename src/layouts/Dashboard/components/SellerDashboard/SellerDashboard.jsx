@@ -16,7 +16,7 @@ function SellerDashboard() {
   } = useFetchAnalyticsOverview();
 
   const overViewData = overviewAnalytics?.data?.stats;
-  console.log(overViewData);
+
   return (
     <MDBox py={3}>
       <MDBox mb={3}>
