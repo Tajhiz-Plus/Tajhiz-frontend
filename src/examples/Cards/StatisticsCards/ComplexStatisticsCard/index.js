@@ -1,5 +1,3 @@
-
-
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
@@ -11,17 +9,19 @@ import Icon from "@mui/material/Icon";
 // Material Dashboard 3 PRO React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import { Skeleton } from "@mui/material";
 
-function ComplexStatisticsCard({ 
+function ComplexStatisticsCard({
   color = "info",
   title = "",
   count = "",
   percentage = {
     color: "success",
     amount: "",
-    label: ""
+    label: "",
   },
-  icon
+  icon,
+  isLoading = false,
 }) {
   return (
     <Card>
@@ -30,7 +30,13 @@ function ComplexStatisticsCard({
           <MDTypography variant="button" fontWeight="light" color="text">
             {title}
           </MDTypography>
-          <MDTypography variant="h4">{count}</MDTypography>
+          <MDTypography variant="h4">
+            {isLoading ? (
+              <Skeleton variant="text" width="100%" height="100%" />
+            ) : (
+              count
+            )}
+          </MDTypography>
         </MDBox>
         <MDBox
           variant="gradient"
@@ -102,6 +108,7 @@ ComplexStatisticsCard.propTypes = {
     label: PropTypes.string,
   }),
   icon: PropTypes.node.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 export default ComplexStatisticsCard;

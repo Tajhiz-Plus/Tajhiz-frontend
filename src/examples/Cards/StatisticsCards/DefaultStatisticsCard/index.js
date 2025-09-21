@@ -1,5 +1,3 @@
-
-
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
@@ -13,12 +11,19 @@ import MDTypography from "components/MDTypography";
 
 // Material Dashboard 3 PRO React contexts
 import { useMaterialUIController } from "context";
+import { Skeleton } from "@mui/material";
 
-function DefaultStatisticsCard({ title, count, percentage = {
-  color: "success",
-  value: "",
-  label: "",
-}, dropdown = false }) {
+function DefaultStatisticsCard({
+  title,
+  count,
+  percentage = {
+    color: "success",
+    value: "",
+    label: "",
+  },
+  dropdown = false,
+  isLoading = false,
+}) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
@@ -39,9 +44,17 @@ function DefaultStatisticsCard({ title, count, percentage = {
             </MDBox>
             <MDBox lineHeight={1}>
               <MDTypography variant="h5" fontWeight="bold">
-                {count}
+                {isLoading ? (
+                  <Skeleton variant="text" width="100%" height="100%" />
+                ) : (
+                  count
+                )}
               </MDTypography>
-              <MDTypography variant="button" fontWeight="bold" color={percentage.color}>
+              <MDTypography
+                variant="button"
+                fontWeight="bold"
+                color={percentage.color}
+              >
                 {percentage.value}&nbsp;
                 <MDTypography
                   variant="button"
@@ -101,6 +114,7 @@ DefaultStatisticsCard.propTypes = {
       value: PropTypes.string,
     }),
   ]),
+  isLoading: PropTypes.bool,
 };
 
 export default DefaultStatisticsCard;
