@@ -1,7 +1,7 @@
 import API from "shared/functions/axios";
 
-export const getOverviewAnalytics = async () => {
-  const res = await API.get("/api/v1/dashboard/reports/overview");
+export const getOverviewAnalytics = async (period = "month") => {
+  const res = await API.get(`/api/v1/dashboard/reports/overview?period=${period}`);
   return res.data;
 };
 

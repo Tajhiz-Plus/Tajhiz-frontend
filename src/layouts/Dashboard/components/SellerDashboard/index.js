@@ -1,1 +1,1 @@
-export * from "./SellerDashboard";
+export * from "./DashboardAnalytics";

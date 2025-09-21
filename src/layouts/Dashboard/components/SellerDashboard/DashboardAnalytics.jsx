@@ -1,24 +1,62 @@
-import { Grid } from "@mui/material";
+import {
+  Grid,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Box,
+} from "@mui/material";
 import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
-import React from "react";
-import Card from "@mui/material/Card";
+import React, { useState } from "react";
 import { useFetchAnalyticsOverview } from "services/queries/dashboard/useFetchAnalytics";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
-function SellerDashboard() {
-  const {
-    data: overviewAnalytics,
-    isLoading: isLoadingOverviewAnalytics,
-    refetch: refetchOverviewAnalytics,
-  } = useFetchAnalyticsOverview();
+function DashboardAnalytics() {
+  const [period, setPeriod] = useState("month");
+
+  const { data: overviewAnalytics, isLoading: isLoadingOverviewAnalytics } =
+    useFetchAnalyticsOverview(period);
 
   const overViewData = overviewAnalytics?.data?.stats;
-  //   const analyticsProductsData = analyticsProducts?.data?.products;
+
+  const handlePeriodChange = (event) => {
+    setPeriod(event.target.value);
+  };
+
+  const periodOptions = [
+    { value: "today", label: "اليوم" },
+    { value: "week", label: "اسبوع" },
+    { value: "month", label: "شهر" },
+    { value: "quarter", label: "ربع سنوي" },
+    { value: "year", label: "عام" },
+  ];
 
   return (
     <MDBox py={3}>
       <MDBox mb={3}>
+        <Box sx={{ mb: 3, display: "flex", justifyContent: "flex-start" }}>
+          <FormControl sx={{ minWidth: 220 }} size="small">
+            <InputLabel id="period-select-label">فترة التقرير</InputLabel>
+
+            <Select
+              labelId="period-select-label"
+              id="period-select"
+              value={period}
+              label="فترة التقرير"
+              onChange={handlePeriodChange}
+              sx={{
+                py: "10px !important",
+              }}
+            >
+              {periodOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} lg={4}>
             <ComplexStatisticsCard
@@ -48,7 +86,7 @@ function SellerDashboard() {
             <ComplexStatisticsCard
               title="إجمالي المنتجات"
               count={overViewData?.totalProducts}
-              icon="shopping_bag" // أيقونة المنتجات
+              icon="shopping_bag"
               isLoading={isLoadingOverviewAnalytics}
             />
           </Grid>
@@ -57,7 +95,7 @@ function SellerDashboard() {
             <ComplexStatisticsCard
               title="إجمالي الفئات"
               count={overViewData?.totalCategories}
-              icon="category" // أيقونة التصنيفات
+              icon="category"
               isLoading={isLoadingOverviewAnalytics}
             />
           </Grid>
@@ -66,7 +104,7 @@ function SellerDashboard() {
             <ComplexStatisticsCard
               title="إجمالي الطلبات"
               count={overViewData?.totalOrders}
-              icon="shopping_cart" // أيقونة الطلبات
+              icon="shopping_cart"
               isLoading={isLoadingOverviewAnalytics}
             />
           </Grid>
@@ -75,7 +113,7 @@ function SellerDashboard() {
             <ComplexStatisticsCard
               title="المنتجات النشطة"
               count={overViewData?.activeProducts}
-              icon="check_circle" // أيقونة الصح
+              icon="check_circle"
               isLoading={isLoadingOverviewAnalytics}
             />
           </Grid>
@@ -84,7 +122,7 @@ function SellerDashboard() {
             <ComplexStatisticsCard
               title="المنتجات المميزة"
               count={overViewData?.featuredProducts}
-              icon="star" // أيقونة النجمة
+              icon="star"
               isLoading={isLoadingOverviewAnalytics}
             />
           </Grid>
@@ -93,7 +131,7 @@ function SellerDashboard() {
             <ComplexStatisticsCard
               title="المستخدمين الجدد"
               count={overViewData?.recentUsers}
-              icon="person_add" // أيقونة إضافة مستخدم
+              icon="person_add"
               isLoading={isLoadingOverviewAnalytics}
             />
           </Grid>
@@ -102,7 +140,7 @@ function SellerDashboard() {
             <ComplexStatisticsCard
               title="الطلبات المعلقة"
               count={overViewData?.pendingOrders}
-              icon="pending_actions" // أيقونة الطلبات المعلقة
+              icon="pending_actions"
               isLoading={isLoadingOverviewAnalytics}
             />
           </Grid>
@@ -111,7 +149,7 @@ function SellerDashboard() {
             <ComplexStatisticsCard
               title="الطلبات المكتملة"
               count={overViewData?.completedOrders}
-              icon="done_all" // أيقونة مكتملة
+              icon="done_all"
               isLoading={isLoadingOverviewAnalytics}
             />
           </Grid>
@@ -120,7 +158,7 @@ function SellerDashboard() {
             <ComplexStatisticsCard
               title="إجمالي الإيرادات"
               count={`$${overViewData?.totalRevenue}`}
-              icon="attach_money" // أيقونة الدولار
+              icon="attach_money"
               isLoading={isLoadingOverviewAnalytics}
             />
           </Grid>
@@ -130,4 +168,4 @@ function SellerDashboard() {
   );
 }
 
-export default SellerDashboard;
+export default DashboardAnalytics;
