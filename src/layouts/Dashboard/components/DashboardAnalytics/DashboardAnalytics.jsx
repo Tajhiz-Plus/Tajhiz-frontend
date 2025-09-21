@@ -68,12 +68,13 @@ function DashboardAnalytics() {
           </Grid>
           <Grid item xs={12} sm={6} lg={4}>
             <ComplexStatisticsCard
-              title="إجمالي المنتجات"
-              count={overViewData?.totalProducts}
-              icon="shopping_bag"
+              title="المستخدمين الجدد"
+              count={overViewData?.recentUsers}
+              icon="person_add"
               isLoading={isLoadingOverviewAnalytics}
             />
           </Grid>
+
           <Grid item xs={12} sm={6} lg={4}>
             <ComplexStatisticsCard
               title="إجمالي الفئات"
@@ -129,15 +130,6 @@ function DashboardAnalytics() {
 
           <Grid item xs={12} sm={6} lg={4}>
             <ComplexStatisticsCard
-              title="المستخدمين الجدد"
-              count={overViewData?.recentUsers}
-              icon="person_add"
-              isLoading={isLoadingOverviewAnalytics}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6} lg={4}>
-            <ComplexStatisticsCard
               title="الطلبات المعلقة"
               count={overViewData?.pendingOrders}
               icon="pending_actions"
@@ -157,7 +149,7 @@ function DashboardAnalytics() {
           <Grid item xs={12} sm={6} lg={4}>
             <ComplexStatisticsCard
               title="إجمالي الإيرادات"
-              count={`$${overViewData?.totalRevenue}`}
+              count={`${overViewData?.totalRevenue}`}
               icon="attach_money"
               isLoading={isLoadingOverviewAnalytics}
             />
