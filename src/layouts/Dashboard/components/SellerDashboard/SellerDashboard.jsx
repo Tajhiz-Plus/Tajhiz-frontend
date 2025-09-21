@@ -1,13 +1,11 @@
 import { Grid } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import DefaultStatisticsCard from "examples/Cards/StatisticsCards/DefaultStatisticsCard";
-import dataTableData from "layouts/applications/data-tables/data/dataTableData";
 import React from "react";
-import DataTable from "examples/Tables/DataTable";
 import Card from "@mui/material/Card";
 import { useFetchAnalyticsOverview } from "services/queries/dashboard/useFetchAnalytics";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
+
 function SellerDashboard() {
   const {
     data: overviewAnalytics,
@@ -16,6 +14,7 @@ function SellerDashboard() {
   } = useFetchAnalyticsOverview();
 
   const overViewData = overviewAnalytics?.data?.stats;
+  //   const analyticsProductsData = analyticsProducts?.data?.products;
 
   return (
     <MDBox py={3}>
@@ -28,7 +27,7 @@ function SellerDashboard() {
               icon="group"
               isLoading={isLoadingOverviewAnalytics}
             />
-          </Grid>                   
+          </Grid>
           <Grid item xs={12} sm={6} lg={4}>
             <ComplexStatisticsCard
               title="إجمالي المنتجات"
@@ -81,7 +80,7 @@ function SellerDashboard() {
             />
           </Grid>
 
-            <Grid item xs={12} sm={6} lg={4}>
+          <Grid item xs={12} sm={6} lg={4}>
             <ComplexStatisticsCard
               title="المنتجات المميزة"
               count={overViewData?.featuredProducts}
@@ -127,27 +126,6 @@ function SellerDashboard() {
           </Grid>
         </Grid>
       </MDBox>
-
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Card>
-            <MDBox pt={3} px={3}>
-              <MDTypography variant="h6" fontWeight="medium">
-                اكثر المنتجات مبيعا
-              </MDTypography>
-            </MDBox>
-            <MDBox py={1}>
-              <DataTable
-                table={dataTableData}
-                entriesPerPage={false}
-                showTotalEntries={false}
-                isSorted={false}
-                noEndBorder
-              />
-            </MDBox>
-          </Card>
-        </Grid>
-      </Grid>
     </MDBox>
   );
 }

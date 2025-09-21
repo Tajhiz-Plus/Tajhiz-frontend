@@ -5,8 +5,8 @@ export const getOverviewAnalytics = async () => {
   return res.data;
 };
 
-export const getRoleDetails = async (roleId) => {
-  const res = await API.get(`/api/v1/roles/${roleId}`);
+export const getAnalyticsProducts = async () => {
+  const res = await API.get(`/api/v1/dashboard/reports/products`);
   return res.data;
 };
 
