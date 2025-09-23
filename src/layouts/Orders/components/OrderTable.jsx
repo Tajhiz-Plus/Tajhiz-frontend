@@ -36,8 +36,8 @@ function OrderTable() {
   });
 
   const orders = useMemo(() => {
-    return orderData?.data?.orders || [];
-  }, [orderData]);
+    return ordersData?.data?.orders || [];
+  }, [ordersData]);
 
   const openUpdateDialog = (order) => {
     updateOrder.onOpen();
@@ -59,12 +59,13 @@ function OrderTable() {
     setSp(param, { replace: true });
   }, 200);
 
-  useEffect(() => {
-    refreshOrders();
-  }, [page, searchParam]);
+  // useEffect(() => {
+  //   refreshOrders();
+  // }, [page, searchParam]);
+  console.log(orders);
 
   const tableData =
-    orders.length > 0
+    orders?.length > 0
       ? {
           columns: [
             {
@@ -93,36 +94,40 @@ function OrderTable() {
             {
               Header: "العميل",
               accessor: "customer",
-              Cell: ({ value }) => (
-                <CustomerCell
-                  image={value.image || "U"}
-                  color={value.color || "dark"}
-                  name={value.name}
-                />
-              ),
+              Cell: ({ value }) => {
+                return (
+                  <CustomerCell
+                    image={value.image || "U"}
+                    color={value.color || "dark"}
+                    name={value.name}
+                  />
+                );
+              },
             },
             {
               Header: "السعر",
               accessor: "totalAmount",
-              Cell: ({ value }) => (
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "4px",
-                    alignItems: "center",
-                  }}
-                >
-                  <span>{Number(value.toFixed(2)).toFixed(2)}</span>
-                  <img
-                    src={SAR}
-                    alt={"ريال"}
-                    width={20}
-                    height={20}
-                    crossOrigin="anonymous"
-                    loading="lazy"
-                  />
-                </div>
-              ),
+              Cell: ({ value }) => {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "4px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span>{Number(value)?.toFixed(2)}</span>
+                    <img
+                      src={SAR}
+                      alt={"ريال"}
+                      width={20}
+                      height={20}
+                      crossOrigin="anonymous"
+                      loading="lazy"
+                    />
+                  </div>
+                );
+              },
             },
             { Header: "الإجراءات", accessor: "actions" },
           ],
@@ -181,7 +186,7 @@ function OrderTable() {
           pageNumber={page}
           noEndBorder
           handlePageChange={handlePageChange}
-          url='orders'
+          url="orders"
         />
       )}
       {selectedOrder && (

@@ -78,11 +78,9 @@ export default function UpdateOrderDialog({ open, onClose, order }) {
       paymentMethod: order?.paymentMethod || "CREDIT_CARD",
       deliveryAddress: order?.deliveryAddress || "",
       notes: order?.notes || "",
-      deliveryFee:
-        typeof order?.deliveryFee === "number" ? order.deliveryFee : 0,
-      installationFee:
-        typeof order?.installationFee === "number" ? order.installationFee : 0,
-      taxAmount: typeof order?.taxAmount === "number" ? order.taxAmount : 0,
+      deliveryFee: order?.deliveryFee ? order.deliveryFee : 0,
+      installationFee: order?.installationFee ? order.installationFee : 0,
+      taxAmount: order?.taxAmount ? order.taxAmount : 0,
     },
     validationSchema,
     validateOnBlur: true,
