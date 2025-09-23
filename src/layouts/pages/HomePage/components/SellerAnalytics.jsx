@@ -1,3 +1,8 @@
+import { Grid } from "@mui/material";
+import MDBox from "components/MDBox";
+import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
+import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
+import reportsBarChartData from "layouts/dashboards/analytics/data/reportsBarChartData";
 import React from "react";
 
 function SellerAnalytics() {
@@ -17,7 +22,7 @@ function SellerAnalytics() {
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
           <MDBox mb={3}>
-            <ReportsLineChart
+            {/* <ReportsLineChart
               color="success"
               title="daily sales"
               description={
@@ -27,18 +32,18 @@ function SellerAnalytics() {
               }
               date="updated 4 min ago"
               chart={sales}
-            />
+            /> */}
           </MDBox>
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
           <MDBox mb={3}>
-            <ReportsLineChart
+            {/* <ReportsLineChart
               color="success"
               title="completed tasks"
               description="Last Campaign Performance"
               date="just updated"
               chart={tasks}
-            />
+            /> */}
           </MDBox>
         </Grid>
       </Grid>

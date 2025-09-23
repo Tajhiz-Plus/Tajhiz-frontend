@@ -33,23 +33,6 @@ function AdminAnalytics() {
                     badgeContent="طلبات جديدة"
                   />
                 </MDBox>
-                <MDBox mt={-4} mr={-1} position="absolute" right="1.5rem">
-                  <Tooltip
-                    title="See which ads perform better"
-                    placement="left"
-                    arrow
-                  >
-                    <MDButton
-                      variant="outlined"
-                      color="secondary"
-                      size="small"
-                      circular
-                      iconOnly
-                    >
-                      <Icon>priority_high</Icon>
-                    </MDButton>
-                  </Tooltip>
-                </MDBox>
               </MDBox>
             }
             chart={defaultLineChartData}
@@ -59,52 +42,39 @@ function AdminAnalytics() {
       <Grid container spacing={3}>
         <Grid item xs={12} md={6} xl={4}>
           <DefaultInfoCard
-            icon="account_balance"
-            title="salary"
-            description="Belong Interactive"
+            icon="account_balance_wallet"
+            title="إجمالي الدخل"
+            description=""
             value="+$2000"
           />
         </Grid>
+
         <Grid item xs={12} md={6} xl={4}>
           <DefaultInfoCard
-            icon="account_balance"
-            title="salary"
-            description="Belong Interactive"
+            icon="payments"
+            title="الأقساط المدفوعة"
+            description=""
             value="+$2000"
           />
         </Grid>
+
         <Grid item xs={12} md={6} xl={4}>
           <DefaultInfoCard
-            icon="paypal"
-            title="paypal"
-            description="Freelance Payment"
+            icon="assignment_return"
+            title="المرتجعات"
+            description=""
             value="$455.00"
           />
         </Grid>
       </Grid>
+
       <MDBox my={3}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <DefaultStatisticsCard
-              title="customers"
-              count="3.200"
-              percentage={{
-                color: "success",
-                value: "+12%",
-                label: "since last month",
-              }}
-            />
+            <DefaultStatisticsCard title="ملفات مكتملة" count="3.200" />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <DefaultStatisticsCard
-              title="avg. revenue"
-              count="$1.200"
-              percentage={{
-                color: "secondary",
-                value: "+$213",
-                label: "since last month",
-              }}
-            />
+            <DefaultStatisticsCard title="ملفات غير مكتملة" count="$1.200" />
           </Grid>
         </Grid>
       </MDBox>
