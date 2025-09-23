@@ -1,5 +1,3 @@
-
-
 import { useMemo } from "react";
 
 // porp-types is a library for typechecking of props
@@ -44,12 +42,12 @@ ChartJS.register(
   Filler
 );
 
-function DefaultLineChart({ 
-  icon = { color: "info", component: "" }, 
-  title = "", 
-  description = "", 
-  height = "19.125rem", 
-  chart 
+function DefaultLineChart({
+  icon = { color: "info", component: "" },
+  title = "",
+  description = "",
+  height = "19.125rem",
+  chart,
 }) {
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({

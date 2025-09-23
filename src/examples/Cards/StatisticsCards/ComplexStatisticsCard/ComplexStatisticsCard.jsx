@@ -1,28 +1,28 @@
-
-
-// prop-types is a library for typechecking of props
+import React from "react";
 import PropTypes from "prop-types";
-
-// @mui material components
 import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
-
-// Material Dashboard 3 PRO React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import StatisticsCardSkeleton from "components/StatisticsCardSkeleton/StatisticsCardSkeleton";
 
-function ComplexStatisticsCard({ 
+function ComplexStatisticsCard({
   color = "info",
   title = "",
   count = "",
   percentage = {
     color: "success",
     amount: "",
-    label: ""
+    label: "",
   },
-  icon
+  icon,
+  isLoading,
 }) {
+  if (isLoading) {
+    return <StatisticsCardSkeleton />;
+  }
+
   return (
     <Card>
       <MDBox display="flex" justifyContent="space-between" pt={1} px={2}>

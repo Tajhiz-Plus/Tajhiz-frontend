@@ -25,7 +25,7 @@ import SalesTable from "examples/Tables/SalesTable";
 import DataTable from "examples/Tables/DataTable";
 
 // Sales dashboard components
-import ChannelsChart from "layouts/dashboards/sales/components/ChannelsChart";
+import ChannelsChart from "layouts/dashboards/sales/components/ChannelsChart/ChannelsChart";
 
 // Data
 import defaultLineChartData from "layouts/dashboards/sales/data/defaultLineChartData";
