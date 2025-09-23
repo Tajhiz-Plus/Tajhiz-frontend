@@ -13,4 +13,7 @@ export const QUERY_KEYS = {
   ORDER_DETAILS: "orderDetails",
   DASHBOARD_OVERVIEW: "dashboardOverview",
   ANALYTICS_PRODUCTS: "analyticsProducts",
+  USERS_REPORTS : "usersReports",
+  PRODUCTS_REPORTS : "productsReports",
+  ORDERS_REPORTS : "ordersReports",
 };
