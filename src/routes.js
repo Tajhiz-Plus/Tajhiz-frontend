@@ -1,4 +1,3 @@
-import Sales from "layouts/dashboards/sales";
 import NewProduct from "layouts/ecommerce/products/new-product";
 import Icon from "@mui/material/Icon";
 import Dashboard from "layouts/Dashboard/Dashboard";
@@ -6,7 +5,6 @@ import Users from "layouts/Users/Users";
 import React, { lazy } from "react";
 import Orders from "layouts/Orders/Orders";
 import Categories from "layouts/Categories/Categories";
-import Reports from "layouts/Reports/Reports";
 
 const Roles = lazy(() => import("layouts/Roles/Roles"));
 const Permissions = lazy(() => import("layouts/Permissions/Permissions"));
@@ -98,16 +96,6 @@ export const routes = [
         protected: true,
       },
     ],
-  },
-  {
-    type: "collapse",
-    name: "التقارير",
-    key: "reports",
-    icon: <Icon fontSize="small">assessment</Icon>,
-    route: "/reports",
-    component: <Reports />,
-    noCollapse: true,
-    protected: true,
   },
 ];
 

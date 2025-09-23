@@ -77,14 +77,6 @@ function DashboardAnalytics() {
 
           <Grid item xs={12} sm={6} lg={4}>
             <ComplexStatisticsCard
-              title="إجمالي الفئات"
-              count={overViewData?.totalCategories}
-              icon="category"
-              isLoading={isLoadingOverviewAnalytics}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} lg={4}>
-            <ComplexStatisticsCard
               title="إجمالي المنتجات"
               count={overViewData?.totalProducts}
               icon="shopping_bag"
@@ -109,7 +101,22 @@ function DashboardAnalytics() {
               isLoading={isLoadingOverviewAnalytics}
             />
           </Grid>
-
+          <Grid item xs={12} sm={6} lg={4}>
+            <ComplexStatisticsCard
+              title="الطلبات المعلقة"
+              count={overViewData?.pendingOrders}
+              icon="pending_actions"
+              isLoading={isLoadingOverviewAnalytics}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={4}>
+            <ComplexStatisticsCard
+              title="الطلبات المكتملة"
+              count={overViewData?.completedOrders}
+              icon="done_all"
+              isLoading={isLoadingOverviewAnalytics}
+            />
+          </Grid>
           <Grid item xs={12} sm={6} lg={4}>
             <ComplexStatisticsCard
               title="المنتجات النشطة"
@@ -124,24 +131,6 @@ function DashboardAnalytics() {
               title="المنتجات المميزة"
               count={overViewData?.featuredProducts}
               icon="star"
-              isLoading={isLoadingOverviewAnalytics}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6} lg={4}>
-            <ComplexStatisticsCard
-              title="الطلبات المعلقة"
-              count={overViewData?.pendingOrders}
-              icon="pending_actions"
-              isLoading={isLoadingOverviewAnalytics}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6} lg={4}>
-            <ComplexStatisticsCard
-              title="الطلبات المكتملة"
-              count={overViewData?.completedOrders}
-              icon="done_all"
               isLoading={isLoadingOverviewAnalytics}
             />
           </Grid>
