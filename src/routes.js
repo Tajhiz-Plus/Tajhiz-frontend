@@ -50,16 +50,6 @@ export const routes = [
     component: <Orders />,
     noCollapse: true,
     protected: true,
-    // collapse: [
-    //   {
-    //     name: "الطلبات فرعي",
-    //     key: "projects",
-    //     noCollapse: true,
-    //     icon: <Icon fontSize="small">apps</Icon>,
-    //     route: "/orders",
-    //     component: <Kanban />,
-    //   },
-    // ],
   },
   {
     type: "collapse",
@@ -139,15 +129,5 @@ export const managerRoutes = [
     component: <Orders />,
     noCollapse: true,
     protected: true,
-    // collapse: [
-    //   {
-    //     name: "الطلبات فرعي",
-    //     key: "projects",
-    //     noCollapse: true,
-    //     icon: <Icon fontSize="small">apps</Icon>,
-    //     route: "/orders",
-    //     component: <Kanban />,
-    //   },
-    // ],
   },
 ];
