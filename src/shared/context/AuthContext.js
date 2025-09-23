@@ -1,3 +1,6 @@
+import { SUPER_ADMIN } from "constants/names";
+import { CUSTOMER } from "constants/names";
+import { ADMIN } from "constants/names";
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -26,8 +29,22 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const IS_ADMIN = user?.role === ADMIN;
+  const IS_SUPER_ADMIN = user?.role === SUPER_ADMIN;
+  const IS_SELLER = user?.role === CUSTOMER;
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, ready }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        logout,
+        ready,
+        IS_ADMIN,
+        IS_SUPER_ADMIN,
+        IS_SELLER,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
