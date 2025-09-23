@@ -20,7 +20,6 @@ const ORDER_STATUSES = [
   "SHIPPED",
   "DELIVERED",
   "CANCELLED",
-  "RETURNED",
 ];
 
 const PAYMENT_METHODS = [

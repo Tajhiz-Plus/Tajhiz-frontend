@@ -20,61 +20,63 @@ import { Box } from "@mui/material";
 function OrderDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  // const { data: order, isLoading } = useFetchOrderDetails(id);
+  const { data: orderDetail, isLoading } = useFetchOrderDetails(id);
 
-  const order = orderData?.data?.orders.find((o) => String(o.id) === id);
+  const orderDetailData = orderData?.data?.orders.find(
+    (o) => String(o.id) === id
+  );
+  const order = orderDetail?.data;
+  console.log(order);
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      {order ? (
-        <MDBox my={6}>
-          <Grid container spacing={3} justifyContent="center">
-            <Grid item xs={12} lg={8}>
-              <Box
-                sx={{ display: "flex", alignItems: "center", mb: 2 }}
-                onClick={() => navigate("/orders")}
-              >
-                {" "}
-                <ChevronRightIcon
-                  sx={{
-                    width: 30,
-                    height: 30,
-                    color: "#090E2D",
-                    cursor: "pointer",
-                  }}
-                />
-              </Box>
-              <Card>
-                <MDBox pt={2} px={2}>
-                  <Header order={order} />
+      {isLoading ? (
+        <OrderDetailsSkeleton />
+      ) : (
+        <Grid container spacing={3} justifyContent="center" my={3}>
+          <Grid item xs={12} lg={10}>
+            <Box
+              sx={{ display: "flex", alignItems: "center", mb: 2 }}
+              onClick={() => navigate("/orders")}
+            >
+              {" "}
+              <ChevronRightIcon
+                sx={{
+                  width: 30,
+                  height: 30,
+                  color: "#090E2D",
+                  cursor: "pointer",
+                }}
+              />
+            </Box>
+            <Card>
+              <MDBox pt={2} px={2}>
+                <Header order={order} />
+              </MDBox>
+              <Divider />
+              <MDBox pt={1} pb={3} px={2}>
+                <MDBox mb={3}>
+                  <OrderInfo orderItems={orderDetailData?.orderItems} />
                 </MDBox>
                 <Divider />
-                <MDBox pt={1} pb={3} px={2}>
-                  <MDBox mb={3}>
-                    <OrderInfo orderItems={order?.orderItems} />
-                  </MDBox>
-                  <Divider />
-                  <MDBox mt={3}>
-                    <Grid container spacing={3}>
-                      <Grid item xs={12} md={6} lg={3}>
-                        <TrackOrder />
-                      </Grid>
-                      <Grid item xs={12} md={6} lg={5}>
-                        <CustomerInformation customer={order?.user} />
-                      </Grid>
-                      <Grid item xs={12} lg={3} sx={{ mr: "auto" }}>
-                        <OrderSummary order={order} />
-                      </Grid>
+                <MDBox mt={3}>
+                  <Grid container spacing={3}>
+                    <Grid item xs={12} md={6} lg={3}>
+                      <TrackOrder />
                     </Grid>
-                  </MDBox>
+                    <Grid item xs={12} md={6} lg={5}>
+                      <CustomerInformation customer={orderDetailData?.user} />
+                    </Grid>
+                    <Grid item xs={12} lg={3} sx={{ mr: "auto" }}>
+                      <OrderSummary order={orderDetailData} />
+                    </Grid>
+                  </Grid>
                 </MDBox>
-              </Card>
-            </Grid>
+              </MDBox>
+            </Card>
           </Grid>
-        </MDBox>
-      ) : (
-        <OrderDetailsSkeleton />
+        </Grid>
       )}
     </DashboardLayout>
   );
