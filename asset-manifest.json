@@ -1,30 +1,23 @@
 {
   "files": {
     "main.css": "/Tajhiz-frontend/static/css/main.b7a2f809.css",
-    "main.js": "/Tajhiz-frontend/static/js/main.a9e1cb8b.js",
-    "static/js/683.bc0df257.chunk.js": "/Tajhiz-frontend/static/js/683.bc0df257.chunk.js",
-    "static/js/29.39e0f3e1.chunk.js": "/Tajhiz-frontend/static/js/29.39e0f3e1.chunk.js",
-    "static/js/336.79a84fb6.chunk.js": "/Tajhiz-frontend/static/js/336.79a84fb6.chunk.js",
+    "main.js": "/Tajhiz-frontend/static/js/main.5ec46d9b.js",
+    "static/js/683.3ac2609a.chunk.js": "/Tajhiz-frontend/static/js/683.3ac2609a.chunk.js",
+    "static/js/29.83a4eecb.chunk.js": "/Tajhiz-frontend/static/js/29.83a4eecb.chunk.js",
+    "static/js/336.e05d95d7.chunk.js": "/Tajhiz-frontend/static/js/336.e05d95d7.chunk.js",
     "static/js/5.26f4994b.chunk.js": "/Tajhiz-frontend/static/js/5.26f4994b.chunk.js",
     "static/js/903.91042b63.chunk.js": "/Tajhiz-frontend/static/js/903.91042b63.chunk.js",
-    "static/js/339.02f3b8b4.chunk.js": "/Tajhiz-frontend/static/js/339.02f3b8b4.chunk.js",
+    "static/js/799.4d82b4fa.chunk.js": "/Tajhiz-frontend/static/js/799.4d82b4fa.chunk.js",
     "static/media/Background.png": "/Tajhiz-frontend/static/media/Background.a32eedadead8d33106d0.png",
-    "static/media/product-12.jpg": "/Tajhiz-frontend/static/media/product-12.56173a00bfad324214a2.jpg",
     "static/media/bg-profile.jpeg": "/Tajhiz-frontend/static/media/bg-profile.af1219a742e09fc7b612.jpeg",
-    "static/media/photo-tools.jpeg": "/Tajhiz-frontend/static/media/photo-tools.30dae586cc4e5424fd81.jpeg",
     "static/media/Widget.png": "/Tajhiz-frontend/static/media/Widget.5c132809f521a65051ad.png",
-    "static/media/bang-sound.jpeg": "/Tajhiz-frontend/static/media/bang-sound.116944f6b03d4962319f.jpeg",
     "static/media/mainLogo.png": "/Tajhiz-frontend/static/media/mainLogo.385096ee96c298b9b3bf.png",
-    "static/media/blue-shoe.jpeg": "/Tajhiz-frontend/static/media/blue-shoe.d71240678a32ce1184bb.jpeg",
-    "static/media/black-mug.jpeg": "/Tajhiz-frontend/static/media/black-mug.4222a3da4c88cd2a6929.jpeg",
-    "static/media/black-chair.jpeg": "/Tajhiz-frontend/static/media/black-chair.ae677f8f033997d585d0.jpeg",
     "static/media/tajhiz-logo.png": "/Tajhiz-frontend/static/media/tajhiz-logo.7714c75ce7e61336e67f.png",
     "static/media/team-1.jpg": "/Tajhiz-frontend/static/media/team-1.0fd36e0ee93dcfacdef8.jpg",
     "static/media/bruce-mars.jpg": "/Tajhiz-frontend/static/media/bruce-mars.8a606c4a6dab54c9ceff.jpg",
     "static/media/team-5.jpg": "/Tajhiz-frontend/static/media/team-5.d59ab7b9f95f1169cf83.jpg",
     "static/media/team-2.jpg": "/Tajhiz-frontend/static/media/team-2.13ae2ce3e12f4cfed420.jpg",
     "static/media/team-3.jpg": "/Tajhiz-frontend/static/media/team-3.0ef0be95e6850814c79e.jpg",
-    "static/media/ivana-squares.jpg": "/Tajhiz-frontend/static/media/ivana-squares.3c555b856b04c2ab921b.jpg",
     "static/media/team-4.jpg": "/Tajhiz-frontend/static/media/team-4.85c82b6e60178804017f.jpg",
     "static/media/logo-slack.svg": "/Tajhiz-frontend/static/media/logo-slack.7c47c5aa474b5c4fb39fcf05ffb8e4e7.svg",
     "static/media/logo-xd.svg": "/Tajhiz-frontend/static/media/logo-xd.6e37886f94dba0c2967ece68a152e30c.svg",
@@ -37,6 +30,6 @@
   },
   "entrypoints": [
     "static/css/main.b7a2f809.css",
-    "static/js/main.a9e1cb8b.js"
+    "static/js/main.5ec46d9b.js"
   ]
 }
