@@ -4,20 +4,28 @@ import StatusCell from "layouts/ecommerce/orders/order-list/components/StatusCel
 
 export const ORDER_STATUS = {
   PENDING: "pending",
+  UNDER_REVIEW: "under_review",
   CONFIRMED: "confirmed",
+  PROCESSING: "processing",
   SHIPPED: "shipped",
   DELIVERED: "delivered",
+  COMPLETED: "completed",
   CANCELLED: "cancelled",
+  REFUNDED: "refunded",
   RETURNED: "returned",
 };
 
 const STATUS_CONFIG = {
-  pending: { icon: "schedule", color: "info", label: "Pending" },
-  confirmed: { icon: "task_alt", color: "success", label: "Confirmed" },
-  shipped: { icon: "local_shipping", color: "info", label: "Shipped" },
-  delivered: { icon: "done_all", color: "success", label: "Delivered" },
-  cancelled: { icon: "close", color: "error", label: "Cancelled" },
-  returned: { icon: "undo", color: "dark", label: "Returned" },
+  pending: { icon: "schedule", color: "warning", label: "قيد الانتظار" },
+  under_review: { icon: "visibility", color: "info", label: "تحت المراجعة" },
+  confirmed: { icon: "task_alt", color: "success", label: "تم التأكيد" },
+  processing: { icon: "settings", color: "info", label: "جاري المعالجة" },
+  shipped: { icon: "local_shipping", color: "info", label: "تم الشحن" },
+  delivered: { icon: "done_all", color: "success", label: "تم التوصيل" },
+  completed: { icon: "check_circle", color: "success", label: "مكتمل" },
+  cancelled: { icon: "close", color: "error", label: "ملغي" },
+  refunded: { icon: "undo", color: "warning", label: "مسترد" },
+  returned: { icon: "undo", color: "dark", label: "مرتجع" },
 };
 
 export const getOrderStatus = (status) => {
@@ -25,7 +33,7 @@ export const getOrderStatus = (status) => {
   const cfg = STATUS_CONFIG[key] ?? {
     icon: "help_outline",
     color: "dark",
-    label: key || "Unknown",
+    label: "غير معروف",
   };
 
   return <StatusCell icon={cfg.icon} color={cfg.color} status={cfg.label} />;
@@ -36,7 +44,7 @@ export const getOrderBadgeStatus = (status) => {
   const cfg = STATUS_CONFIG[key] ?? {
     icon: "help_outline",
     color: "dark",
-    label: key || "Unknown",
+    label: "غير معروف",
   };
 
   return (

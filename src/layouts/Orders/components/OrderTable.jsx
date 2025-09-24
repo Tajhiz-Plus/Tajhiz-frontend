@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAsyncDebounce } from "react-table";
 import { useFetchOrders } from "services/queries/Orders/useFetchOrders";
@@ -8,7 +8,6 @@ import CustomerCell from "layouts/ecommerce/orders/order-list/components/Custome
 import OrdersTableHeader from "./OrdersTableHeader";
 import TableSkeleton from "components/TableSkeleton/TableSkeleton";
 import TableWithServerPagination from "layouts/authentication/components/TableWithServerPagination/TableWithServerPagination";
-import { orderData } from "../utils/data";
 import SAR from "assets/images/SAR.svg";
 import { Icon } from "@mui/material";
 import UpdateOrderDialog from "./UpdateOrderDialog";
@@ -25,7 +24,7 @@ function OrderTable() {
   const updateOrder = useDisclosure();
 
   const {
-    data: ordersData,
+    data: orderData,
     isLoading: ordersLoading,
     isError: ordersError,
     refetch: refreshOrders,
@@ -36,8 +35,8 @@ function OrderTable() {
   });
 
   const orders = useMemo(() => {
-    return ordersData?.data?.orders || [];
-  }, [ordersData]);
+    return orderData?.data?.orders || [];
+  }, [orderData]);
 
   const openUpdateDialog = (order) => {
     updateOrder.onOpen();
@@ -58,7 +57,6 @@ function OrderTable() {
     param.set("page", "1");
     setSp(param, { replace: true });
   }, 200);
-
 
   const tableData =
     orders?.length > 0
@@ -171,7 +169,7 @@ function OrderTable() {
         onSearchChange={onSearchChange}
       />
       {ordersLoading ? (
-        <TableSkeleton table={tableData} rows={6} columns={3} />
+        <TableSkeleton table={tableData} rows={10} columns={6} />
       ) : (
         <TableWithServerPagination
           table={tableData ?? { columns: [], rows: [] }}

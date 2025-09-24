@@ -16,11 +16,41 @@ import { toast } from "react-toastify";
 import { useUpdateOrder } from "services/mutations/orders/useUpdateOrder";
 const ORDER_STATUSES = [
   "PENDING",
+  "UNDER_REVIEW",
   "CONFIRMED",
+  "PROCESSING",
   "SHIPPED",
   "DELIVERED",
+  "COMPLETED",
   "CANCELLED",
+  "REFUNDED",
 ];
+
+// Status labels mapping
+const getStatusLabel = (status) => {
+  switch (status) {
+    case "PENDING":
+      return "قيد الانتظار";
+    case "UNDER_REVIEW":
+      return "تحت المراجعة";
+    case "CONFIRMED":
+      return "تم التأكيد";
+    case "PROCESSING":
+      return "جاري المعالجة";
+    case "SHIPPED":
+      return "تم الشحن";
+    case "DELIVERED":
+      return "تم التوصيل";
+    case "COMPLETED":
+      return "مكتمل";
+    case "CANCELLED":
+      return "ملغي";
+    case "REFUNDED":
+      return "مسترد";
+    default:
+      return "غير معروف";
+  }
+};
 
 const PAYMENT_METHODS = [
   "CREDIT_CARD",
@@ -120,7 +150,7 @@ export default function UpdateOrderDialog({ open, onClose, order }) {
             >
               {ORDER_STATUSES.map((s) => (
                 <MenuItem key={s} value={s}>
-                  {s}
+                  {getStatusLabel(s)}
                 </MenuItem>
               ))}
             </TextField>
