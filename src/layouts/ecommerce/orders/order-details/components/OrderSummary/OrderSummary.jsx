@@ -25,7 +25,7 @@ function OrderSummary({ order }) {
         </MDTypography>
         <MDBox ml={1}>
           <MDTypography variant="body2" fontWeight="medium">
-            {productsPrice}
+            {Number(order?.subtotal)?.toFixed(2)}
           </MDTypography>
         </MDBox>
       </MDBox>
@@ -35,7 +35,7 @@ function OrderSummary({ order }) {
         </MDTypography>
         <MDBox ml={1}>
           <MDTypography variant="body2" fontWeight="medium">
-            $14
+            {Number(order?.deliveryFee)?.toFixed(2)}
           </MDTypography>
         </MDBox>
       </MDBox>
@@ -45,7 +45,17 @@ function OrderSummary({ order }) {
         </MDTypography>
         <MDBox ml={1}>
           <MDTypography variant="body2" fontWeight="medium">
-            $1.95
+            {Number(order?.taxAmount)?.toFixed(2)}
+          </MDTypography>
+        </MDBox>
+      </MDBox>
+      <MDBox display="flex" justifyContent="space-between" mb={0.5}>
+        <MDTypography variant="button" fontWeight="regular" color="text">
+          رسوم التركيب:
+        </MDTypography>
+        <MDBox ml={1}>
+          <MDTypography variant="body2" fontWeight="medium">
+            {Number(order?.installationFee)?.toFixed(2)}
           </MDTypography>
         </MDBox>
       </MDBox>

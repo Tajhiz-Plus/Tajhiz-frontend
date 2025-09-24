@@ -59,10 +59,6 @@ function OrderTable() {
     setSp(param, { replace: true });
   }, 200);
 
-  // useEffect(() => {
-  //   refreshOrders();
-  // }, [page, searchParam]);
-  console.log(orders);
 
   const tableData =
     orders?.length > 0

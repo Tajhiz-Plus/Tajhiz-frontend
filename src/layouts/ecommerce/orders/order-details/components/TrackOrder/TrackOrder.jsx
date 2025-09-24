@@ -3,13 +3,22 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import TimelineItem from "examples/Timeline/TimelineItem";
 
-function OrdersOverview() {
+function TrackOrder({ orderEvents }) {
   return (
     <>
       <MDTypography variant="h6" fontWeight="medium">
         تتبع الطلب
       </MDTypography>
       <MDBox mt={2}>
+        {orderEvents.map((event) => (
+          <TimelineItem
+            key={event.id}
+            color={event.color}
+            icon={event.icon}
+            title={event.title}
+            dateTime={event.dateTime}
+          />
+        ))}
         <TimelineItem
           color="secondary"
           icon="notifications"
@@ -40,4 +49,4 @@ function OrdersOverview() {
   );
 }
 
-export default OrdersOverview;
+export default TrackOrder;

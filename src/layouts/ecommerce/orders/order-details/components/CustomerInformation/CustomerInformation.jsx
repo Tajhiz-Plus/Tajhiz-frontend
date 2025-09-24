@@ -6,7 +6,6 @@ import { useMaterialUIController } from "context";
 function CustomerInformation({ customer }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
-
   return (
     <>
       <MDTypography variant="h6" fontWeight="medium">
@@ -17,7 +16,7 @@ function CustomerInformation({ customer }) {
         display="flex"
         justifyContent="space-between"
         alignItems="flex-start"
-        bgColor={'transparent'}
+        bgColor={"transparent"}
         borderRadius="lg"
         p={3}
         mt={2}

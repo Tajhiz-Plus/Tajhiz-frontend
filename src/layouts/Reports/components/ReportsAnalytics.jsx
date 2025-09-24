@@ -29,7 +29,6 @@ function ReportsAnalytics() {
   const products = productsReports?.data;
   const orders = ordersReports?.data;
 
-  console.log(orders);
 
   const handlePeriodChange = (event) => {
     setPeriod(event.target.value);
@@ -43,7 +42,6 @@ function ReportsAnalytics() {
     { value: "year", label: "عام" },
   ];
 
-  console.log(products);
 
   return (
     <MDBox py={3}>

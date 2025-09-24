@@ -6,7 +6,6 @@ import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Header from "layouts/ecommerce/orders/order-details/components/Header/Header";
-import TrackOrder from "layouts/ecommerce/orders/order-details/components/TrackOrder/OrdersOverview";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFetchOrderDetails } from "services/queries/Orders/useFetchOrderDetails";
 import { orderData } from "layouts/Orders/utils/data";
@@ -16,17 +15,14 @@ import OrderSummary from "./components/OrderSummary/OrderSummary";
 import CustomerInformation from "./components/CustomerInformation/CustomerInformation";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Box } from "@mui/material";
+import InstallmentsTrack from "./components/InstallmentsTrack/InstallmentsTrack";
 
 function OrderDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: orderDetail, isLoading } = useFetchOrderDetails(id);
 
-  const orderDetailData = orderData?.data?.orders.find(
-    (o) => String(o.id) === id
-  );
   const order = orderDetail?.data;
-  console.log(order);
 
   return (
     <DashboardLayout>
@@ -57,19 +53,21 @@ function OrderDetails() {
               <Divider />
               <MDBox pt={1} pb={3} px={2}>
                 <MDBox mb={3}>
-                  <OrderInfo orderItems={orderDetailData?.orderItems} />
+                  <OrderInfo orderItems={order?.orderItems} />
                 </MDBox>
                 <Divider />
                 <MDBox mt={3}>
                   <Grid container spacing={3}>
-                    <Grid item xs={12} md={6} lg={3}>
-                      <TrackOrder />
-                    </Grid>
                     <Grid item xs={12} md={6} lg={5}>
-                      <CustomerInformation customer={orderDetailData?.user} />
+                      <InstallmentsTrack
+                        installmentPlan={order?.installmentPlan}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={6} lg={4}>
+                      <CustomerInformation customer={order?.user} />
                     </Grid>
                     <Grid item xs={12} lg={3} sx={{ mr: "auto" }}>
-                      <OrderSummary order={orderDetailData} />
+                      <OrderSummary order={order} />
                     </Grid>
                   </Grid>
                 </MDBox>
