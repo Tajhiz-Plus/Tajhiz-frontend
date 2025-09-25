@@ -2,6 +2,7 @@ import React from "react";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import { getOrderBadgeStatus } from "layouts/Orders/utils/constants";
+import { getPaymentMethod } from "constants/constants";
 
 function Header({ order }) {
   const orderStatus = getOrderBadgeStatus(order?.status);
@@ -35,6 +36,14 @@ function Header({ order }) {
           sx={{ mt: 0.5 }}
         >
           تاريخ الطلب: <b>{formatDate(order?.createdAt)}</b>
+        </MDTypography>
+        <MDTypography
+          component="p"
+          variant="caption"
+          color="text"
+          sx={{ mt: 0.5 }}
+        >
+          وسيلة الدفع: <b>{getPaymentMethod(order?.paymentMethod)}</b>
         </MDTypography>
       </MDBox>
       {orderStatus}

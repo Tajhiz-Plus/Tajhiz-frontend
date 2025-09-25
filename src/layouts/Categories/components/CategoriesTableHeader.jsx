@@ -2,8 +2,15 @@ import { Box, Button } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import React from "react";
+import { useHasPermission } from "shared/hooks/useHasPermission";
 
-function CategoriesTableHeader({ search, setSearch, onSearchChange, addCategory }) {
+function CategoriesTableHeader({
+  search,
+  setSearch,
+  onSearchChange,
+  addCategory,
+}) {
+  const CAN_ADD_CATEGORY = useHasPermission("categories.create");
   return (
     <MDBox
       display="flex"
@@ -24,16 +31,18 @@ function CategoriesTableHeader({ search, setSearch, onSearchChange, addCategory 
           }}
         />
       </MDBox>
-      <Box>
-        {" "}
-        <Button
-          variant="contained"
-          sx={{ color: "#FFF" }}
-          onClick={() => addCategory.onOpen()}
-        >
-          إضافة تصنيف
-        </Button>
-      </Box>
+      {CAN_ADD_CATEGORY && (
+        <Box>
+          {" "}
+          <Button
+            variant="contained"
+            sx={{ color: "#FFF" }}
+            onClick={() => addCategory.onOpen()}
+          >
+            إضافة تصنيف
+          </Button>
+        </Box>
+      )}
     </MDBox>
   );
 }

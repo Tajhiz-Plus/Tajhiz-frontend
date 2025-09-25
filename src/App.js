@@ -29,8 +29,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "shared/hooks/useAuth";
 import { SUPER_ADMIN } from "constants/names";
-import { managerRoutes } from "routes";
+import { sellerRoutes } from "routes";
 import SuspenseLoading from "components/SuspenseLoading/SuspenseLoading";
+import { OPERATOR } from "constants/names";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -50,7 +51,8 @@ export default function App() {
   const { user, ready } = useAuth();
 
   const IS_SUPER_ADMIN = user?.role === SUPER_ADMIN;
-  const MENU_ITEMS = IS_SUPER_ADMIN ? routes : managerRoutes;
+  const IS_OPERATOR = user?.role === OPERATOR;
+  const MENU_ITEMS = IS_SUPER_ADMIN || IS_OPERATOR ? routes : sellerRoutes;
 
   // Cache for the rtl
   useMemo(() => {

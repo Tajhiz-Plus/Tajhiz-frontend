@@ -20,3 +20,14 @@ export const colorsSelect = [
   { id: 19, label: "أخضر فاتح", value: "lightgreen" },
   { id: 20, label: "أحمر غامق", value: "darkred" },
 ];
+
+export const PAYMENT_METHODS = {
+  CREDIT_CARD: "بطاقة ائتمان",
+  CASH: "نقدي",
+  APPLE_PAY: "paypal",
+  STC_PAY: "STC Pay",
+  PAYPAL: "Paypal",
+};
+export const getPaymentMethod = (paymentMethod) => {
+  return PAYMENT_METHODS[paymentMethod] || paymentMethod;
+};

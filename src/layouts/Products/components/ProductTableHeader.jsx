@@ -2,8 +2,10 @@ import { Box, Button } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import React from "react";
+import { useHasPermission } from "shared/hooks/useHasPermission";
 
 function TableHeader({ search, setSearch, onSearchChange, addProduct }) {
+  const CAN_ADD_PRODUCT = useHasPermission("products.create");
   return (
     <MDBox
       display="flex"
@@ -24,16 +26,18 @@ function TableHeader({ search, setSearch, onSearchChange, addProduct }) {
           }}
         />
       </MDBox>
-      <Box>
-        {" "}
-        <Button
-          variant="contained"
-          sx={{ color: "#FFF" }}
-          onClick={() => addProduct.onOpen()}
-        >
-          إضافة منتج
-        </Button>
-      </Box>
+      {CAN_ADD_PRODUCT && (
+        <Box>
+          {" "}
+          <Button
+            variant="contained"
+            sx={{ color: "#FFF" }}
+            onClick={() => addProduct.onOpen()}
+          >
+            إضافة منتج
+          </Button>
+        </Box>
+      )}{" "}
     </MDBox>
   );
 }

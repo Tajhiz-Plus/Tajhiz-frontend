@@ -11,6 +11,7 @@ import { useFetchCategories } from "services/queries/categories/useFetchCategori
 import { useFetchCategoriesTypes } from "services/queries/categories/useFetchCategories";
 import UpdateCategoryDialog from "./UpdateCategoryDialog";
 import DeleteCategoryDialog from "./DeleteCategoryDialog";
+import { useHasPermission } from "shared/hooks/useHasPermission";
 
 const LIMIT_PAGE = 10;
 
@@ -24,6 +25,9 @@ function CategoriesTable() {
   const updateCategory = useDisclosure();
   const deleteCategory = useDisclosure();
   const addCategory = useDisclosure();
+  const CAN_EDIT_CATEGORY = useHasPermission("categories.edit");
+  const CAN_UPDATE_CATEGORY = useHasPermission("categories.update");
+  const CAN_DELETE_CATEGORY = useHasPermission("categories.delete");
 
   const {
     data: categoriesData,
@@ -39,7 +43,6 @@ function CategoriesTable() {
     data: categoriesTypesData,
     isLoading: typesLoading,
     isError: typesError,
-    refetch: refreshtypes,
   } = useFetchCategoriesTypes();
 
   const categories = categoriesData?.data?.categories ?? [];
@@ -116,18 +119,22 @@ function CategoriesTable() {
               actions: (
                 <>
                   <div style={{ display: "flex", gap: "8px" }}>
-                    <Icon
-                      style={{ cursor: "pointer" }}
-                      onClick={() => openUpdateDialog(category)}
-                    >
-                      edit
-                    </Icon>
-                    <Icon
-                      style={{ cursor: "pointer", color: "red" }}
-                      onClick={() => openDeleteDialog(category)}
-                    >
-                      delete
-                    </Icon>
+                    {(CAN_EDIT_CATEGORY || CAN_UPDATE_CATEGORY) && (
+                      <Icon
+                        style={{ cursor: "pointer" }}
+                        onClick={() => openUpdateDialog(category)}
+                      >
+                        edit
+                      </Icon>
+                    )}
+                    {CAN_DELETE_CATEGORY && (
+                      <Icon
+                        style={{ cursor: "pointer", color: "red" }}
+                        onClick={() => openDeleteDialog(category)}
+                      >
+                        delete
+                      </Icon>
+                    )}
                   </div>
                 </>
               ),

@@ -11,6 +11,7 @@ import TableWithServerPagination from "layouts/authentication/components/TableWi
 import SAR from "assets/images/SAR.svg";
 import { Icon } from "@mui/material";
 import UpdateOrderDialog from "./UpdateOrderDialog";
+import { useHasPermission } from "shared/hooks/useHasPermission";
 
 const LIMIT_PAGE = 10;
 
@@ -22,6 +23,8 @@ function OrderTable() {
 
   const [selectedOrder, setSelectedOrder] = React.useState(null);
   const updateOrder = useDisclosure();
+  const CAN_EDIT_ORDER = useHasPermission("orders.edit");
+  const CAN_UPDATE_ORDER = useHasPermission("orders.update");
 
   const {
     data: orderData,
@@ -152,7 +155,9 @@ function OrderTable() {
                       borderRadius: "8px",
                     }}
                   >
-                    <Icon style={{ cursor: "pointer" }}>edit</Icon>
+                    {(CAN_EDIT_ORDER || CAN_UPDATE_ORDER) && (
+                      <Icon style={{ cursor: "pointer" }}>edit</Icon>
+                    )}
                   </div>
                 </>
               ),

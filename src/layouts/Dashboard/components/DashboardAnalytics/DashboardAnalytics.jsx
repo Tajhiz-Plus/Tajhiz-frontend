@@ -10,10 +10,11 @@ import MDBox from "components/MDBox";
 import React, { useState } from "react";
 import { useFetchAnalyticsOverview } from "services/queries/dashboard/useFetchAnalytics";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
+import { useAuth } from "shared/hooks/useAuth";
 
 function DashboardAnalytics() {
   const [period, setPeriod] = useState("month");
-
+  const { IS_SELLER } = useAuth();
   const { data: overviewAnalytics, isLoading: isLoadingOverviewAnalytics } =
     useFetchAnalyticsOverview(period);
 
@@ -58,22 +59,26 @@ function DashboardAnalytics() {
         </Box>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} lg={4}>
-            <ComplexStatisticsCard
-              title="إجمالي المستخدمين"
-              count={overViewData?.totalUsers}
-              icon="group"
-              isLoading={isLoadingOverviewAnalytics}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} lg={4}>
-            <ComplexStatisticsCard
-              title="المستخدمين الجدد"
-              count={overViewData?.recentUsers}
-              icon="person_add"
-              isLoading={isLoadingOverviewAnalytics}
-            />
-          </Grid>
+          {!IS_SELLER && (
+            <>
+              <Grid item xs={12} sm={6} lg={4}>
+                <ComplexStatisticsCard
+                  title="إجمالي المستخدمين"
+                  count={overViewData?.totalUsers}
+                  icon="group"
+                  isLoading={isLoadingOverviewAnalytics}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} lg={4}>
+                <ComplexStatisticsCard
+                  title="المستخدمين الجدد"
+                  count={overViewData?.recentUsers}
+                  icon="person_add"
+                  isLoading={isLoadingOverviewAnalytics}
+                />
+              </Grid>
+            </>
+          )}
 
           <Grid item xs={12} sm={6} lg={4}>
             <ComplexStatisticsCard

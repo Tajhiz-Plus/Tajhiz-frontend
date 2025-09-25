@@ -11,6 +11,7 @@ import { useAsyncDebounce } from "react-table";
 import TableHeader from "./ProductTableHeader";
 import { useFetchProducts } from "services/queries/products/useFetchProducts";
 import SAR from "assets/images/SAR.svg";
+import { useHasPermission } from "shared/hooks/useHasPermission";
 
 const LIMIT_PAGE = 10;
 
@@ -24,6 +25,9 @@ function ProductsTable() {
   const updateProduct = useDisclosure();
   const deleteProduct = useDisclosure();
   const addProduct = useDisclosure();
+  const CAN_EDIT_PRODUCT = useHasPermission("products.edit");
+  const CAN_UPDATE_PRODUCT = useHasPermission("products.update");
+  const CAN_DELETE_PRODUCT = useHasPermission("products.delete");
 
   const {
     data: productsData,
@@ -171,24 +175,28 @@ function ProductsTable() {
                       gap: "8px",
                     }}
                   >
-                    <Icon
-                      style={{ cursor: "pointer", zIndex: 10000 }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        openUpdateDialog(product);
-                      }}
-                    >
-                      edit
-                    </Icon>
-                    <Icon
-                      style={{ cursor: "pointer", color: "red" }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        openDeleteDialog(product);
-                      }}
-                    >
-                      delete
-                    </Icon>
+                    {(CAN_EDIT_PRODUCT || CAN_UPDATE_PRODUCT) && (
+                      <Icon
+                        style={{ cursor: "pointer", zIndex: 10000 }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openUpdateDialog(product);
+                        }}
+                      >
+                        edit
+                      </Icon>
+                    )}{" "}
+                    {CAN_DELETE_PRODUCT && (
+                      <Icon
+                        style={{ cursor: "pointer", color: "red" }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openDeleteDialog(product);
+                        }}
+                      >
+                        delete
+                      </Icon>
+                    )}{" "}
                   </div>
                 </>
               ),

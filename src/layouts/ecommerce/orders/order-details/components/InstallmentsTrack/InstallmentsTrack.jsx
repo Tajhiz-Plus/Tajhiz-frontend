@@ -56,6 +56,15 @@ function InstallmentsTrack({ installmentPlan }) {
     }
   };
 
+  if (!installmentPlan) {
+    return (
+      <Card sx={{ p: 3, textAlign: "center" }}>
+        <MDTypography variant="h6" fontWeight="medium" color="text">
+          تم الدفع
+        </MDTypography>
+      </Card>
+    );
+  }
   if (
     !installmentPlan?.installments ||
     installmentPlan.installments.length === 0

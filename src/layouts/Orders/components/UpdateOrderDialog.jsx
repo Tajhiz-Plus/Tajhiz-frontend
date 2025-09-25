@@ -14,6 +14,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import { useUpdateOrder } from "services/mutations/orders/useUpdateOrder";
+import { getPaymentMethod } from "constants/constants";
 const ORDER_STATUSES = [
   "PENDING",
   "UNDER_REVIEW",
@@ -155,7 +156,7 @@ export default function UpdateOrderDialog({ open, onClose, order }) {
               ))}
             </TextField>
 
-            <TextField
+            {/* <TextField
               select
               label="وسيلة الدفع"
               name="paymentMethod"
@@ -172,10 +173,10 @@ export default function UpdateOrderDialog({ open, onClose, order }) {
             >
               {PAYMENT_METHODS.map((m) => (
                 <MenuItem key={m} value={m}>
-                  {m}
+                  {getPaymentMethod(m)}
                 </MenuItem>
               ))}
-            </TextField>
+            </TextField> */}
 
             <TextField
               label="عنوان التوصيل"

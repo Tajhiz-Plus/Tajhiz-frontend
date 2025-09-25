@@ -89,7 +89,7 @@ export const routes = [
   },
 ];
 
-export const managerRoutes = [
+export const sellerRoutes = [
   {
     type: "collapse",
     name: "الرئيسية",
@@ -106,7 +106,7 @@ export const managerRoutes = [
     key: "products",
     route: "/products",
     icon: <Icon fontSize="small">shop</Icon>,
-    component: <NewProduct />,
+    component: <Products />,
     noCollapse: true,
     protected: true,
   },

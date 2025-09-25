@@ -168,11 +168,11 @@ function DashboardNavbar({ absolute = false, light = false, isMini = false }) {
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
             <MDBox color={light ? "white" : "inherit"} my={1}>
-              <Link to="/profile">
+              {/* <Link to="/profile">
                 <IconButton sx={navbarIconButton} size="small" disableRipple>
                   <Icon sx={iconsStyle}>account_circle</Icon>
                 </IconButton>
-              </Link>
+              </Link> */}
               <IconButton
                 size="small"
                 disableRipple
@@ -194,7 +194,7 @@ function DashboardNavbar({ absolute = false, light = false, isMini = false }) {
                 <Icon sx={iconsStyle}>settings</Icon>
               </IconButton>
               {settingsMenu()}
-              <IconButton
+              {/* <IconButton
                 size="small"
                 disableRipple
                 color="inherit"
@@ -207,7 +207,7 @@ function DashboardNavbar({ absolute = false, light = false, isMini = false }) {
                 <MDBadge badgeContent={9} color="error" size="xs" circular>
                   <Icon sx={iconsStyle}>notifications</Icon>
                 </MDBadge>
-              </IconButton>
+              </IconButton> */}
               {renderMenu()}
             </MDBox>
           </MDBox>

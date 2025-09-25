@@ -1,5 +1,6 @@
 import { SUPER_ADMIN } from "constants/names";
-import { CUSTOMER } from "constants/names";
+import { SELLER } from "constants/names";
+import { OPERATOR } from "constants/names";
 import { ADMIN } from "constants/names";
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   const login = ({ data }) => {
     localStorage.setItem("user", JSON.stringify(data));
     setUser(data);
-    navigate("/permissions", { replace: true });
+    navigate("/", { replace: true });
   };
 
   const logout = () => {
@@ -31,7 +32,8 @@ export const AuthProvider = ({ children }) => {
 
   const IS_ADMIN = user?.role === ADMIN;
   const IS_SUPER_ADMIN = user?.role === SUPER_ADMIN;
-  const IS_SELLER = user?.role === CUSTOMER;
+  const IS_SELLER = user?.role === SELLER;
+  const IS_OPERATOR = user?.role === OPERATOR;
 
   return (
     <AuthContext.Provider
@@ -43,6 +45,7 @@ export const AuthProvider = ({ children }) => {
         IS_ADMIN,
         IS_SUPER_ADMIN,
         IS_SELLER,
+        IS_OPERATOR,
       }}
     >
       {children}
