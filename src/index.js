@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "App";
 import { MaterialUIControllerProvider } from "context";
 import { AuthProvider } from "shared/context/AuthContext";
@@ -21,7 +21,8 @@ export const mainQueryClient = new QueryClient({
 });
 
 root.render(
-  <HashRouter>
+  <BrowserRouter basename="/">
+    {" "}
     <MaterialUIControllerProvider>
       <QueryClientProvider client={mainQueryClient}>
         <AuthProvider>
@@ -29,5 +30,5 @@ root.render(
         </AuthProvider>
       </QueryClientProvider>
     </MaterialUIControllerProvider>
-  </HashRouter>
+  </BrowserRouter>
 );
