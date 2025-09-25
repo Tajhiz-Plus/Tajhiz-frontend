@@ -21,7 +21,7 @@ export const mainQueryClient = new QueryClient({
 });
 
 root.render(
-  <BrowserRouter basename="/">
+  <BrowserRouter>
     {" "}
     <MaterialUIControllerProvider>
       <QueryClientProvider client={mainQueryClient}>

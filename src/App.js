@@ -184,7 +184,8 @@ export default function App() {
                 element={<ProtectedRoutes>{route.component}</ProtectedRoutes>}
               />
             ))}
-            <Route path="*" element={<Navigate to="/dashboard" />} />
+            <Route path="/" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
       </ThemeProvider>
