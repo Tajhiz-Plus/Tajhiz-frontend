@@ -1,13 +1,15 @@
 {
   "files": {
     "main.css": "/Tajhiz-frontend/static/css/main.b7a2f809.css",
-    "main.js": "/Tajhiz-frontend/static/js/main.5ec46d9b.js",
+    "main.js": "/Tajhiz-frontend/static/js/main.fb8a54e1.js",
     "static/js/683.3ac2609a.chunk.js": "/Tajhiz-frontend/static/js/683.3ac2609a.chunk.js",
     "static/js/29.83a4eecb.chunk.js": "/Tajhiz-frontend/static/js/29.83a4eecb.chunk.js",
-    "static/js/336.e05d95d7.chunk.js": "/Tajhiz-frontend/static/js/336.e05d95d7.chunk.js",
-    "static/js/5.26f4994b.chunk.js": "/Tajhiz-frontend/static/js/5.26f4994b.chunk.js",
-    "static/js/903.91042b63.chunk.js": "/Tajhiz-frontend/static/js/903.91042b63.chunk.js",
-    "static/js/799.4d82b4fa.chunk.js": "/Tajhiz-frontend/static/js/799.4d82b4fa.chunk.js",
+    "static/js/336.d2e70362.chunk.js": "/Tajhiz-frontend/static/js/336.d2e70362.chunk.js",
+    "static/js/5.fd8eef24.chunk.js": "/Tajhiz-frontend/static/js/5.fd8eef24.chunk.js",
+    "static/js/903.490451a8.chunk.js": "/Tajhiz-frontend/static/js/903.490451a8.chunk.js",
+    "static/js/799.bfb26444.chunk.js": "/Tajhiz-frontend/static/js/799.bfb26444.chunk.js",
+    "static/js/277.d19889b2.chunk.js": "/Tajhiz-frontend/static/js/277.d19889b2.chunk.js",
+    "static/js/268.b5f0a227.chunk.js": "/Tajhiz-frontend/static/js/268.b5f0a227.chunk.js",
     "static/media/Background.png": "/Tajhiz-frontend/static/media/Background.a32eedadead8d33106d0.png",
     "static/media/bg-profile.jpeg": "/Tajhiz-frontend/static/media/bg-profile.af1219a742e09fc7b612.jpeg",
     "static/media/Widget.png": "/Tajhiz-frontend/static/media/Widget.5c132809f521a65051ad.png",
@@ -30,6 +32,6 @@
   },
   "entrypoints": [
     "static/css/main.b7a2f809.css",
-    "static/js/main.5ec46d9b.js"
+    "static/js/main.fb8a54e1.js"
   ]
 }
