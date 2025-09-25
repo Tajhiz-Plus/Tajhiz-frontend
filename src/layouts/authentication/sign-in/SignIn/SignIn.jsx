@@ -33,8 +33,8 @@ function SignIn() {
 
   const formik = useFormik({
     initialValues: {
-      email: "superadmin@tajhizplus.com",
-      password: "Admin123!",
+      email: "",
+      password: "",
     },
     validationSchema: signInValidationSchema,
     onSubmit: async (values, { setSubmitting }) => {
