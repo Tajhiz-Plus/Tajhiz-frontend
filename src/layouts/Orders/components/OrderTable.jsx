@@ -142,23 +142,23 @@ function OrderTable() {
               totalAmount: order.totalAmount,
               actions: (
                 <>
-                  <div
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openUpdateDialog(order);
-                    }}
-                    style={{
-                      display: "flex",
-                      gap: "8px",
-                      padding: "8px",
-                      backgroundColor: "#e0e0e0",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    {(CAN_EDIT_ORDER || CAN_UPDATE_ORDER) && (
+                  {(CAN_EDIT_ORDER || CAN_UPDATE_ORDER) && (
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openUpdateDialog(order);
+                      }}
+                      style={{
+                        display: "flex",
+                        gap: "8px",
+                        padding: "8px",
+                        backgroundColor: "#e0e0e0",
+                        borderRadius: "8px",
+                      }}
+                    >
                       <Icon style={{ cursor: "pointer" }}>edit</Icon>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </>
               ),
             };
