@@ -19,7 +19,11 @@ export const AuthProvider = ({ children }) => {
     setReady(true);
   }, []);
 
-  const login = ({ data }) => {
+  const login = (params = {}) => {
+    console.log(params);
+    if (!params?.data) return;
+
+    const { data } = params;
     localStorage.setItem("user", JSON.stringify(data));
     setUser(data);
     navigate("/", { replace: true });

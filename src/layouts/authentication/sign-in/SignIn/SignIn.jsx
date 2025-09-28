@@ -38,7 +38,7 @@ function SignIn() {
     validationSchema: signInValidationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       loginMutation.mutate(values, {
-        onSuccess: ({ data }) => {
+        onSuccess: () => {
           login();
         },
         onError: (error) => {
