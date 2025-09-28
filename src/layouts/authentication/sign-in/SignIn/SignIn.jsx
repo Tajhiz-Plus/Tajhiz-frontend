@@ -15,7 +15,6 @@ import EyeIcon from "icons/EyeIcon";
 import EyeOutlineIcon from "icons/EyeOutlineicon";
 import { useFormik } from "formik";
 import { signInValidationSchema } from "./signInValidation";
-import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import { useAuth } from "shared/hooks/useAuth";
 import PageLayout from "examples/LayoutContainers/PageLayout";
@@ -23,11 +22,11 @@ import MDTypography from "components/MDTypography";
 import widgetImage from "assets/images/illustrations/Widget.png";
 import logo from "assets/images/mainLogo.png";
 import { useLoginMutation } from "services/mutations/useLoginMutation";
+import { toast } from "react-toastify";
 
 function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleTogglePasswordVisibility = () => setShowPassword((v) => !v);
-  const navigate = useNavigate();
   const { login } = useAuth();
   const loginMutation = useLoginMutation();
 
@@ -44,6 +43,7 @@ function SignIn() {
         },
         onError: (error) => {
           console.error("Login error (test):", error);
+          toast.error(error.message);
         },
       });
     },
@@ -80,9 +80,9 @@ function SignIn() {
           >
             <MDBox py={3} px={3} textAlign="center">
               <MDBox mb={1} textAlign="center">
-                <MDTypography variant="h4" fontWeight="bold">
-                  تسجيل الدخول إلى حسابك{" "}
-                </MDTypography>
+                <Typography variant="h4" fontWeight="bold">
+                  تسجيل الدخول إلى حسابك
+                </Typography>
               </MDBox>
               <MDTypography variant="body2" color="text"></MDTypography>
             </MDBox>
