@@ -13,6 +13,7 @@ const ProductPage = lazy(() =>
 const OrderDetailsPage = lazy(() =>
   import("layouts/ecommerce/orders/order-details/OrderDetails")
 );
+const NoPermission = lazy(() => import("layouts/pages/NoPermission"));
 
 const pageRoutes = [
   { id: 1, name: "profile", route: "/profile", component: <Profile /> },
@@ -28,6 +29,12 @@ const pageRoutes = [
     name: "orders/:id",
     route: "/orders/:id",
     component: <OrderDetailsPage />,
+  },
+  {
+    id: 5,
+    name: "no-permission",
+    route: "/no-permission",
+    component: <NoPermission />,
   },
 ];
 

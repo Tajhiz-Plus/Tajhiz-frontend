@@ -10,6 +10,7 @@ import { useFetchUsers } from "services/queries/users/useFetchUsers";
 import TableWithServerPagination from "layouts/authentication/components/TableWithServerPagination/TableWithServerPagination";
 import { useAsyncDebounce } from "react-table";
 import TableHeader from "./TableHeader";
+import { useHasPermission } from "shared/hooks/useHasPermission";
 
 const LIMIT_PAGE = 10;
 
@@ -18,7 +19,8 @@ function UsersTable() {
   const [sp, setSp] = useSearchParams();
   const page = Number(sp.get("page") || 1);
   const searchParam = sp.get("search") || "";
-
+  const CAN_EDIT_USER = useHasPermission("users.edit");
+  const CAN_DELETE_USER = useHasPermission("users.delete");
   const [selectedUser, setSelectedUser] = React.useState(null);
   const updateUser = useDisclosure();
   const deleteUser = useDisclosure();
@@ -84,18 +86,22 @@ function UsersTable() {
             actions: (
               <>
                 <div style={{ display: "flex", gap: "8px" }}>
-                  <Icon
-                    style={{ cursor: "pointer" }}
-                    onClick={() => openUpdateDialog(user)}
-                  >
-                    edit
-                  </Icon>
-                  <Icon
-                    style={{ cursor: "pointer", color: "red" }}
-                    onClick={() => openDeleteDialog(user)}
-                  >
-                    delete
-                  </Icon>
+                  {CAN_EDIT_USER && (
+                    <Icon
+                      style={{ cursor: "pointer" }}
+                      onClick={() => openUpdateDialog(user)}
+                    >
+                      edit
+                    </Icon>
+                  )}
+                  {CAN_DELETE_USER && (
+                    <Icon
+                      style={{ cursor: "pointer", color: "red" }}
+                      onClick={() => openDeleteDialog(user)}
+                    >
+                      delete
+                    </Icon>
+                  )}
                 </div>
               </>
             ),

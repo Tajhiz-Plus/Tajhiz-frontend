@@ -8,6 +8,7 @@ import TableComponent from "layouts/authentication/components/TableComponent/Tab
 import { useFetchRoles } from "services/queries/roles/useFetchRoles";
 import TableSkeleton from "components/TableSkeleton/TableSkeleton";
 import { useNavigate } from "react-router-dom";
+import { useHasPermission } from "shared/hooks/useHasPermission";
 
 function RolesTable() {
   const [selectedRole, setSelectedRole] = React.useState(null);
@@ -15,7 +16,8 @@ function RolesTable() {
   const updateRole = useDisclosure();
   const deleteRole = useDisclosure();
   const addRole = useDisclosure();
-
+  const CAN_EDIT_ROLE = useHasPermission("roles.edit");
+  const CAN_DELETE_ROLE = useHasPermission("roles.delete");
   const {
     data: rolesData,
     isLoading: rolesLoading,
@@ -49,24 +51,30 @@ function RolesTable() {
             actions: (
               <>
                 <div style={{ display: "flex", gap: "8px" }}>
-                  <Icon
-                    style={{ cursor: "pointer" }}
-                    onClick={() => openUpdateDialog(role)}
-                  >
-                    edit
-                  </Icon>
-                  <Icon
-                    style={{ cursor: "pointer", color: "red" }}
-                    onClick={() => openDeleteDialog(role)}
-                  >
-                    delete
-                  </Icon>
-                  <Icon
-                    style={{ cursor: "pointer", color: "#379C7C" }}
-                    onClick={() => navigate(`/roles/${role.id}`)}
-                  >
-                    lock
-                  </Icon>
+                  {CAN_EDIT_ROLE && (
+                    <Icon
+                      style={{ cursor: "pointer" }}
+                      onClick={() => openUpdateDialog(role)}
+                    >
+                      edit
+                    </Icon>
+                  )}
+                  {CAN_DELETE_ROLE && (
+                    <Icon
+                      style={{ cursor: "pointer", color: "red" }}
+                      onClick={() => openDeleteDialog(role)}
+                    >
+                      delete
+                    </Icon>
+                  )}
+                  {CAN_EDIT_ROLE && (
+                    <Icon
+                      style={{ cursor: "pointer", color: "#379C7C" }}
+                      onClick={() => navigate(`/roles/${role.id}`)}
+                    >
+                      lock
+                    </Icon>
+                  )}
                 </div>
               </>
             ),
