@@ -8,7 +8,6 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Header from "layouts/ecommerce/orders/order-details/components/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFetchOrderDetails } from "services/queries/Orders/useFetchOrderDetails";
-import { orderData } from "layouts/Orders/utils/data";
 import OrderDetailsSkeleton from "./components/OrderDetailsSkeleton/OrderDetailsSkeleton";
 import OrderInfo from "./components/OrderInfo/OrderInfo";
 import OrderSummary from "./components/OrderSummary/OrderSummary";
