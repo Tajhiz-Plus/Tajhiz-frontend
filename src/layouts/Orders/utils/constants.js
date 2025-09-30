@@ -1,4 +1,3 @@
-
 import MDBadge from "components/MDBadge";
 import StatusCell from "layouts/ecommerce/orders/order-list/components/StatusCell";
 
@@ -13,6 +12,9 @@ export const ORDER_STATUS = {
   CANCELLED: "cancelled",
   REFUNDED: "refunded",
   RETURNED: "returned",
+  INSTALLED: "installed",
+  READY_FOR_DELIVERY: "ready_for_delivery",
+  OUT_FOR_DELIVERY: "out_for_delivery",
 };
 
 const STATUS_CONFIG = {
@@ -26,6 +28,17 @@ const STATUS_CONFIG = {
   cancelled: { icon: "close", color: "error", label: "ملغي" },
   refunded: { icon: "undo", color: "warning", label: "مسترد" },
   returned: { icon: "undo", color: "dark", label: "مرتجع" },
+  installed: { icon: "check", color: "info", label: "تم التركيب" },
+  ready_for_delivery: {
+    icon: "check",
+    color: "secondary",
+    label: "جاري التحضير للتوصيل",
+  },
+  out_for_delivery: {
+    icon: "local_shipping",
+    color: "success",
+    label: "جاري التوصيل",
+  },
 };
 
 export const getOrderStatus = (status) => {

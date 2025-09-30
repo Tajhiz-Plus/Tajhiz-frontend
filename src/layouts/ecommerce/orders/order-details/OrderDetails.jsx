@@ -52,7 +52,7 @@ function OrderDetails() {
               <Divider />
               <MDBox pt={1} pb={3} px={2}>
                 <MDBox mb={3}>
-                  <OrderInfo orderItems={order?.orderItems} />
+                  <OrderInfo orderItems={order?.orderItems} orderId={id} />
                 </MDBox>
                 <Divider />
                 <MDBox mt={3}>

@@ -4,13 +4,16 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import SAR from "assets/images/SAR.svg";
-import { Box, Checkbox, FormControlLabel } from "@mui/material";
+import { Box, Checkbox, FormControlLabel, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { getOrderBadgeStatus } from "layouts/Orders/utils/constants";
-import MDBadge from "components/MDBadge";
+import { useDisclosure } from "shared/hooks/useDisclosure";
+import UpdateOrderItemDialog from "./UpdateOrderItemDialog";
 
-function OrderInfo({ orderItems }) {
+function OrderInfo({ orderItems, orderId }) {
   const [selectedItems, setSelectedItems] = useState(new Set());
+  const updateOrderItem = useDisclosure();
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const handleItemSelect = (itemId) => {
     const newSelectedItems = new Set(selectedItems);
@@ -38,48 +41,55 @@ function OrderInfo({ orderItems }) {
     // TODO: Implement bulk edit functionality
   };
 
+  const handleEditItem = (item, event) => {
+    event.stopPropagation();
+    setSelectedItem(item);
+    updateOrderItem.onOpen();
+  };
+
   const selectedCount = selectedItems.size;
   const isAllSelected =
     selectedCount === orderItems.length && orderItems.length > 0;
 
   return (
     <MDBox>
-      <MDBox
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        mb={2}
-      >
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={isAllSelected}
-              indeterminate={selectedCount > 0 && !isAllSelected}
-              onChange={handleSelectAll}
-              color="primary"
-            />
-          }
-          label={
-            <MDTypography variant="button" fontWeight="medium">
-              {isAllSelected ? "إلغاء تحديد الكل" : "تحديد الكل"}
-            </MDTypography>
-          }
-        />
+      {orderItems.length > 1 && (
+        <MDBox
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={2}
+        >
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isAllSelected}
+                indeterminate={selectedCount > 0 && !isAllSelected}
+                onChange={handleSelectAll}
+                color="primary"
+              />
+            }
+            label={
+              <MDTypography variant="button" fontWeight="medium">
+                {isAllSelected ? "إلغاء تحديد الكل" : "تحديد الكل"}
+              </MDTypography>
+            }
+          />
 
-        {selectedCount > 1 && (
-          <MDButton
-            variant="contained"
-            color="info"
-            size="small"
-            startIcon={<EditIcon />}
-            onClick={handleBulkEdit}
-            sx={{ minWidth: 120 }}
-          >
-            تعديل جماعي ({selectedCount})
-          </MDButton>
-        )}
-      </MDBox>
-
+          {selectedCount > 1 && (
+            <MDButton
+              variant="contained"
+              color="info"
+              size="small"
+              startIcon={<EditIcon />}
+              onClick={handleBulkEdit}
+              sx={{ minWidth: 120 }}
+            >
+              تعديل جماعي ({selectedCount})
+            </MDButton>
+          )}
+        </MDBox>
+      )}
       <Grid container spacing={3} alignItems="center">
         {orderItems.map((item, index) => {
           const isSelected = selectedItems.has(index);
@@ -105,7 +115,9 @@ function OrderInfo({ orderItems }) {
                     backgroundColor: isSelected ? "#f3f8ff" : "#fafafa",
                   },
                 }}
-                onClick={() => handleItemSelect(index)}
+                onClick={() =>
+                  orderItems.length > 1 ? handleItemSelect(index) : undefined
+                }
               >
                 <MDBox mr={2}>
                   <img
@@ -125,39 +137,63 @@ function OrderInfo({ orderItems }) {
                     alignItems="flex-start"
                     gap={1}
                   >
-                    {" "}
-                    <MDTypography variant="h6" fontWeight="medium">
-                      {item?.product?.nameAr}
-                    </MDTypography>
-                    {orderStatus}
-                  </Box>
-                  <Box
-                    mb={2}
-                    sx={{ display: "flex", alignItems: "center", gap: 0 }}
-                  >
-                    <MDTypography variant="button" color="text">
-                      <span
-                        style={{
-                          fontWeight: 500,
-                          color: "#000",
+                    <Box>
+                      {" "}
+                      <MDTypography variant="h6" fontWeight="medium">
+                        {item?.product?.nameAr}
+                      </MDTypography>
+                      <Box
+                        mb={2}
+                        sx={{ display: "flex", alignItems: "center", gap: 0 }}
+                      >
+                        <MDTypography variant="button" color="text">
+                          <span
+                            style={{
+                              fontWeight: 500,
+                              color: "#000",
+                            }}
+                          >
+                            السعر
+                          </span>{" "}
+                          :
+                        </MDTypography>
+                        <MDTypography variant="button" color="text">
+                          {Number(item?.product?.price).toFixed(2)}
+                        </MDTypography>
+                        <img
+                          src={SAR}
+                          alt={"ريال"}
+                          width={20}
+                          height={20}
+                          crossOrigin="anonymous"
+                          loading="lazy"
+                          style={{ marginBottom: 3 }}
+                        />
+                      </Box>
+                    </Box>
+
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      gap={1}
+                      flexDirection="column"
+                      mt={1}
+                    >
+                      {orderStatus}
+
+                      <IconButton
+                        size="small"
+                        onClick={(event) => handleEditItem(item, event)}
+                        sx={{
+                          color: "info.main",
+                          "&:hover": {
+                            color: "info.dark",
+                          },
                         }}
                       >
-                        السعر
-                      </span>{" "}
-                      :
-                    </MDTypography>
-                    <MDTypography variant="button" color="text">
-                      {Number(item?.product?.price).toFixed(2)}
-                    </MDTypography>
-                    <img
-                      src={SAR}
-                      alt={"ريال"}
-                      width={20}
-                      height={20}
-                      crossOrigin="anonymous"
-                      loading="lazy"
-                      style={{ marginBottom: 3 }}
-                    />
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                    </Box>
                   </Box>
                 </MDBox>
               </MDBox>
@@ -165,6 +201,12 @@ function OrderInfo({ orderItems }) {
           );
         })}
       </Grid>
+      <UpdateOrderItemDialog
+        open={updateOrderItem.open}
+        onClose={updateOrderItem.onClose}
+        item={selectedItem}
+        orderId={orderId}
+      />
     </MDBox>
   );
 }

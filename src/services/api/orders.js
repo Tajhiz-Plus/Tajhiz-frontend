@@ -12,6 +12,12 @@ export const getOrders = async ({ page, searchParam, limit }) => {
 export const updateOrders = (id, payload) =>
   API.put(`/api/v1/dashboard/orders/${id}`, payload).then((r) => r.data);
 
+export const updateOrderItem = (id, orderItemId, payload) =>
+  API.put(
+    `/api/v1/dashboard/tracking/orders/${id}/products/${orderItemId}/status`,     // /api/v1/dashboard/tracking/orders/{orderId}/products/{orderItemId}/status
+    payload
+  ).then((r) => r.data);
+
 export const deleteOrder = (orderId) =>
   API.delete(`/api/v1/dashboard/orders/${orderId}`).then((r) => r.data);
 
