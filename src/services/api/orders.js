@@ -14,7 +14,7 @@ export const updateOrders = (id, payload) =>
 
 export const updateOrderItem = (id, orderItemId, payload) =>
   API.put(
-    `/api/v1/dashboard/tracking/orders/${id}/products/${orderItemId}/status`,     // /api/v1/dashboard/tracking/orders/{orderId}/products/{orderItemId}/status
+    `/api/v1/dashboard/tracking/orders/${id}/products/${orderItemId}/status`, // /api/v1/dashboard/tracking/orders/{orderId}/products/{orderItemId}/status
     payload
   ).then((r) => r.data);
 
@@ -25,3 +25,8 @@ export const getOrderDetails = async (orderId) => {
   const res = await API.get(`/api/v1/dashboard/orders/${orderId}`);
   return res.data;
 };
+
+export const bulkUpdateOrderItems = (payload) =>
+  API.put(`/api/v1/dashboard/tracking/products/bulk-status`, payload).then(
+    (r) => r.data
+  );

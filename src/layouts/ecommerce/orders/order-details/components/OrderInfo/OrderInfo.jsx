@@ -9,10 +9,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import { getOrderBadgeStatus } from "layouts/Orders/utils/constants";
 import { useDisclosure } from "shared/hooks/useDisclosure";
 import UpdateOrderItemDialog from "./UpdateOrderItemDialog";
+import BulkUpdateOrderItemsDialog from "./BulkUpdateOrderItemsDialog";
 
 function OrderInfo({ orderItems, orderId }) {
   const [selectedItems, setSelectedItems] = useState(new Set());
   const updateOrderItem = useDisclosure();
+  const bulkUpdateOrderItems = useDisclosure();
   const [selectedItem, setSelectedItem] = useState(null);
 
   const handleItemSelect = (itemId) => {
@@ -37,8 +39,7 @@ function OrderInfo({ orderItems, orderId }) {
     const selectedOrderItems = orderItems.filter((_, index) =>
       selectedItems.has(index)
     );
-    console.log("Selected items for bulk edit:", selectedOrderItems);
-    // TODO: Implement bulk edit functionality
+    bulkUpdateOrderItems.onOpen();
   };
 
   const handleEditItem = (item, event) => {
@@ -205,6 +206,13 @@ function OrderInfo({ orderItems, orderId }) {
         open={updateOrderItem.open}
         onClose={updateOrderItem.onClose}
         item={selectedItem}
+        orderId={orderId}
+      />
+      
+      <BulkUpdateOrderItemsDialog
+        open={bulkUpdateOrderItems.open}
+        onClose={bulkUpdateOrderItems.onClose}
+        selectedItems={orderItems.filter((_, index) => selectedItems.has(index))}
         orderId={orderId}
       />
     </MDBox>
