@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import { useBulkUpdateOrderItems } from "services/mutations/orders/useBulkUpdateOrderItems";
+import { getOrderBadgeStatus } from "layouts/Orders/utils/constants";
 
 const ORDER_ITEM_STATUSES = [
   "PENDING",
@@ -62,12 +63,19 @@ const validationSchema = yup.object({
   status: yup.string().required("حالة العناصر مطلوبة"),
 });
 
-function BulkUpdateOrderItemsDialog({ open, onClose, selectedItems, orderId }) {
+function BulkUpdateOrderItemsDialog({
+  open,
+  onClose,
+  selectedItems,
+  orderId,
+  setSelectedItems,
+}) {
   const bulkUpdateMutation = useBulkUpdateOrderItems({
     orderId,
     onSuccess: () => {
       toast.success(`تم تحديث حالة ${selectedItems.length} عنصر بنجاح`);
       onClose();
+      setSelectedItems(new Set());
     },
     onError: (error) => {
       toast.error("حدث خطأ أثناء تحديث حالة العناصر");
@@ -116,7 +124,6 @@ function BulkUpdateOrderItemsDialog({ open, onClose, selectedItems, orderId }) {
       <form onSubmit={formik.handleSubmit} noValidate>
         <DialogContent>
           <Stack spacing={3}>
-            {/* Selected Items Information */}
             <Box>
               <MDTypography variant="subtitle2" fontWeight="medium" mb={1}>
                 العناصر المحددة ({selectedItems.length})
@@ -144,23 +151,18 @@ function BulkUpdateOrderItemsDialog({ open, onClose, selectedItems, orderId }) {
                         borderRadius: 0.5,
                         border: "1px solid #f0f0f0",
                       }}
+                      gap={2}
                     >
                       <MDTypography variant="body2" fontWeight="medium">
                         {item?.product?.nameAr}
                       </MDTypography>
-                      <Chip
-                        label={item?.tracking?.status || "PENDING"}
-                        size="small"
-                        color="primary"
-                        variant="outlined"
-                      />
+                      {getOrderBadgeStatus(item?.tracking?.status)}
                     </Box>
                   ))}
                 </Stack>
               </Box>
             </Box>
 
-            {/* Status Selection */}
             <TextField
               select
               label="الحالة الجديدة"
@@ -184,21 +186,6 @@ function BulkUpdateOrderItemsDialog({ open, onClose, selectedItems, orderId }) {
                 </MenuItem>
               ))}
             </TextField>
-
-            {/* Warning Message */}
-            <Box
-              sx={{
-                p: 2,
-                backgroundColor: "#fff3cd",
-                border: "1px solid #ffeaa7",
-                borderRadius: 1,
-              }}
-            >
-              <MDTypography variant="body2" color="warning.dark">
-                ⚠️ سيتم تطبيق الحالة الجديدة على جميع العناصر المحددة. لا يمكن
-                التراجع عن هذا الإجراء.
-              </MDTypography>
-            </Box>
           </Stack>
         </DialogContent>
 

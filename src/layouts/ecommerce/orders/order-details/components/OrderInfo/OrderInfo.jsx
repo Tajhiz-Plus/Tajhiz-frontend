@@ -213,6 +213,7 @@ function OrderInfo({ orderItems, orderId }) {
         open={bulkUpdateOrderItems.open}
         onClose={bulkUpdateOrderItems.onClose}
         selectedItems={orderItems.filter((_, index) => selectedItems.has(index))}
+        setSelectedItems={setSelectedItems}
         orderId={orderId}
       />
     </MDBox>
