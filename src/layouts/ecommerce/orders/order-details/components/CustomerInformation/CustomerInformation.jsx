@@ -50,10 +50,20 @@ function CustomerInformation({ customer }) {
             <MDTypography variant="caption" fontWeight="regular" color="text">
               الرقم:&nbsp;&nbsp;&nbsp;
               <MDTypography variant="caption" fontWeight="medium">
-                {customer?.phone || "0501234567"}
+                {customer?.phoneNumber || ""}
               </MDTypography>
             </MDTypography>
           </MDBox>
+          {customer?.address && (
+            <MDBox mb={1} lineHeight={0}>
+              <MDTypography variant="caption" fontWeight="regular" color="text">
+                العنوان:&nbsp;&nbsp;&nbsp;
+                <MDTypography variant="caption" fontWeight="medium">
+                  {customer?.address || ""}
+                </MDTypography>
+              </MDTypography>
+            </MDBox>
+          )}
         </MDBox>
       </MDBox>
     </>

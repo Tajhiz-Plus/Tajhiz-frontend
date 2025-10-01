@@ -8,7 +8,7 @@ import { Icon } from "@mui/material";
 
 function InstallmentsTrack({ installmentPlan }) {
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("ar-SA", {
+    return new Intl.NumberFormat("ar", {
       style: "currency",
       currency: "SAR",
       minimumFractionDigits: 2,
@@ -29,8 +29,8 @@ function InstallmentsTrack({ installmentPlan }) {
     const now = new Date();
     const dueDate = new Date(installment.dueDate);
 
-    if (installment.status === "APPROVED") {
-      return { status: "approved", color: "success", text: "مدفوعة" };
+    if (installment.status === "PAID") {
+      return { status: "paid", color: "success", text: "مدفوعة" };
     } else if (installment.status === "OVERDUE") {
       return { status: "overdue", color: "error", text: "متأخرة" };
     } else if (dueDate < now && installment.status === "PENDING") {
@@ -45,7 +45,7 @@ function InstallmentsTrack({ installmentPlan }) {
   // Helper function to get installment icon
   const getInstallmentIcon = (status) => {
     switch (status) {
-      case "approved":
+      case "paid":
         return "check_circle";
       case "overdue":
         return "error";
@@ -146,7 +146,7 @@ function InstallmentsTrack({ installmentPlan }) {
                     </MDBox>
                   )}
 
-                  {installment.payments && installment.payments.length > 0 && (
+                  {/* {installment.payments && installment.payments.length > 0 && (
                     <MDBox mt={1}>
                       <MDTypography
                         variant="caption"
@@ -173,7 +173,7 @@ function InstallmentsTrack({ installmentPlan }) {
                         </MDBox>
                       ))}
                     </MDBox>
-                  )}
+                  )} */}
                 </MDBox>
               }
             />
@@ -194,7 +194,7 @@ function InstallmentsTrack({ installmentPlan }) {
           <MDTypography variant="body2" fontWeight="bold" color="success">
             {formatCurrency(
               installmentPlan.installments
-                .filter((inst) => inst.status === "APPROVED")
+                .filter((inst) => inst.status === "PAID")
                 .reduce((sum, inst) => sum + parseFloat(inst.amount || 0), 0)
             )}
           </MDTypography>
@@ -211,7 +211,7 @@ function InstallmentsTrack({ installmentPlan }) {
           <MDTypography variant="body2" fontWeight="bold" color="warning">
             {formatCurrency(
               installmentPlan.installments
-                .filter((inst) => inst.status !== "APPROVED")
+                .filter((inst) => inst.status !== "PAID")
                 .reduce((sum, inst) => sum + parseFloat(inst.amount || 0), 0)
             )}
           </MDTypography>

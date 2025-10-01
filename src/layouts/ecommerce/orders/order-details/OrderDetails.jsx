@@ -63,7 +63,12 @@ function OrderDetails() {
                       />
                     </Grid>
                     <Grid item xs={12} md={6} lg={4}>
-                      <CustomerInformation customer={order?.user} />
+                      <CustomerInformation
+                        customer={{
+                          ...order?.user,
+                          address: order?.deliveryAddress,
+                        }}
+                      />
                     </Grid>
                     <Grid item xs={12} lg={3} sx={{ mr: "auto" }}>
                       <OrderSummary order={order} />

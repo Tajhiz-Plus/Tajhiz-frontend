@@ -20,7 +20,6 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (params = {}) => {
-    console.log(params);
     if (!params?.data) return;
 
     const { data } = params;
